@@ -2,13 +2,10 @@ package ch.hslu.mobpro.packing_list
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.TextView
 import ch.hslu.mobpro.listfragmenttest.placeholder.PlaceholderContent
 import ch.hslu.mobpro.packing_list.databinding.FragmentItemBinding
-import ch.hslu.mobpro.packing_list.views.PacklistCardView
 
 
 /**
@@ -16,7 +13,7 @@ import ch.hslu.mobpro.packing_list.views.PacklistCardView
  * TODO: Replace the implementation with code for your data type.
  */
 class MyItemRecyclerViewAdapter(
-    private val values: List<PlaceholderContent.PlaceholderItem>,
+    private val values: List<PlaceholderContent.Packlist>,
 ) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

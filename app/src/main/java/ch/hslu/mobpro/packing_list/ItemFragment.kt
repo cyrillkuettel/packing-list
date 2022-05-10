@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ch.hslu.mobpro.listfragmenttest.placeholder.PlaceholderContent
 
 /**
- * A fragment representing a list of Items.
+ * A fragment representing a list of packing lists.
+ *This is the first fragment that is shown.
  */
 class ItemFragment : Fragment() {
 

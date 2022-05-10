@@ -5,9 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import ch.hslu.mobpro.packing_list.databinding.FragmentCreatelistBinding
 
-
+/**
+ *  This fragment represents the screen for creating a new packing list.
+ *
+ */
 class CreatelistFragment : Fragment() {
 
     private var _binding: FragmentCreatelistBinding? = null
@@ -25,7 +29,11 @@ class CreatelistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.mainButtonSubmitList.setOnClickListener { submitListOnClick() }
+    }
 
+    private fun submitListOnClick() {
+        findNavController().navigate(R.id.action_CreateListFragment_To_ItemFragment)
     }
 
     override fun onDestroyView() {
