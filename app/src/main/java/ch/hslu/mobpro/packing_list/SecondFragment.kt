@@ -9,7 +9,8 @@ import androidx.navigation.fragment.findNavController
 import ch.hslu.mobpro.packing_list.databinding.FragmentSecondBinding
 
 /**
- * A simple [Fragment] subclass as the second destination in the navigation.
+ * This fragment can later be used to display the contents of a single packing list
+ * Right now it doesn't do much.
  */
 class SecondFragment : Fragment() {
 
@@ -22,7 +23,7 @@ class SecondFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
