@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/ItemFragment"
-        android:name="ch.hslu.mobpro.packing_list.ItemFragment"
+        android:name="ch.hslu.mobpro.packing_list.fragments.ItemFragment"
         android:label="ItemFragment"
         tools:layout="@layout/fragment_item">
 
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/CreateListFragment"
-        android:name="ch.hslu.mobpro.packing_list.CreatelistFragment"
+        android:name="ch.hslu.mobpro.packing_list.fragments.CreatelistFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_createlist">
 
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="ch.hslu.mobpro.packing_list.SecondFragment"
+        android:name="ch.hslu.mobpro.packing_list.fragments.SecondFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 

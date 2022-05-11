@@ -52,7 +52,7 @@ constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        Log.v(TAG, "onSizeChanged")
+
         currentViewHeight = h
         currentViewWidth = w
     }
@@ -64,7 +64,7 @@ constructor(
         }
     }
 
-    public fun paintTitleText(canvas: Canvas?) {
+    fun paintTitleText(canvas: Canvas?) {
         val titleText = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = primaryTextColor
             textAlign = Paint.Align.LEFT

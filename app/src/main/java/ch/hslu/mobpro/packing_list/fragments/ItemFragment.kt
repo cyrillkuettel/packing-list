@@ -1,4 +1,4 @@
-package ch.hslu.mobpro.packing_list
+package ch.hslu.mobpro.packing_list.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import ch.hslu.mobpro.packing_list.PackListAdapter
+import ch.hslu.mobpro.packing_list.PacklistApplication
+import ch.hslu.mobpro.packing_list.PacklistViewModel
+import ch.hslu.mobpro.packing_list.PacklistViewModelFactory
 import ch.hslu.mobpro.packing_list.databinding.FragmentItemBinding
-import ch.hslu.mobpro.packing_list.databinding.FragmentSecondBinding
 
 /**
  * A fragment representing a list of packing lists.

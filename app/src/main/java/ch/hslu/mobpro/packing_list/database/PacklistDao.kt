@@ -1,4 +1,4 @@
-package ch.hslu.mobpro.packing_list
+package ch.hslu.mobpro.packing_list.database
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -26,4 +26,8 @@ interface PacklistDao {
 
     @Query("DELETE FROM packlist_table")
     suspend fun deleteAll()
+
+    @Query("SELECT EXISTS (SELECT 1 FROM packlist_table WHERE id = :id)")
+    fun existsByPacklist(id: Int): Boolean
+
 }

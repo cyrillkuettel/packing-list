@@ -1,4 +1,4 @@
-package ch.hslu.mobpro.packing_list
+package ch.hslu.mobpro.packing_list.database
 
 import android.content.Context
 import android.util.Log

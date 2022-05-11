@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import ch.hslu.mobpro.packing_list.database.Packlist
 
 import ch.hslu.mobpro.packing_list.views.PacklistCardView
 

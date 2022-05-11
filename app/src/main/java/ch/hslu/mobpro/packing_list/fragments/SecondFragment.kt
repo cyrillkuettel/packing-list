@@ -1,4 +1,4 @@
-package ch.hslu.mobpro.packing_list
+package ch.hslu.mobpro.packing_list.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import ch.hslu.mobpro.packing_list.R
 import ch.hslu.mobpro.packing_list.databinding.FragmentSecondBinding
 
 /**
