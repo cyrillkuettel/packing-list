@@ -44,7 +44,7 @@ class ItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val recyclerView = binding.recyclerView
-        val adapter = PackListAdapter()
+        val adapter = PackListAdapter(packlistViewModel)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 

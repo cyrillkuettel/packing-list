@@ -11,13 +11,14 @@ import kotlinx.coroutines.launch
 
 class PacklistViewModel(private val repository: PacklistRepository) : ViewModel() {
 
-    // Using LiveData and caching what allPacklists returns has several benefits:
+    // Using LiveData and caching what all Packlists returns has several benefits:
     // - We can put an observer on the data (instead of polling for changes) and only update the
     //   the UI when the data actually changes.
     // - Repository is completely separated from the UI through the ViewModel.
     val allPacklists: LiveData<List<Packlist>> = repository.allPacklists.asLiveData()
+    var checkCurrentPackList: LiveData<Boolean>? = null
 
-     var checkCurrentPackList: LiveData<Boolean>? = null
+
 
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
