@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import ch.hslu.mobpro.packing_list.databinding.ActivityMainBinding
@@ -20,9 +21,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -36,9 +37,10 @@ class MainActivity : AppCompatActivity() {
                 binding.fab.apply { visibility = View.VISIBLE }
             }
         }
-
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+
 
         binding.fab.setOnClickListener {
             navController.navigate(R.id.action_ItemFragment_to_CreateListFragment)

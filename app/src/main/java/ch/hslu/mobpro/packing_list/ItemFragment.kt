@@ -1,15 +1,15 @@
 package ch.hslu.mobpro.packing_list
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ch.hslu.mobpro.listfragmenttest.placeholder.PlaceholderContent
+import ch.hslu.mobpro.packing_list.databinding.FragmentItemBinding
+import ch.hslu.mobpro.packing_list.databinding.FragmentSecondBinding
 
 /**
  * A fragment representing a list of packing lists.
@@ -17,15 +17,24 @@ import ch.hslu.mobpro.listfragmenttest.placeholder.PlaceholderContent
  */
 class ItemFragment : Fragment() {
 
-    private var columnCount = 1
-    private val TAG = "ItemFragment"
+    private var _binding: FragmentItemBinding? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    // This property is only valid between onCreateView and
+    // onDestroyView.
+    private val binding get() = _binding!!
 
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
+    private val packlistViewModel: PacklistViewModel by viewModels {
+        PacklistViewModelFactory((requireActivity().application as PacklistApplication).repository)
+    }
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
+        _binding = FragmentItemBinding.inflate(inflater, container, false)
+        return binding.root
+
     }
 
 
@@ -37,26 +46,16 @@ class ItemFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
+        // Add an observer on the LiveData returned by getAlphabetizedPacklist.
+        // The onChanged() method fires when the observed data changes and the activity is
+        // in the foreground.
+        packlistViewModel.allPacklists.observe(viewLifecycleOwner) { packlist ->
+            // Update the cached copy of the words in the adapter.
+            packlist.let { adapter.submitList(it) }
+        }
     }
 
     companion object {
-
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
-        // TODO: Customize parameter initialization
-        @JvmStatic
-        fun newInstance(columnCount: Int) =
-            ItemFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
+        private const val TAG = "ItemFragment"
     }
 }

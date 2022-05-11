@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ch.hslu.mobpro.packing_list.databinding.FragmentCreatelistBinding
 
@@ -13,6 +14,10 @@ import ch.hslu.mobpro.packing_list.databinding.FragmentCreatelistBinding
  *
  */
 class CreatelistFragment : Fragment() {
+
+    private val packlistViewModel: PacklistViewModel by viewModels {
+        PacklistViewModelFactory((requireActivity().application as PacklistApplication).repository)
+    }
 
     private var _binding: FragmentCreatelistBinding? = null
     private val binding get() = _binding!!
@@ -32,7 +37,17 @@ class CreatelistFragment : Fragment() {
         binding.mainButtonSubmitList.setOnClickListener { submitListOnClick() }
     }
 
+    private fun populatePacklistObject() : Packlist {
+        // TODO : more attributes like date, location etc
+       val packListTitle = binding.mainEditTextName.text.toString()
+      return Packlist(packListTitle)
+
+    }
+
+    // TODO : input validation
     private fun submitListOnClick() {
+        val newPacklist = populatePacklistObject()
+        packlistViewModel.insert(newPacklist)
         findNavController().navigate(R.id.action_CreateListFragment_To_ItemFragment)
     }
 
@@ -40,6 +55,4 @@ class CreatelistFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }

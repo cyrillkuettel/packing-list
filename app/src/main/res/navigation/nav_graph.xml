@@ -9,7 +9,7 @@
         android:id="@+id/ItemFragment"
         android:name="ch.hslu.mobpro.packing_list.ItemFragment"
         android:label="ItemFragment"
-        tools:layout="@layout/fragment_item_list">
+        tools:layout="@layout/fragment_item">
 
         <action
             android:id="@+id/action_ItemFragment_to_SecondFragment"

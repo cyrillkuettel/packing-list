@@ -33,7 +33,7 @@ class PackListAdapter : ListAdapter<Packlist, PackListAdapter.PacklistViewHolder
         companion object {
             fun create(parent: ViewGroup): PacklistViewHolder {
                 val view: View = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.fragment_item, parent, false)
+                    .inflate(R.layout.packlist_item, parent, false)
                 return PacklistViewHolder(view)
             }
         }
