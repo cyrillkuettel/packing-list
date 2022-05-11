@@ -37,10 +37,9 @@ constructor(
         super.onDraw(canvas)
         drawCard(canvas)
         setTitleText(canvas, title)
-       // setDurationText(canvas, duration, 0)
+        // setDurationText(canvas, duration, 0)
         // setLocationText(canvas, location, 0)
     }
-
 
 
     private fun drawCard(canvas: Canvas?) {
@@ -60,7 +59,7 @@ constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-         updateMargin()
+        updateMargin()
     }
 
     private fun updateMargin() {
@@ -141,7 +140,6 @@ constructor(
             )
         }
     }
-
 
 
     private fun convertToDP(value: Float): Float {

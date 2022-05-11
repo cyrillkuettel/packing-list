@@ -30,8 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.CreateListFragment || destination.id == R.id.SecondFragment) {
-               binding.fab.apply { visibility = View.INVISIBLE }
+            if (destination.id == R.id.CreateListFragment || destination.id == R.id.SecondFragment) {
+                binding.fab.apply { visibility = View.INVISIBLE }
             } else {
                 binding.fab.apply { visibility = View.VISIBLE }
             }
@@ -61,7 +61,6 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 
 
     override fun onSupportNavigateUp(): Boolean {

@@ -13,7 +13,7 @@ import ch.hslu.mobpro.listfragmenttest.placeholder.PlaceholderContent
 
 /**
  * A fragment representing a list of packing lists.
- *This is the first fragment that is shown.
+ * This is the first fragment that is shown.
  */
 class ItemFragment : Fragment() {
 
@@ -30,7 +30,7 @@ class ItemFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
 
         val view = inflater.inflate(R.layout.fragment_item_list, container, false)
