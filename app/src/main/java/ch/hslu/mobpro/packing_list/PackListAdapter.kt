@@ -26,7 +26,7 @@ class PackListAdapter : ListAdapter<Packlist, PackListAdapter.PacklistViewHolder
         private val cardview: PacklistCardView = itemView.findViewById(R.id.packlistcardview)
 
         fun bind(text: String?) {
-            cardview.setTile(text)
+            cardview.setTitle(text)
         }
 
 

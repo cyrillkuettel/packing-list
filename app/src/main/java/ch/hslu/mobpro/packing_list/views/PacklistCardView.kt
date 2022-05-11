@@ -36,7 +36,7 @@ constructor(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         drawCard(canvas)
-        setTitleText(canvas)
+        paintTitleText(canvas)
         // setDurationText(canvas, duration, 0)
         // setLocationText(canvas, location, 0)
     }
@@ -57,36 +57,14 @@ constructor(
         currentViewWidth = w
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        updateMargin()
-    }
 
-    private fun updateMargin() {
-        if (layoutParams is MarginLayoutParams) {
-            val layoutParams = layoutParams as MarginLayoutParams
-            val additionalMargin = 10
-            val leftMargin: Int = layoutParams.leftMargin + additionalMargin
-            val topMargin: Int = layoutParams.topMargin + additionalMargin
-            val rightMargin: Int = layoutParams.rightMargin + additionalMargin
-            val bottomMargin: Int = layoutParams.bottomMargin + additionalMargin
-            Log.d(TAG, leftMargin.toString())
-            Log.d(TAG, topMargin.toString())
-            Log.d(TAG, bottomMargin.toString())
-            Log.d(TAG, rightMargin.toString())
-
-            layoutParams.setMargins(leftMargin, topMargin, rightMargin, bottomMargin)
-            requestLayout()
-        }
-    }
-
-    public fun setTile(text: String?) {
+    fun setTitle(text: String?) {
         if (text != null) {
             title = text
         }
     }
 
-    public fun setTitleText(canvas: Canvas?) {
+    public fun paintTitleText(canvas: Canvas?) {
         val titleText = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = primaryTextColor
             textAlign = Paint.Align.LEFT
@@ -106,7 +84,7 @@ constructor(
         }
     }
 
-    private fun setDurationText(canvas: Canvas?, text: String, fromTop: Int) {
+    private fun paintDurationText(canvas: Canvas?, text: String, fromTop: Int) {
 
         val durationTextPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = primaryTextColor
@@ -126,7 +104,7 @@ constructor(
         }
     }
 
-    private fun setLocationText(canvas: Canvas?, text: String, fromTop: Int) {
+    private fun paintLocationText(canvas: Canvas?, text: String, fromTop: Int) {
 
         val locationTextPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = primaryTextColor
