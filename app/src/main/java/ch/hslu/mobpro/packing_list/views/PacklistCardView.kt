@@ -36,7 +36,7 @@ constructor(
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         drawCard(canvas)
-        setTitleText(canvas, title)
+        setTitleText(canvas)
         // setDurationText(canvas, duration, 0)
         // setLocationText(canvas, location, 0)
     }
@@ -80,8 +80,13 @@ constructor(
         }
     }
 
+    public fun setTile(text: String?) {
+        if (text != null) {
+            title = text
+        }
+    }
 
-    private fun setTitleText(canvas: Canvas?, text: String) {
+    public fun setTitleText(canvas: Canvas?) {
         val titleText = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = primaryTextColor
             textAlign = Paint.Align.LEFT
@@ -89,11 +94,11 @@ constructor(
             typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
         }
         canvas?.let {
-            titleText.getTextBounds(text, 0, text.length, placeholderRect)
+            titleText.getTextBounds(title, 0, title.length, placeholderRect)
             it.drawText(
-                text,
+                title,
                 0,
-                text.length,
+                title.length,
                 40f,
                 placeholderRect.height().toFloat() + mediumTextSize,
                 titleText

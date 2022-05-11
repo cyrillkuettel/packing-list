@@ -28,35 +28,14 @@ class ItemFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-
-        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
-        if (view is RecyclerView) {
-            Log.e(TAG, "view RecyclerView")
-
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS)
-            }
-        } else {
-            Log.e(TAG, "view is not recyclerveiew")
-        }
-        return view
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /*
-         binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
-         */
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
+        val adapter = PackListAdapter()
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
     }
 

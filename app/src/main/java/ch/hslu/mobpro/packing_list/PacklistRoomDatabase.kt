@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase
 @Database(entities = arrayOf(Packlist::class), version = 1, exportSchema = false)
 abstract class PacklistRoomDatabase : RoomDatabase() {
 
-    abstract fun wordDao(): PacklistDao
+    abstract fun packListDao(): PacklistDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
