@@ -15,9 +15,12 @@
             android:id="@+id/action_MenuFragment_to_PacklistFragment"
             app:destination="@id/PacklistFragment" />
 
+
         <action
             android:id="@+id/action_MenuFragment_to_CreateListFragment"
             app:destination="@id/CreateListFragment" />
+
+
     </fragment>
 
     <fragment
@@ -40,6 +43,9 @@
         <action
             android:id="@+id/action_PacklistFragment_to_MenuFragment"
             app:destination="@id/MenuFragment" />
+        <argument
+            android:name="title"
+            app:argType="string" />
 
     </fragment>
 </navigation>

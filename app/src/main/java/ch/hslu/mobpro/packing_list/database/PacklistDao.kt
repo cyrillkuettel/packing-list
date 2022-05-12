@@ -1,5 +1,7 @@
 package ch.hslu.mobpro.packing_list.database
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -22,7 +24,7 @@ interface PacklistDao {
     fun getAlphabetizedPacklist(): Flow<List<Packlist>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(packlist: Packlist)
+    suspend fun insert(packlist: Packlist): Long
 
     @Query("DELETE FROM packlist_table")
     suspend fun deleteAll()
@@ -30,4 +32,6 @@ interface PacklistDao {
     @Query("SELECT EXISTS (SELECT 1 FROM packlist_table WHERE id = :id)")
     fun existsByPacklist(id: Int): Boolean
 
+    @Query("SELECT * FROM packlist_table AS item WHERE item.packlist LIKE :title LIMIT :limit")
+    fun getPacklistByTitle(title: String, limit: Int = 1): LiveData<List<Packlist>>
 }

@@ -27,8 +27,12 @@ class PacklistRepository(private val packlistDao: PacklistDao) {
     // off the main thread.
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(word: Packlist) {
-        packlistDao.insert(word)
+    suspend fun insert(word: Packlist) : Long {
+        return packlistDao.insert(word)
+    }
+
+    fun getPackListByTitle(title: String) : LiveData<List<Packlist>> {
+        return packlistDao.getPacklistByTitle(title)
     }
 
 

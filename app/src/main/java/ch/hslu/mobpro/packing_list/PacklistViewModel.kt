@@ -16,18 +16,34 @@ class PacklistViewModel(private val repository: PacklistRepository) : ViewModel(
     // - Repository is completely separated from the UI through the ViewModel.
     val allPacklists: LiveData<List<Packlist>> = repository.allPacklists.asLiveData()
 
+    private var currentEditingPacklist: LiveData<List<Packlist>> = MutableLiveData()
+
     /** used for existence check before submitting a new list */
     var checkCurrentPackList: LiveData<Boolean>? = null
 
 
+
+    /**
+     * Used to determine which packlist has been selected in the
+     */
     private val clickedPacklist: MutableLiveData<Packlist?> = MutableLiveData()
 
     /**
-     * Launching a new coroutine to insert the data in a non-blocking way
+     * Returns an id of the inserted packlist
      */
-    fun insert(packlist: Packlist) = viewModelScope.launch {
-        repository.insert(packlist)
+    suspend fun insertPacklist(packlist: Packlist) : Long  {
+        return repository.insert(packlist)
     }
+
+    fun getCurrentEditingPackList() : LiveData<List<Packlist>> {
+        return currentEditingPacklist
+    }
+
+    fun setCurrentEditingPackListTitle(title: String) {
+        currentEditingPacklist = repository.getPackListByTitle(title)
+    }
+
+
 
 
     fun startExistenceCheck(packlist: Packlist) {
@@ -35,7 +51,8 @@ class PacklistViewModel(private val repository: PacklistRepository) : ViewModel(
         checkCurrentPackList = repository.existsByPacklist(packlist.id)
     }
 
-    fun setClickedPacklist(packlist: Packlist) {
+    fun setClickedPacklist(packlist: Packlist) = viewModelScope.launch{
+
         clickedPacklist.value = packlist
     }
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import ch.hslu.mobpro.packing_list.PacklistApplication
 import ch.hslu.mobpro.packing_list.PacklistViewModel
 import ch.hslu.mobpro.packing_list.PacklistViewModelFactory
@@ -20,6 +21,8 @@ import ch.hslu.mobpro.packing_list.databinding.FragmentPacklistBinding
  * Right now it doesn't do much.
  */
 class PacklistFragment : Fragment() {
+
+    private val args: PacklistFragmentArgs by navArgs()
 
     private val packlistViewModel: PacklistViewModel by viewModels {
         PacklistViewModelFactory((requireActivity().application as PacklistApplication).repository)
@@ -35,8 +38,6 @@ class PacklistFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().navigate(R.id.action_PacklistFragment_to_MenuFragment)
         }
-
-
     }
 
     override fun onCreateView(
@@ -49,24 +50,33 @@ class PacklistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // observeViewModels()
+        val title = args.title
+        packlistViewModel.setCurrentEditingPackListTitle(title)
+        observeViewModels()
     }
 
-/*
+
     private fun observeViewModels() {
         Log.v(TAG, "observeViewModels")
+        packlistViewModel.getCurrentEditingPackList().observe(viewLifecycleOwner) { matchingTitlePacklists ->
+            Log.v(TAG, "SUCCESSFULLL RETRIVED ELEMENT")
+            val pac = matchingTitlePacklists[0]
+            Log.v(TAG, pac.toString())
+
+        }
+        /*
         packlistViewModel.getClickedPacklist().observe(viewLifecycleOwner) { clickedPacklist ->
             if (clickedPacklist != null) {
                 Log.v(TAG, clickedPacklist.title)
                 binding.textViewTest.text = clickedPacklist.title
             } else {
                 Log.v(TAG, "clickedpacklist null")
-
             }
-
         }
+
+         */
     }
- */
+
 
 
     override fun onDestroyView() {

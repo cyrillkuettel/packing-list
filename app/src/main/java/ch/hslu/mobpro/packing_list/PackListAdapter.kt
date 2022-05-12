@@ -19,11 +19,13 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel) :
     }
 
 
+
     override fun onBindViewHolder(holder: PacklistViewHolder, position: Int) {
         val current = getItem(position)
         holder.bind(current.title)
 
         holder.getView().setOnClickListener {
+            // retrieve id of clicked item here
             packlistViewModel.setClickedPacklist(current)
         }
     }
@@ -38,7 +40,6 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel) :
         fun getView(): PacklistCardView {
             return cardview
         }
-
 
         companion object {
             fun create(parent: ViewGroup): PacklistViewHolder {
