@@ -1,11 +1,8 @@
 package ch.hslu.mobpro.packing_list
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
-
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +10,8 @@ import ch.hslu.mobpro.packing_list.database.Packlist
 import ch.hslu.mobpro.packing_list.views.PacklistCardView
 
 
-class PackListAdapter(private val packlistViewModel: PacklistViewModel) : ListAdapter<Packlist, PackListAdapter.PacklistViewHolder>(Packlistcomparator()) {
+class PackListAdapter(private val packlistViewModel: PacklistViewModel) :
+    ListAdapter<Packlist, PackListAdapter.PacklistViewHolder>(Packlistcomparator()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PacklistViewHolder {
@@ -26,7 +24,7 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel) : ListAd
         holder.bind(current.title)
 
         holder.getView().setOnClickListener {
-           // TODO : update the selected view in viewmodel
+            packlistViewModel.setClickedPacklist(current)
         }
     }
 
@@ -37,7 +35,7 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel) : ListAd
             cardview.setTitle(text)
         }
 
-        fun getView() : PacklistCardView {
+        fun getView(): PacklistCardView {
             return cardview
         }
 
@@ -60,6 +58,7 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel) : ListAd
             return oldItem.title == newItem.title
         }
     }
+
     companion object {
         private const val TAG = "PackListAdapter"
     }

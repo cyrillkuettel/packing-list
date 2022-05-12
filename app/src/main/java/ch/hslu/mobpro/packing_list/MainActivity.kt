@@ -1,7 +1,6 @@
 package ch.hslu.mobpro.packing_list
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -10,12 +9,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.activity.viewModels
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import ch.hslu.mobpro.packing_list.databinding.ActivityMainBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,18 +27,18 @@ class MainActivity : AppCompatActivity() {
         val navController = setupNavController()
 
         binding.fab.setOnClickListener {
-            navController.navigate(R.id.action_ItemFragment_to_CreateListFragment)
+            navController.navigate(R.id.action_MenuFragment_to_CreateListFragment)
         }
     }
 
     private fun setupNavController(): NavController {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        /** the fab button is only shown on the ItemFragment*/
+        /** Only show the button in MenuFragment*/
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.CreateListFragment || destination.id == R.id.SecondFragment) {
-                binding.fab.apply { visibility = View.INVISIBLE }
-            } else {
+            if (destination.id == R.id.MenuFragment) {
                 binding.fab.apply { visibility = View.VISIBLE }
+            } else {
+                binding.fab.apply { visibility = View.INVISIBLE }
             }
         }
         appBarConfiguration = AppBarConfiguration(navController.graph)
@@ -54,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         /** Not used currently */
-       // menuInflater.inflate(R.menu.menu_main, menu)
+        // menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 

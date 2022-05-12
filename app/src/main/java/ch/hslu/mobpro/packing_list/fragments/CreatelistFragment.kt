@@ -49,21 +49,22 @@ class CreatelistFragment : Fragment() {
 
 
     private fun observeViewModels() {
-        packlistViewModel.checkCurrentPackList?.observe(viewLifecycleOwner, Observer { doesAlreadyExist ->
+        packlistViewModel.checkCurrentPackList?.observe(viewLifecycleOwner,
+            Observer { doesAlreadyExist ->
 
-            if (doesAlreadyExist) {
-                Log.v(TAG, "doesAlreadyExists")
-                Toast.makeText(
-                    requireActivity(),
-                    "Exists already",
-                    Toast.LENGTH_LONG
-                ).show()
-            } else {
-                Log.v(TAG, "naviateback")
-                currentPackList?.let { packlistViewModel.insert(it) }
-                findNavController().navigate(R.id.action_CreateListFragment_To_ItemFragment)
-            }
-        })
+                if (doesAlreadyExist) {
+                    Log.v(TAG, "doesAlreadyExists")
+                    Toast.makeText(
+                        requireActivity(),
+                        "Exists already",
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
+                    Log.v(TAG, "naviateback")
+                    currentPackList?.let { packlistViewModel.insert(it) }
+                    findNavController().navigate(R.id.action_CreateListFragment_To_MenuFragment)
+                }
+            })
     }
 
     // TODO : input validation
@@ -71,11 +72,12 @@ class CreatelistFragment : Fragment() {
 
         currentPackList = populatePacklistObject()
         currentPackList?.let { packlistViewModel.insert(it) }
-        findNavController().navigate(R.id.action_CreateListFragment_To_ItemFragment)
+        findNavController().navigate(R.id.action_CreateListFragment_To_MenuFragment)
         // packlistViewModel.startExistenceCheck(currentPackList!!)
 
     }
-    private fun populatePacklistObject() : Packlist {
+
+    private fun populatePacklistObject(): Packlist {
         // TODO : more attributes like date, location etc
         val packListTitle = binding.mainEditTextName.text.toString()
         return Packlist(packListTitle)
@@ -86,6 +88,7 @@ class CreatelistFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
     companion object {
         private const val TAG = "CreateListFragment"
     }

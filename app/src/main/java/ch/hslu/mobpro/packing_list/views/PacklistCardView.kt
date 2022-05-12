@@ -3,10 +3,8 @@ package ch.hslu.mobpro.packing_list.views
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
-import android.view.ViewGroup.MarginLayoutParams
 
 
 class PacklistCardView @JvmOverloads
@@ -64,7 +62,7 @@ constructor(
         }
     }
 
-    fun paintTitleText(canvas: Canvas?) {
+    private fun paintTitleText(canvas: Canvas?) {
         val titleText = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = primaryTextColor
             textAlign = Paint.Align.LEFT

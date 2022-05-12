@@ -33,7 +33,7 @@ class PacklistRepository(private val packlistDao: PacklistDao) {
 
 
     @WorkerThread
-    fun existsByPacklist(id: Int) : LiveData<Boolean> {
+    fun existsByPacklist(id: Int): LiveData<Boolean> {
         val data: MutableLiveData<Boolean> = MutableLiveData()
         CoroutineScope(Dispatchers.IO).launch {
             val exists: Boolean = packlistDao.existsByPacklist(id)

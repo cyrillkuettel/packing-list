@@ -1,7 +1,6 @@
 package ch.hslu.mobpro.packing_list
 
 
-
 import androidx.lifecycle.*
 import ch.hslu.mobpro.packing_list.database.Packlist
 import kotlinx.coroutines.CoroutineScope
@@ -16,9 +15,12 @@ class PacklistViewModel(private val repository: PacklistRepository) : ViewModel(
     //   the UI when the data actually changes.
     // - Repository is completely separated from the UI through the ViewModel.
     val allPacklists: LiveData<List<Packlist>> = repository.allPacklists.asLiveData()
+
+    /** used for existence check before submitting a new list */
     var checkCurrentPackList: LiveData<Boolean>? = null
 
 
+    private val clickedPacklist: MutableLiveData<Packlist?> = MutableLiveData()
 
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
@@ -32,10 +34,19 @@ class PacklistViewModel(private val repository: PacklistRepository) : ViewModel(
         checkCurrentPackList = repository.existsByPacklist(packlist.id)
     }
 
+    fun setClickedPacklist(packlist: Packlist) {
+        clickedPacklist.value = packlist
+    }
+
+    fun getClickedPacklist(): MutableLiveData<Packlist?> {
+        return clickedPacklist
+    }
+
 
 }
 
-class PacklistViewModelFactory(private val repository: PacklistRepository) : ViewModelProvider.Factory {
+class PacklistViewModelFactory(private val repository: PacklistRepository) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(PacklistViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

@@ -16,7 +16,7 @@ abstract class PacklistRoomDatabase : RoomDatabase() {
     abstract fun packListDao(): PacklistDao
 
     private class PacklistCallback(
-        private val scope: CoroutineScope
+        private val scope: CoroutineScope,
     ) : RoomDatabase.Callback() {
 
         override fun onCreate(db: SupportSQLiteDatabase) {
@@ -37,13 +37,16 @@ abstract class PacklistRoomDatabase : RoomDatabase() {
 
     companion object {
         private const val TAG = "PlantRoomDatabase"
+
         // Singleton prevents multiple instances of database opening at the
         // same time.
         @Volatile
         private var INSTANCE: PacklistRoomDatabase? = null
 
-        fun getDatabase(context: Context,
-        scope: CoroutineScope ):
+        fun getDatabase(
+            context: Context,
+            scope: CoroutineScope,
+        ):
                 PacklistRoomDatabase {
 
             // if the INSTANCE is not null, then return it,

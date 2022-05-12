@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/ItemFragment">
+    app:startDestination="@id/MenuFragment">
 
     <fragment
-        android:id="@+id/ItemFragment"
-        android:name="ch.hslu.mobpro.packing_list.fragments.ItemFragment"
-        android:label="ItemFragment"
-        tools:layout="@layout/fragment_item">
+        android:id="@+id/MenuFragment"
+        android:name="ch.hslu.mobpro.packing_list.fragments.MenuFragment"
+        android:label="MenuFragment"
+        tools:layout="@layout/fragment_menu">
 
         <action
-            android:id="@+id/action_ItemFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_MenuFragment_to_PacklistFragment"
+            app:destination="@id/PacklistFragment" />
 
         <action
-            android:id="@+id/action_ItemFragment_to_CreateListFragment"
+            android:id="@+id/action_MenuFragment_to_CreateListFragment"
             app:destination="@id/CreateListFragment" />
     </fragment>
 
@@ -27,18 +27,19 @@
         tools:layout="@layout/fragment_createlist">
 
         <action
-            android:id="@+id/action_CreateListFragment_To_ItemFragment"
-            app:destination="@id/ItemFragment" />
+            android:id="@+id/action_CreateListFragment_To_MenuFragment"
+            app:destination="@id/MenuFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="ch.hslu.mobpro.packing_list.fragments.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/PacklistFragment"
+        android:name="ch.hslu.mobpro.packing_list.fragments.PacklistFragment"
+        android:label="Packlist"
+        tools:layout="@layout/fragment_packlist">
 
         <action
-            android:id="@+id/action_SecondFragment_to_ItemFragment"
-            app:destination="@id/ItemFragment" />
+            android:id="@+id/action_PacklistFragment_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
+
     </fragment>
 </navigation>

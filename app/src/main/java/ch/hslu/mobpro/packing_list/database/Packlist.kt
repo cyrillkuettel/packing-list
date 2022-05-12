@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "packlist_table")
 data class Packlist(
-    @ColumnInfo(name = "packlist") val title: String
+    @ColumnInfo(name = "packlist") val title: String,
 ) {
-    @PrimaryKey(autoGenerate = true) var id: Int = 0
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0
 }

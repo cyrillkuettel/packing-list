@@ -6,23 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import ch.hslu.mobpro.packing_list.PackListAdapter
-import ch.hslu.mobpro.packing_list.PacklistApplication
-import ch.hslu.mobpro.packing_list.PacklistViewModel
-import ch.hslu.mobpro.packing_list.PacklistViewModelFactory
-import ch.hslu.mobpro.packing_list.databinding.FragmentItemBinding
+import ch.hslu.mobpro.packing_list.*
+import ch.hslu.mobpro.packing_list.databinding.FragmentMenuBinding
 
 /**
  * A fragment representing a list of packing lists.
  * This is the first fragment that is shown.
  */
-class ItemFragment : Fragment() {
+class MenuFragment : Fragment() {
 
-    private var _binding: FragmentItemBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
 
     private val packlistViewModel: PacklistViewModel by viewModels {
@@ -34,7 +29,7 @@ class ItemFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentItemBinding.inflate(inflater, container, false)
+        _binding = FragmentMenuBinding.inflate(inflater, container, false)
         return binding.root
 
     }
@@ -48,16 +43,24 @@ class ItemFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        observeViewModels(adapter)
+    }
+
+    private fun observeViewModels(adapter: PackListAdapter) {
         // Add an observer on the LiveData returned by getAlphabetizedPacklist.
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
-        packlistViewModel.allPacklists.observe(viewLifecycleOwner) { packlist ->
+        packlistViewModel.allPacklists.observe(viewLifecycleOwner) { newPacklist ->
             // Update the cached copy of the words in the adapter.
-            packlist.let { adapter.submitList(it) }
+            newPacklist.let { adapter.submitList(it) }
+        }
+
+        packlistViewModel.getClickedPacklist().observe(viewLifecycleOwner) { clickedPacklist ->
+            findNavController().navigate(R.id.action_MenuFragment_to_PacklistFragment)
         }
     }
 
     companion object {
-        private const val TAG = "ItemFragment"
+        private const val TAG = "MenuFragment"
     }
 }
