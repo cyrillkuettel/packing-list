@@ -31,6 +31,7 @@ class PacklistViewModel(private val repository: PacklistRepository) : ViewModel(
 
 
     fun startExistenceCheck(packlist: Packlist) {
+        // TODO: update the currentPacklist in database so that it can be accessed from the next fragment
         checkCurrentPackList = repository.existsByPacklist(packlist.id)
     }
 

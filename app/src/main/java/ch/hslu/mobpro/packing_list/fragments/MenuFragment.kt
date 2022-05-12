@@ -56,6 +56,7 @@ class MenuFragment : Fragment() {
         }
 
         packlistViewModel.getClickedPacklist().observe(viewLifecycleOwner) { clickedPacklist ->
+
             findNavController().navigate(R.id.action_MenuFragment_to_PacklistFragment)
         }
     }
