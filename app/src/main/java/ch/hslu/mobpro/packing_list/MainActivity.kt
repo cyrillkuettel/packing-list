@@ -11,6 +11,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import ch.hslu.mobpro.packing_list.databinding.ActivityMainBinding
@@ -26,10 +27,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(binding.toolbar)
 
+        val navController = setupNavController()
+
+        binding.fab.setOnClickListener {
+            navController.navigate(R.id.action_ItemFragment_to_CreateListFragment)
+        }
+    }
+
+    private fun setupNavController(): NavController {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
+        /** the fab button is only shown on the ItemFragment*/
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id == R.id.CreateListFragment || destination.id == R.id.SecondFragment) {
                 binding.fab.apply { visibility = View.INVISIBLE }
@@ -39,17 +48,13 @@ class MainActivity : AppCompatActivity() {
         }
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
-
-
-
-        binding.fab.setOnClickListener {
-            navController.navigate(R.id.action_ItemFragment_to_CreateListFragment)
-        }
+        return navController
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
+        /** Not used currently */
+       // menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 

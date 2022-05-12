@@ -23,12 +23,11 @@ abstract class PacklistRoomDatabase : RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    var packlistDao = database.packListDao()
+                    val packlistDao = database.packListDao()
                     packlistDao.deleteAll()
 
                     // Populate with some sample packlist, for testing.
-                    Log.v(TAG, "SAMPLE")
-                    var word = Packlist("Hello")
+                    val word = Packlist("Hello")
                     packlistDao.insert(word)
 
                 }

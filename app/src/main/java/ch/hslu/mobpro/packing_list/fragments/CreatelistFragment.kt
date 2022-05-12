@@ -68,7 +68,7 @@ class CreatelistFragment : Fragment() {
 
     // TODO : input validation
     private fun submitListOnClick() {
-        Log.v(TAG ,"submitListOnClick")
+
         currentPackList = populatePacklistObject()
         currentPackList?.let { packlistViewModel.insert(it) }
         findNavController().navigate(R.id.action_CreateListFragment_To_ItemFragment)
