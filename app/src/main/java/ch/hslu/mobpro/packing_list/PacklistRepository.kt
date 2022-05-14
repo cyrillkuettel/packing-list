@@ -42,9 +42,16 @@ class PacklistRepository(private val packlistDao: PacklistDao) {
         packlistDao.insertItem(item)
     }
 
+    fun getItems(id: String) : LiveData<List<PacklistWithItems>> {
+        return packlistDao.getItemsFromParentById(id)
+    }
+
     fun getPackListByTitle(title: String) : LiveData<List<Packlist>> {
+
         return packlistDao.getPacklistByTitle(title)
     }
+
+
 
 
 

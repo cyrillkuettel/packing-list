@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import ch.hslu.mobpro.packing_list.PacklistRepository
 import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.room.Packlist
+import ch.hslu.mobpro.packing_list.room.PacklistWithItems
 import kotlinx.coroutines.launch
 
 class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
@@ -15,6 +16,7 @@ class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
 
 
 
+
     fun getCurrentEditingPackList() : LiveData<List<Packlist>> {
         return currentEditingPacklist
     }
@@ -23,10 +25,18 @@ class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
         currentEditingPacklist = repository.getPackListByTitle(title)
     }
 
+
+
     fun insertNewItem(item: Item) = viewModelScope.launch{
         repository.insertItem(item)
         _navigateBacktoPacklist.postValue(true)
     }
+
+
+    fun getItems(id: String) : LiveData<List<PacklistWithItems>> {
+        return repository.getItems(id)
+    }
+
 
 
 }

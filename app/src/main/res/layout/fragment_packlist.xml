@@ -10,28 +10,34 @@
     android:layout_height="match_parent"
     tools:context=".fragments.PacklistFragment">
 
-    <TextView
-        android:id="@+id/textViewTest"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:id="@+id/placeHolderContent"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+
+    </LinearLayout>
+
+
 
 
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-android:id="@+id/fabCreateNewNote"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_gravity="bottom|end"
-android:layout_marginEnd="@dimen/fab_margin"
-android:layout_marginBottom="16dp"
-app:srcCompat="@android:drawable/ic_input_add" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabCreateNewNote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="16dp"
+        app:srcCompat="@android:drawable/ic_input_add"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

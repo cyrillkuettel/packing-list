@@ -132,7 +132,7 @@ constructor(
     }
 
     companion object {
-        private const val TAG = "SpecialCardView"
+        private const val TAG = "PacklistCardView"
     }
 
 }

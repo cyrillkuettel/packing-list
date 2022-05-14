@@ -67,5 +67,4 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel) :
         private const val TAG = "PackListAdapter"
     }
 
-
 }
