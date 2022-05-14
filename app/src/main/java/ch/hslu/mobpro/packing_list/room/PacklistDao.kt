@@ -1,7 +1,6 @@
-package ch.hslu.mobpro.packing_list.database
+package ch.hslu.mobpro.packing_list.room
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -20,11 +19,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PacklistDao {
 
-    @Query("SELECT * FROM packlist_table ORDER BY packlist ASC")
+    @Query("SELECT * FROM packlist_table")
     fun getAlphabetizedPacklist(): Flow<List<Packlist>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(packlist: Packlist): Long
+    suspend fun insert(packlist: Packlist)
 
     @Query("DELETE FROM packlist_table")
     suspend fun deleteAll()
@@ -32,6 +31,6 @@ interface PacklistDao {
     @Query("SELECT EXISTS (SELECT 1 FROM packlist_table WHERE id = :id)")
     fun existsByPacklist(id: Int): Boolean
 
-    @Query("SELECT * FROM packlist_table AS item WHERE item.packlist LIKE :title LIMIT :limit")
+    @Query("SELECT * FROM packlist_table AS item WHERE item.title LIKE :title LIMIT :limit")
     fun getPacklistByTitle(title: String, limit: Int = 1): LiveData<List<Packlist>>
 }

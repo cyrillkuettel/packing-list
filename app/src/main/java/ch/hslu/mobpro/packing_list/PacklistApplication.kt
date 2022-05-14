@@ -1,7 +1,7 @@
 package ch.hslu.mobpro.packing_list
 
 import android.app.Application
-import ch.hslu.mobpro.packing_list.database.PacklistRoomDatabase
+import ch.hslu.mobpro.packing_list.room.PacklistRoomDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 

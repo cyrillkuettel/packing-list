@@ -58,23 +58,13 @@ class PacklistFragment : Fragment() {
 
     private fun observeViewModels() {
         Log.v(TAG, "observeViewModels")
-        packlistViewModel.getCurrentEditingPackList().observe(viewLifecycleOwner) { matchingTitlePacklists ->
+        packlistViewModel.getCurrentEditingPackList().observe(viewLifecycleOwner) { matchingTitlePacklist ->
             Log.v(TAG, "SUCCESSFULLL RETRIVED ELEMENT")
-            val pac = matchingTitlePacklists[0]
+            val pac = matchingTitlePacklist[0]
             Log.v(TAG, pac.toString())
 
         }
-        /*
-        packlistViewModel.getClickedPacklist().observe(viewLifecycleOwner) { clickedPacklist ->
-            if (clickedPacklist != null) {
-                Log.v(TAG, clickedPacklist.title)
-                binding.textViewTest.text = clickedPacklist.title
-            } else {
-                Log.v(TAG, "clickedpacklist null")
-            }
-        }
 
-         */
     }
 
 

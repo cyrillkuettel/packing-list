@@ -1,6 +1,7 @@
 package ch.hslu.mobpro.packing_list.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -67,6 +68,8 @@ class MenuFragment : Fragment() {
             }
             if (action != null) {
                 findNavController().navigate(action)
+            } else {
+                Log.e(TAG, "NavDirections action is null")
             }
         }
     }

@@ -15,7 +15,8 @@
         <ch.hslu.mobpro.packing_list.views.PacklistCardView
             android:id="@+id/packlistcardview"
             android:layout_width="match_parent"
-            android:layout_height="160dp" />
+            android:layout_marginBottom="25dp"
+            android:layout_height="100dp" />
 
     </FrameLayout>
 

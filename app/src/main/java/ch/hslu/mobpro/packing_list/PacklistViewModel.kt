@@ -2,9 +2,8 @@ package ch.hslu.mobpro.packing_list
 
 
 import androidx.lifecycle.*
-import ch.hslu.mobpro.packing_list.database.Packlist
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import ch.hslu.mobpro.packing_list.room.Packlist
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
@@ -18,22 +17,19 @@ class PacklistViewModel(private val repository: PacklistRepository) : ViewModel(
 
     private var currentEditingPacklist: LiveData<List<Packlist>> = MutableLiveData()
 
-    /** used for existence check before submitting a new list */
-    var checkCurrentPackList: LiveData<Boolean>? = null
+    val _navigateBacktoMenu: MutableLiveData<Boolean> = MutableLiveData()
 
 
+    fun insertNewPacklist(packlist: Packlist) = viewModelScope.launch {
+       repository.insert(packlist)
+        _navigateBacktoMenu.postValue(true)
+    }
 
     /**
-     * Used to determine which packlist has been selected in the
+     * Used to determine which packlist has been selected in the MenuFragment
      */
     private val clickedPacklist: MutableLiveData<Packlist?> = MutableLiveData()
 
-    /**
-     * Returns an id of the inserted packlist
-     */
-    suspend fun insertPacklist(packlist: Packlist) : Long  {
-        return repository.insert(packlist)
-    }
 
     fun getCurrentEditingPackList() : LiveData<List<Packlist>> {
         return currentEditingPacklist
@@ -43,13 +39,6 @@ class PacklistViewModel(private val repository: PacklistRepository) : ViewModel(
         currentEditingPacklist = repository.getPackListByTitle(title)
     }
 
-
-
-
-    fun startExistenceCheck(packlist: Packlist) {
-        // TODO: update the currentPacklist in database so that it can be accessed from the next fragment
-        checkCurrentPackList = repository.existsByPacklist(packlist.id)
-    }
 
     fun setClickedPacklist(packlist: Packlist) = viewModelScope.launch{
 

@@ -15,8 +15,8 @@ import ch.hslu.mobpro.packing_list.PacklistApplication
 import ch.hslu.mobpro.packing_list.PacklistViewModel
 import ch.hslu.mobpro.packing_list.PacklistViewModelFactory
 import ch.hslu.mobpro.packing_list.R
-import ch.hslu.mobpro.packing_list.database.Packlist
 import ch.hslu.mobpro.packing_list.databinding.FragmentCreatelistBinding
+import ch.hslu.mobpro.packing_list.room.Packlist
 import kotlinx.coroutines.launch
 
 /**
@@ -32,8 +32,6 @@ class CreatelistFragment : Fragment() {
     private var _binding: FragmentCreatelistBinding? = null
     private val binding get() = _binding!!
 
-    /** The new packlist which is being create d*/
-    private var currentPacklist: Packlist? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,17 +44,14 @@ class CreatelistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // observeViewModels()
+        observeViewModels()
         binding.mainButtonSubmitList.setOnClickListener { submitListOnClick() }
     }
 
-
-
-
-
     private fun submitListOnClick() {
-        currentPacklist = createNewPacklistObject()
-        navigateBack()  // TODO : input validation
+        // TODO : input validation
+        val packlist = createNewPacklistObject()
+        packlistViewModel.insertNewPacklist(packlist)
     }
 
 
@@ -66,36 +61,17 @@ class CreatelistFragment : Fragment() {
         return Packlist(packListTitle)
     }
 
+
+    private fun observeViewModels() {
+        packlistViewModel._navigateBacktoMenu.observe(viewLifecycleOwner) {
+            navigateBack()
+        }
+    }
+
     private fun navigateBack() {
         findNavController().navigate(R.id.action_CreateListFragment_To_MenuFragment)
     }
 
-
-
-
-    private fun observeViewModels() {
-        packlistViewModel.checkCurrentPackList?.observe(viewLifecycleOwner,
-            Observer { doesAlreadyExist ->
-
-                if (doesAlreadyExist) {
-                    Log.v(TAG, "doesAlreadyExists")
-                    Toast.makeText(
-                        requireActivity(),
-                        "Exists already",
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    Log.v(TAG, "naviateback")
-                    currentPacklist?.let {
-                        lifecycleScope.launch{
-                            val id =  packlistViewModel.insertPacklist(it)
-                        }
-
-                    }
-                    findNavController().navigate(R.id.action_CreateListFragment_To_MenuFragment)
-                }
-            })
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ch.hslu.mobpro.packing_list.database.Packlist
+import ch.hslu.mobpro.packing_list.room.Packlist
 import ch.hslu.mobpro.packing_list.views.PacklistCardView
 
 
@@ -31,14 +31,14 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel) :
     }
 
     class PacklistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val cardview: PacklistCardView = itemView.findViewById(R.id.packlistcardview)
+        private val cardView: PacklistCardView = itemView.findViewById(R.id.packlistcardview)
 
         fun bind(text: String?) {
-            cardview.setTitle(text)
+            cardView.setTitle(text)
         }
 
         fun getView(): PacklistCardView {
-            return cardview
+            return cardView
         }
 
         companion object {

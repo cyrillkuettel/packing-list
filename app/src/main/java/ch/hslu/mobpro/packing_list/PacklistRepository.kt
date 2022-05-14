@@ -1,10 +1,11 @@
 package ch.hslu.mobpro.packing_list
 
+import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import ch.hslu.mobpro.packing_list.database.Packlist
-import ch.hslu.mobpro.packing_list.database.PacklistDao
+import ch.hslu.mobpro.packing_list.room.Packlist
+import ch.hslu.mobpro.packing_list.room.PacklistDao
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -27,8 +28,9 @@ class PacklistRepository(private val packlistDao: PacklistDao) {
     // off the main thread.
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun insert(word: Packlist) : Long {
-        return packlistDao.insert(word)
+    suspend fun insert(word: Packlist)  {
+        Log.v(TAG, "repository insert")
+        packlistDao.insert(word)
     }
 
     fun getPackListByTitle(title: String) : LiveData<List<Packlist>> {
@@ -44,6 +46,10 @@ class PacklistRepository(private val packlistDao: PacklistDao) {
             data.postValue(exists)
         }
         return data
+    }
+
+    companion object {
+        const val TAG = "PacklistRepository"
     }
 
 
