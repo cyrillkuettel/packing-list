@@ -31,6 +31,12 @@ interface PacklistDao {
     @Query("SELECT * FROM packlist_table AS item WHERE item.title LIKE :title LIMIT :limit")
     fun getPacklistByTitle(title: String, limit: Int = 1): LiveData<List<Packlist>>
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertItem(testItem: Item)
+
+    @Query("SELECT * FROM item_table")
+    fun getAllItems() : Flow<List<Item>>
+
     /*
     @Query("SELECT * FROM packlist_table")
     fun getPackListWithItems(): Flow<List<PacklistWithItems>>
