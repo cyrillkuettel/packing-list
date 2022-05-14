@@ -7,9 +7,9 @@ import ch.hslu.mobpro.packing_list.room.Packlist
  * [Packlist] objects used for tests.
  */
 val testPacklists = arrayListOf(
-    Packlist("1"),
-    Packlist("2",),
-    Packlist("3")
+    Packlist("testTitle1"),
+    Packlist("testTitle2",),
+    Packlist("testTitle3")
 )
 val testPacklist = testPacklists[0]
 

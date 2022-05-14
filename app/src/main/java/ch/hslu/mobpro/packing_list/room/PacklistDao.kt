@@ -37,9 +37,9 @@ interface PacklistDao {
     @Query("SELECT * FROM item_table")
     fun getAllItems() : Flow<List<Item>>
 
-    /*
-    @Query("SELECT * FROM packlist_table")
-    fun getPackListWithItems(): Flow<List<PacklistWithItems>>
-*/
+    @Transaction
+    @Query("SELECT * FROM packlist_table WHERE id IN (SELECT DISTINCT(itemContentID) FROM item_table) AND title LIKE :title ")
+    fun getPackListWithItems(title: String) : Flow<List<PacklistWithItems>>
+
 
 }

@@ -35,21 +35,17 @@ class RoomDaoTest {
         packlistDao = database.packListDao()
         packlistDao.insert(testPacklist)
         packlistDao.insertItem(testItem)
-
     }
-
 
     @Throws(IOException::class)
     @After fun closeDb() {
-
         database.close()
     }
 
     @Test
     fun testTakeOutASinglePacklist() = runBlocking  {
-        val packlists = packlistDao.getAlphabetizedPacklist()
-        val result = packlists.take(1).toList().get(0).get(0)
-
+        val packLists = packlistDao.getAlphabetizedPacklist()
+        val result = packLists.take(1).toList().get(0).get(0)
         assertEquals(testPacklist,  result)
     }
 
@@ -57,8 +53,14 @@ class RoomDaoTest {
     fun testInsertAndGetItem_shouldReturnTheSameItem() = runBlocking  {
         val retrievedItem = packlistDao.getAllItems()
         val result = retrievedItem.take(1).toList().get(0).get(0)
-
         assertEquals(testItem, result)
-
     }
+
+    // I want to set items which belong to a packlist
+    @Test
+    fun testPacklistWithItems() = runBlocking  {
+
+        val itemListOfPacklist = packlistDao.getPackListWithItems(testPacklist.title)
+    }
+
 }
