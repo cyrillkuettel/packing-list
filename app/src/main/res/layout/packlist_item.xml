@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <ch.hslu.mobpro.packing_list.views.PacklistCardView
+        <ch.hslu.mobpro.packing_list.customviews.PacklistCardView
             android:id="@+id/packlistcardview"
             android:layout_width="match_parent"
             android:layout_marginBottom="25dp"

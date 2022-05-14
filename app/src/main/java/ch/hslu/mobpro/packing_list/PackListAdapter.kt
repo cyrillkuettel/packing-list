@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ch.hslu.mobpro.packing_list.room.Packlist
 import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModel
-import ch.hslu.mobpro.packing_list.views.PacklistCardView
+import ch.hslu.mobpro.packing_list.customviews.PacklistCardView
 
 
 class PackListAdapter(private val packlistViewModel: PacklistViewModel) :
@@ -38,6 +38,7 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel) :
 
         fun bind(text: String?) {
             cardView.setTitle(text)
+            // cardView.height = cardView.getCurrentViewHeight()
         }
 
         fun getView(): PacklistCardView {
@@ -48,6 +49,7 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel) :
             fun create(parent: ViewGroup): PacklistViewHolder {
                 val view: View = LayoutInflater.from(parent.context)
                     .inflate(R.layout.packlist_item, parent, false)
+
                 return PacklistViewHolder(view)
             }
         }

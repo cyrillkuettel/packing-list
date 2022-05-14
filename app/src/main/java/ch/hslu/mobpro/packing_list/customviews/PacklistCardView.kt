@@ -1,4 +1,4 @@
-package ch.hslu.mobpro.packing_list.views
+package ch.hslu.mobpro.packing_list.customviews
 
 import android.content.Context
 import android.graphics.*
@@ -121,7 +121,6 @@ constructor(
             )
         }
     }
-
 
     private fun convertToDP(value: Float): Float {
         return TypedValue.applyDimension(
