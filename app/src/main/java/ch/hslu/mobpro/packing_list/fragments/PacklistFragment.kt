@@ -17,8 +17,7 @@ import ch.hslu.mobpro.packing_list.R
 import ch.hslu.mobpro.packing_list.databinding.FragmentPacklistBinding
 
 /**
- * This fragment can later be used to display the contents of a single packing list
- * Right now it doesn't do much.
+ * Display all items of a Single Packing List
  */
 class PacklistFragment : Fragment() {
 

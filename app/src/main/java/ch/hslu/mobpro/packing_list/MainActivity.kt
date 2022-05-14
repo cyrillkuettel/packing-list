@@ -33,8 +33,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupNavController(): NavController {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        /** Only show the button in MenuFragment*/
         navController.addOnDestinationChangedListener { _, destination, _ ->
+            /** Only show the '+' button where it is appropriate */
             if (destination.id == R.id.MenuFragment) {
                 binding.fab.apply { visibility = View.VISIBLE }
             } else {
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        /** Not used currently */
+        /** Not used currently. But we might use it later*/
         // menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
