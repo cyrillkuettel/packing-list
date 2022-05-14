@@ -8,6 +8,7 @@ import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.room.PacklistDao
 import ch.hslu.mobpro.packing_list.room.PacklistRoomDatabase
 import ch.hslu.mobpro.packing_list.room.PacklistWithItems
+import ch.hslu.mobpro.packing_list.utilities.getOrAwaitValue
 import ch.hslu.mobpro.packing_list.utilities.testPacklist
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
@@ -51,15 +52,16 @@ class RoomDaoTest {
     }
 
     @Test
-    fun insertItemsAndretriveThemBack() = runBlocking  {
+    fun testInsertingItems_ShouldBeReturnedAsLiveData() = runBlocking  {
+
         val referenceId = testPacklist.title
         val item1 = Item(referenceId,"test")
         packlistDao.insertItem(item1)
 
-        val queryResult: PacklistWithItems = packlistDao.getItemsFromParentById(
-            referenceId).take(1).toList()[0][0]
+        val queryResult: List<PacklistWithItems> = packlistDao.getItemsFromParentById(
+            referenceId).getOrAwaitValue()
 
-        val retrivedItems =queryResult.items.contains(item1)
+        val retrivedItems =queryResult.get(0).items.contains(item1)
         assertTrue(retrivedItems)
     }
 

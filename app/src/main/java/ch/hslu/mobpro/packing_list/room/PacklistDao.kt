@@ -40,7 +40,8 @@ interface PacklistDao {
 
     @Transaction
     @Query("SELECT * FROM packlist_table WHERE id IN (SELECT DISTINCT(item_id) FROM item_table) AND id = :id")
-    fun getItemsFromParentById(id: String) : Flow<List<PacklistWithItems>>
+    fun getItemsFromParentById(id: String) : LiveData<List<PacklistWithItems>>
+
 
 
 }
