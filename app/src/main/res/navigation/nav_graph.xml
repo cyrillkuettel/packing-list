@@ -37,14 +37,33 @@
     <fragment
         android:id="@+id/PacklistFragment"
         android:name="ch.hslu.mobpro.packing_list.fragments.PacklistFragment"
-        android:label="Packlist"
+        android:label="Selected Packlist"
         tools:layout="@layout/fragment_packlist">
 
         <action
             android:id="@+id/action_PacklistFragment_to_MenuFragment"
             app:destination="@id/MenuFragment" />
+
+        <action
+            android:id="@+id/action_PacklistFragment_to_CreateItemFragment"
+            app:destination="@id/CreateItemFragment" />
         <argument
             android:name="title"
+            app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/CreateItemFragment"
+        android:name="ch.hslu.mobpro.packing_list.fragments.CreateItemFragment"
+        android:label="Edit Packlist Item"
+        tools:layout="@layout/fragment_create_item">
+
+        <action
+            android:id="@+id/action_CreateItemFragment_to_PacklistFragment"
+            app:destination="@id/PacklistFragment" />
+        <argument
+            android:name="title_from_clicked"
             app:argType="string" />
 
     </fragment>

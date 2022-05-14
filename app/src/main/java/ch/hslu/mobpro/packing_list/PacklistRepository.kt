@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.room.Packlist
 import ch.hslu.mobpro.packing_list.room.PacklistDao
 import ch.hslu.mobpro.packing_list.room.PacklistWithItems
@@ -35,9 +36,16 @@ class PacklistRepository(private val packlistDao: PacklistDao) {
         packlistDao.insert(word)
     }
 
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun insertItem(item: Item)  {
+        packlistDao.insertItem(item)
+    }
+
     fun getPackListByTitle(title: String) : LiveData<List<Packlist>> {
         return packlistDao.getPacklistByTitle(title)
     }
+
 
 
     @WorkerThread
@@ -53,6 +61,5 @@ class PacklistRepository(private val packlistDao: PacklistDao) {
     companion object {
         const val TAG = "PacklistRepository"
     }
-
 
 }

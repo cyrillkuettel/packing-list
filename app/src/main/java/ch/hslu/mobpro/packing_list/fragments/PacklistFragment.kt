@@ -10,11 +10,10 @@ import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import ch.hslu.mobpro.packing_list.PacklistApplication
-import ch.hslu.mobpro.packing_list.PacklistViewModel
-import ch.hslu.mobpro.packing_list.PacklistViewModelFactory
-import ch.hslu.mobpro.packing_list.R
+import ch.hslu.mobpro.packing_list.*
 import ch.hslu.mobpro.packing_list.databinding.FragmentPacklistBinding
+import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
+import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
 
 /**
  * Display all items of a Single Packing List
@@ -23,14 +22,14 @@ class PacklistFragment : Fragment() {
 
     private val args: PacklistFragmentArgs by navArgs()
 
-    private val packlistViewModel: PacklistViewModel by viewModels {
-        PacklistViewModelFactory((requireActivity().application as PacklistApplication).repository)
+    private val itemViewModel: ItemViewModel by viewModels {
+        ItemViewModelFactory((requireActivity().application as PacklistApplication).repository)
     }
-
-
 
     private var _binding: FragmentPacklistBinding? = null
     private val binding get() = _binding!!
+
+    private var currentPackListTitle: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,21 +48,47 @@ class PacklistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val title = args.title
-        packlistViewModel.setCurrentEditingPackListTitle(title)
+        val title = args.title // retrieve title from Arguments, this uniquely identifies Packlist
+        Log.v(TAG, "getting arguments, args.title is $title")
+        itemViewModel.setCurrentEditingPackListTitle(title)
+        currentPackListTitle = title // not optimal, storing data in fragment, but what else
         observeViewModels()
+
+        binding.fabCreateNewNote.setOnClickListener {
+            navigateToCreateItemFragment()
+        }
+    }
+
+    private fun navigateToCreateItemFragment() {
+        val action = currentPackListTitle?.let {
+            PacklistFragmentDirections.actionPacklistFragmentToCreateItemFragment(it)
+        }
+
+        if (action != null) {
+            findNavController().navigate(action)
+        }
     }
 
 
     private fun observeViewModels() {
         Log.v(TAG, "observeViewModels")
-        packlistViewModel.getCurrentEditingPackList().observe(viewLifecycleOwner) { matchingTitlePacklist ->
-            Log.v(TAG, "SUCCESSFULLL RETRIVED ELEMENT")
-            val pac = matchingTitlePacklist[0]
-            // val uniquePackListId = pac.id
+        itemViewModel.getCurrentEditingPackList().observe(viewLifecycleOwner) { matchingTitlePacklist ->
+            Log.v(TAG, "successfully retrieved matchingTitlePacklist")
+            currentPackListTitle = matchingTitlePacklist[0].title
 
-            // Log.v(TAG, "pac.id = " + pac.id.toString())
+          //  val packlist = matchingTitlePacklist[0]
+            // val uniquePackListId = pac.id
         }
+/*
+        itemViewModel.getCurrentItems(currentPackListTitle).observe(viewLifecycleOwner) { matchingTitlePacklist ->
+            Log.v(TAG, "successfully retrieved matchingTitlePacklist")
+            currentPackListTitle = matchingTitlePacklist[0].title
+
+            //  val packlist = matchingTitlePacklist[0]
+            // val uniquePackListId = pac.id
+        }
+*/
+
 
     }
 

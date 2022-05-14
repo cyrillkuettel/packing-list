@@ -1,23 +1,18 @@
 package ch.hslu.mobpro.packing_list.fragments
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import ch.hslu.mobpro.packing_list.PacklistApplication
-import ch.hslu.mobpro.packing_list.PacklistViewModel
-import ch.hslu.mobpro.packing_list.PacklistViewModelFactory
+import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModel
+import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModelFactory
 import ch.hslu.mobpro.packing_list.R
 import ch.hslu.mobpro.packing_list.databinding.FragmentCreatelistBinding
 import ch.hslu.mobpro.packing_list.room.Packlist
-import kotlinx.coroutines.launch
 
 /**
  *  This fragment represents the screen for creating a new packing list.

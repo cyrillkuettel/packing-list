@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import ch.hslu.mobpro.packing_list.*
 import ch.hslu.mobpro.packing_list.databinding.FragmentMenuBinding
+import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModel
+import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModelFactory
 
 /**
  * A fragment representing a list of packing lists.
@@ -62,6 +62,7 @@ class MenuFragment : Fragment() {
         packlistViewModel.getClickedPacklist().observe(viewLifecycleOwner) { packList ->
             // we assume title is unique
             val action = packList?.let {
+                Log.v(TAG, "setting Title as argument: title is ${it.title}")
                 MenuFragmentDirections.actionMenuFragmentToPacklistFragment(it.title)
             }
             if (action != null) {

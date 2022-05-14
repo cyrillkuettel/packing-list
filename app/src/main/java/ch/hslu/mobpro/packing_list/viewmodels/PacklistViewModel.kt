@@ -1,9 +1,9 @@
-package ch.hslu.mobpro.packing_list
+package ch.hslu.mobpro.packing_list.viewmodels
 
 
 import androidx.lifecycle.*
+import ch.hslu.mobpro.packing_list.PacklistRepository
 import ch.hslu.mobpro.packing_list.room.Packlist
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
@@ -15,7 +15,6 @@ class PacklistViewModel(private val repository: PacklistRepository) : ViewModel(
     // - Repository is completely separated from the UI through the ViewModel.
     val allPacklists: LiveData<List<Packlist>> = repository.allPacklists.asLiveData()
 
-    private var currentEditingPacklist: LiveData<List<Packlist>> = MutableLiveData()
 
     val _navigateBacktoMenu: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -30,14 +29,6 @@ class PacklistViewModel(private val repository: PacklistRepository) : ViewModel(
      */
     private val clickedPacklist: MutableLiveData<Packlist?> = MutableLiveData()
 
-
-    fun getCurrentEditingPackList() : LiveData<List<Packlist>> {
-        return currentEditingPacklist
-    }
-
-    fun setCurrentEditingPackListTitle(title: String) {
-        currentEditingPacklist = repository.getPackListByTitle(title)
-    }
 
 
     fun setClickedPacklist(packlist: Packlist) = viewModelScope.launch{
@@ -62,3 +53,4 @@ class PacklistViewModelFactory(private val repository: PacklistRepository) :
         throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
+

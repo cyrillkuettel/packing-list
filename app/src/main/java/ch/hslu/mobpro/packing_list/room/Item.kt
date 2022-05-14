@@ -17,7 +17,7 @@ foreignKeys = [
 data class Item(
     @ColumnInfo(name = "item_id")
     val itemId: String, // to reference Parent
-    val content: String = ""
+    val content: String
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

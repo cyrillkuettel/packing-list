@@ -32,11 +32,10 @@ interface PacklistDao {
     fun getPacklistByTitle(title: String, limit: Int = 1): LiveData<List<Packlist>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertItem(testItem: Item)
+    suspend fun insertItem(testItem: Item)
 
     @Query("SELECT * FROM item_table")
     fun getAllItems() : Flow<List<Item>>
-
 
 
     @Transaction

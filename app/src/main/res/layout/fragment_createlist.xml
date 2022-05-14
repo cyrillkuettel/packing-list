@@ -11,7 +11,7 @@
     tools:context=".fragments.MenuFragment">
 
     <TextView
-        android:id="@+id/textview_first"
+        android:id="@+id/textViewStaticTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -32,7 +32,7 @@
         android:text="Packlist Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_first" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewStaticTitle" />
 
     <TextView
         android:id="@+id/textView3"

@@ -1,5 +1,6 @@
 package ch.hslu.mobpro.packing_list
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ch.hslu.mobpro.packing_list.room.Packlist
+import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModel
 import ch.hslu.mobpro.packing_list.views.PacklistCardView
 
 
@@ -26,6 +28,7 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel) :
 
         holder.getView().setOnClickListener {
             // retrieve id of clicked item here
+            Log.v(TAG, "setting clicked packlist title: ${current.title}")
             packlistViewModel.setClickedPacklist(current)
         }
     }
