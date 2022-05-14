@@ -13,7 +13,3 @@ val testPacklists = arrayListOf(
 )
 val testPacklist = testPacklists[0]
 
-val testItems = arrayListOf(
-    Item(1, 2, "testContent1"),
-)
-val testItem = testItems[0]

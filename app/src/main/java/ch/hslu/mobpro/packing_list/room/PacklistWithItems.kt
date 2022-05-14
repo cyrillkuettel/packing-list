@@ -8,7 +8,7 @@ data class PacklistWithItems(
     @Embedded val packlist: Packlist,
     @Relation(
         parentColumn = "id",
-        entityColumn = "itemCreatorID"
+        entityColumn = "item_id"
     )
     val items: List<Item> = emptyList()
 )

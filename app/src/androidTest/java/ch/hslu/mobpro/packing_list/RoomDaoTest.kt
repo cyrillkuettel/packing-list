@@ -4,9 +4,11 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.room.PacklistDao
 import ch.hslu.mobpro.packing_list.room.PacklistRoomDatabase
-import ch.hslu.mobpro.packing_list.utilities.testItem
+import ch.hslu.mobpro.packing_list.room.PacklistWithItems
+
 
 import ch.hslu.mobpro.packing_list.utilities.testPacklist
 import kotlinx.coroutines.flow.take
@@ -14,6 +16,8 @@ import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -34,7 +38,7 @@ class RoomDaoTest {
         database = Room.inMemoryDatabaseBuilder(context, PacklistRoomDatabase::class.java).build()
         packlistDao = database.packListDao()
         packlistDao.insert(testPacklist)
-        packlistDao.insertItem(testItem)
+
     }
 
     @Throws(IOException::class)
@@ -49,18 +53,29 @@ class RoomDaoTest {
         assertEquals(testPacklist,  result)
     }
 
-    @Test
-    fun testInsertAndGetItem_shouldReturnTheSameItem() = runBlocking  {
-        val retrievedItem = packlistDao.getAllItems()
-        val result = retrievedItem.take(1).toList().get(0).get(0)
-        assertEquals(testItem, result)
+
+
+
+ /*
+ @Test
+    fun test() = runBlocking  {
+        // there are no inserted items
+        val queryResult: PacklistWithItems = packlistDao.getItemsFromParentID(testPacklist.title).take(1).toList()[0][0]
+        assertEquals(testPacklist, queryResult.packlist)
     }
+    */
 
-    // I want to set items which belong to a packlist
     @Test
-    fun testPacklistWithItems() = runBlocking  {
+    fun insertItemsAndretriveThemBack() = runBlocking  {
+        val referenceId = testPacklist.title
+        val item1 = Item(referenceId,"test")
+        packlistDao.insertItem(item1)
 
-        val itemListOfPacklist = packlistDao.getPackListWithItems(testPacklist.title)
+        val queryResult: PacklistWithItems = packlistDao.getItemsFromParentID(
+            referenceId).take(1).toList()[0][0]
+
+        val retrivedItems =queryResult.items.contains(item1)
+        assertTrue(retrivedItems)
     }
 
 }

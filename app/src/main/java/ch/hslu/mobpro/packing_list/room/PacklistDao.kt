@@ -28,7 +28,7 @@ interface PacklistDao {
     @Query("SELECT EXISTS (SELECT 1 FROM packlist_table WHERE id = :id)")
     fun existsByPacklist(id: Int): Boolean
 
-    @Query("SELECT * FROM packlist_table AS item WHERE item.title LIKE :title LIMIT :limit")
+    @Query("SELECT * FROM packlist_table AS item WHERE item.id LIKE :title LIMIT :limit")
     fun getPacklistByTitle(title: String, limit: Int = 1): LiveData<List<Packlist>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -37,9 +37,15 @@ interface PacklistDao {
     @Query("SELECT * FROM item_table")
     fun getAllItems() : Flow<List<Item>>
 
+
+
     @Transaction
-    @Query("SELECT * FROM packlist_table WHERE id IN (SELECT DISTINCT(itemContentID) FROM item_table) AND title LIKE :title ")
-    fun getPackListWithItems(title: String) : Flow<List<PacklistWithItems>>
+    @Query("SELECT * FROM packlist_table WHERE id IN (SELECT DISTINCT(item_id) FROM item_table) AND id = :id")
+    fun getItemsFromParentID(id: String) : Flow<List<PacklistWithItems>>
 
-
+/*
+    @Transaction
+    @Query("SELECT * FROM packlist_table WHERE id IN (SELECT DISTINCT(item_id) FROM item_table) AND id = :id ")
+    fun getPackListById(id: Long) : Flow<List<PacklistWithItems>>
+*/
 }

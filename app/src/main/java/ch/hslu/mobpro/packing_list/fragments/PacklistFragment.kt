@@ -61,8 +61,9 @@ class PacklistFragment : Fragment() {
         packlistViewModel.getCurrentEditingPackList().observe(viewLifecycleOwner) { matchingTitlePacklist ->
             Log.v(TAG, "SUCCESSFULLL RETRIVED ELEMENT")
             val pac = matchingTitlePacklist[0]
-            Log.v(TAG, pac.toString())
+            // val uniquePackListId = pac.id
 
+            // Log.v(TAG, "pac.id = " + pac.id.toString())
         }
 
     }
