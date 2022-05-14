@@ -4,8 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "item_table")
 data class Item(
-    @PrimaryKey(autoGenerate = true) val id: Int,
-    @ColumnInfo(name = "content") val content: String = ""
+    @PrimaryKey(autoGenerate = true) val itemContentID: Long,
+    val itemCreatorID: Long,
+    val content: String = ""
 )

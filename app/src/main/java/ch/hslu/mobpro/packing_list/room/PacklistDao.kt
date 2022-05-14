@@ -1,10 +1,7 @@
 package ch.hslu.mobpro.packing_list.room
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -33,4 +30,10 @@ interface PacklistDao {
 
     @Query("SELECT * FROM packlist_table AS item WHERE item.title LIKE :title LIMIT :limit")
     fun getPacklistByTitle(title: String, limit: Int = 1): LiveData<List<Packlist>>
+
+    /*
+    @Query("SELECT * FROM packlist_table")
+    fun getPackListWithItems(): Flow<List<PacklistWithItems>>
+*/
+
 }

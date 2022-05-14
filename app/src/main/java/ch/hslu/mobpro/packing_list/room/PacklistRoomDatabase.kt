@@ -10,10 +10,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
-@Database(entities = arrayOf(Packlist::class), version = 1, exportSchema = false)
+@Database(entities = [Packlist::class, Item::class], version = 1, exportSchema = false)
 abstract class PacklistRoomDatabase : RoomDatabase() {
 
     abstract fun packListDao(): PacklistDao
+
 
     private class PacklistCallback(
         private val scope: CoroutineScope,

@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import ch.hslu.mobpro.packing_list.room.Packlist
 import ch.hslu.mobpro.packing_list.room.PacklistDao
+import ch.hslu.mobpro.packing_list.room.PacklistWithItems
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -21,6 +22,7 @@ class PacklistRepository(private val packlistDao: PacklistDao) {
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
     val allPacklists: Flow<List<Packlist>> = packlistDao.getAlphabetizedPacklist()
+
 
 
     // By default Room runs suspend queries off the main thread, therefore, we don't need to
