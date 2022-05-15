@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import ch.hslu.mobpro.packing_list.*
 import ch.hslu.mobpro.packing_list.databinding.FragmentPacklistBinding
 import ch.hslu.mobpro.packing_list.room.Item
@@ -54,11 +55,15 @@ class PacklistFragment : Fragment() {
         Log.v(TAG, "receiving arguments, args.title is $title")
         itemViewModel.setCurrentEditingPackListTitle(title)
         currentPackListTitle = title // not optimal, storing data in fragment, but what else
-        observeViewModels()
+        val adapter = setupRecyclerView()
+
+        observeViewModels(adapter)
 
         binding.fabCreateNewNote.setOnClickListener {
             navigateToCreateItemFragment()
         }
+
+
     }
 
     private fun navigateToCreateItemFragment() {
@@ -71,37 +76,35 @@ class PacklistFragment : Fragment() {
         }
     }
 
+    private fun setupRecyclerView(): ItemAdapter {
+        val recyclerView = binding.itemRecyclerView
+        val adapter = ItemAdapter(itemViewModel)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), NUMBER_OF_COLUMNS)
+        return adapter
+    }
 
-    private fun observeViewModels() {
+
+    private fun observeViewModels(adapter: ItemAdapter) {
         Log.v(TAG, "observeViewModels")
         itemViewModel.getCurrentEditingPackList().observe(viewLifecycleOwner) { matchingTitlePacklist ->
             Log.v(TAG, "successfully retrieved matchingTitlePacklist")
             currentPackListTitle = matchingTitlePacklist[0].title
         }
 
-        currentPackListTitle?.let {
-            itemViewModel.getItems(it).observe(viewLifecycleOwner) { items ->
+        currentPackListTitle?.let { title ->
+            binding.textViewPacklistTitle.text = currentPackListTitle
+            itemViewModel.getItems(title).observe(viewLifecycleOwner) { items ->
                 Log.v(TAG, "itemViewModel.getItems(it).observe")
-                if (items.isNotEmpty()) {
-                    val displayItems = items[0].items
-                    addItemsToView(displayItems)
+                if (items.isNotEmpty()) { // List can have size 0 if no items have been created yet
+                    val packlistWithItems = items[0]
+                    val itemList = packlistWithItems.items
+                    itemList.let { adapter.submitList(it) }
                 }
             }
         }
     }
 
-    private fun addItemsToView(items: List<Item>) {
-        val linearlayout = binding.placeHolderContent
-        for (displayItem in items) {
-            val edittext = TextView(requireActivity())
-            edittext.text = displayItem.content
-            edittext.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT)
-            linearlayout.addView(edittext)
-
-            Log.v(TAG, items.toString())
-        }
-    }
 
 
     override fun onDestroyView() {
@@ -110,6 +113,7 @@ class PacklistFragment : Fragment() {
     }
 
     companion object {
+        private const val NUMBER_OF_COLUMNS = 2
         private const val TAG = "PacklistFragment"
     }
 

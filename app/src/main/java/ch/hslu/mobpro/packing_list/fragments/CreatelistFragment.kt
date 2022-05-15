@@ -41,6 +41,7 @@ class CreatelistFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeViewModels()
         binding.mainButtonSubmitList.setOnClickListener { submitListOnClick() }
+
     }
 
     private fun submitListOnClick() {
