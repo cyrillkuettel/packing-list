@@ -23,32 +23,19 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-
-        val navController = setupNavController()
-
-        binding.fab.setOnClickListener {
-            navController.navigate(R.id.action_MenuFragment_to_CreateListFragment)
-        }
+        setupNavController()
     }
 
     private fun setupNavController(): NavController {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            /** Only show the '+' button where it is appropriate */
-            if (destination.id == R.id.MenuFragment) {
-                binding.fab.apply { visibility = View.VISIBLE }
-            } else {
-                binding.fab.apply { visibility = View.INVISIBLE }
-            }
-        }
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
         return navController
     }
 
+    /** Not used currently. But we might use it later*/
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        /** Not used currently. But we might use it later*/
         // menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
@@ -62,7 +49,6 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)

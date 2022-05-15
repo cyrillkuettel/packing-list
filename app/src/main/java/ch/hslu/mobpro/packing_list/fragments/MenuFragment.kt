@@ -40,6 +40,9 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = setupRecyclerView()
+        binding.fab.setOnClickListener {
+            findNavController().navigate(R.id.action_MenuFragment_to_CreateListFragment)
+        }
         observeViewModels(adapter)
     }
 
