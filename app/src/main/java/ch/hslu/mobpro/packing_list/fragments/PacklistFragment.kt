@@ -113,7 +113,7 @@ class PacklistFragment : Fragment() {
     }
 
     companion object {
-        private const val NUMBER_OF_COLUMNS = 2
+        private const val NUMBER_OF_COLUMNS = 3
         private const val TAG = "PacklistFragment"
     }
 
