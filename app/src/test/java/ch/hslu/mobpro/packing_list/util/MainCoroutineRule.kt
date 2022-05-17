@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ch.hslu.mobpro.packing_list
+package ch.hslu.mobpro.packing_list.util
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

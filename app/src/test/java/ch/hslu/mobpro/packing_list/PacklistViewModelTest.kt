@@ -17,16 +17,21 @@
 package ch.hslu.mobpro.packing_list
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.asLiveData
 import ch.hslu.mobpro.packing_list.room.Packlist
+import ch.hslu.mobpro.packing_list.util.MainCoroutineRule
 import ch.hslu.mobpro.packing_list.util.getOrAwaitValue
 import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModel
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.hamcrest.CoreMatchers.*
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
+import java.util.stream.Collectors
 
 /**
  * Unit tests for the implementation of [TasksViewModel]
@@ -72,5 +77,6 @@ class PacklistViewModelTest {
         assertEquals(value, true)
 
     }
+
 
 }

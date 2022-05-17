@@ -31,9 +31,7 @@ class PacklistViewModel(private val repository: IPacklistRepository) : ViewModel
     private val clickedPacklist: MutableLiveData<Packlist?> = MutableLiveData()
 
 
-
     fun setClickedPacklist(packlist: Packlist) = viewModelScope.launch{
-
         clickedPacklist.value = packlist
     }
 
