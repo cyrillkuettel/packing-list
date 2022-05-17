@@ -17,36 +17,39 @@ import kotlinx.coroutines.launch
 /**
  * Abstracted Repository as promoted by the Architecture Guide.
  * https://developer.android.com/topic/libraries/architecture/guide.html
+ *
+ * The Interface [IPacklistRepository] enables swapping out the implementation, this can be
+ * useful for certain scenarios, for example, unit tests.
  */
-class PacklistRepository(private val packlistDao: PacklistDao) {
+class PacklistRepository(private val packlistDao: PacklistDao) : IPacklistRepository {
 
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.
-    val allPacklists: Flow<List<Packlist>> = packlistDao.getAlphabetizedPacklist()
+    override val allPacklists: Flow<List<Packlist>> = packlistDao.getAlphabetizedPacklist()
 
 
 
     // By default Room runs suspend queries off the main thread, therefore, we don't need to
     // implement anything else to ensure we're not doing long running database work
     // off the main thread.
-    @Suppress("RedundantSuspendModifier")
+
     @WorkerThread
-    suspend fun insert(word: Packlist)  {
+    override suspend fun insertPacklist(packList: Packlist)  {
         Log.v(TAG, "repository insert")
-        packlistDao.insert(word)
+        packlistDao.insert(packList)
     }
 
-    @Suppress("RedundantSuspendModifier")
+
     @WorkerThread
-    suspend fun insertItem(item: Item)  {
+    override suspend fun insertItem(item: Item)  {
         packlistDao.insertItem(item)
     }
 
-    fun getItems(id: String) : LiveData<List<PacklistWithItems>> {
+    override fun getItems(id: String) : LiveData<List<PacklistWithItems>> {
         return packlistDao.getItemsFromParentById(id)
     }
 
-    fun getPackListByTitle(title: String) : LiveData<List<Packlist>> {
+    override fun getPackListByTitle(title: String) : LiveData<List<Packlist>> {
 
         return packlistDao.getPacklistByTitle(title)
     }
@@ -56,7 +59,7 @@ class PacklistRepository(private val packlistDao: PacklistDao) {
 
 
     @WorkerThread
-    fun existsByPacklist(id: Int): LiveData<Boolean> {
+    override fun existsByPacklist(id: Int): LiveData<Boolean> {
         val data: MutableLiveData<Boolean> = MutableLiveData()
         CoroutineScope(Dispatchers.IO).launch {
             val exists: Boolean = packlistDao.existsByPacklist(id)
