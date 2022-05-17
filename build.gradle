@@ -53,4 +53,6 @@ ext {
     truthVersion = '0.42'
     uiAutomatorVersion = '2.2.0'
     workVersion = '2.7.1'
+    archTestingVersion = '2.1.0'
+
 }
