@@ -47,7 +47,7 @@ class RoomDaoTest {
     @Test
     fun testTakeOutASinglePacklist() = runBlocking  {
         val packLists = packlistDao.getAlphabetizedPacklist()
-        val result = packLists.take(1).toList().get(0).get(0)
+        val result = packLists.take(1).toList()[0][0]
         assertEquals(testPacklist,  result)
     }
 
@@ -61,8 +61,8 @@ class RoomDaoTest {
         val queryResult: List<PacklistWithItems> = packlistDao.getItemsFromParentById(
             referenceId).getOrAwaitValue()
 
-        val retrivedItems =queryResult.get(0).items.contains(item1)
-        assertTrue(retrivedItems)
+        val retrievedItems = queryResult[0].items.contains(item1)
+        assertTrue(retrievedItems)
     }
 
 }

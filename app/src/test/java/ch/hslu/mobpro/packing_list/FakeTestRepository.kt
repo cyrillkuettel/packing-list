@@ -51,7 +51,7 @@ class FakeTestRepository : IPacklistRepository {
         TODO("Not yet implemented")
     }
 
-    override fun existsByPacklist(id: Int): LiveData<Boolean> {
+    override suspend fun existsByPacklist(id: Int): LiveData<Boolean> {
         TODO("Not yet implemented")
     }
 

@@ -2,12 +2,13 @@ package ch.hslu.mobpro.packing_list.viewmodels
 
 
 import androidx.lifecycle.*
+import ch.hslu.mobpro.packing_list.IPacklistRepository
 import ch.hslu.mobpro.packing_list.PacklistRepository
 import ch.hslu.mobpro.packing_list.room.Packlist
 import kotlinx.coroutines.launch
 
 
-class PacklistViewModel(private val repository: PacklistRepository) : ViewModel() {
+class PacklistViewModel(private val repository: IPacklistRepository) : ViewModel() {
 
     // Using LiveData and caching what all Packlists returns has several benefits:
     // - We can put an observer on the data (instead of polling for changes) and only update the
@@ -20,7 +21,7 @@ class PacklistViewModel(private val repository: PacklistRepository) : ViewModel(
 
 
     fun insertNewPacklist(packlist: Packlist) = viewModelScope.launch {
-       repository.insert(packlist)
+       repository.insertPacklist(packlist)
         _navigateBacktoMenu.postValue(true)
     }
 
