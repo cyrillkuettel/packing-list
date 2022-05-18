@@ -24,7 +24,7 @@
         android:id="@+id/itemRecyclerView"
         android:name="ch.hslu.mobpro.packing_list.PacklistFragment"
         android:layout_width="382dp"
-        android:layout_height="635dp"
+        android:layout_height="615dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
