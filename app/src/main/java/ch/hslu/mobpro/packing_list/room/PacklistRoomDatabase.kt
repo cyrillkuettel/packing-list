@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
-@Database(entities = [Packlist::class, Item::class], version = 2, exportSchema = false)
+@Database(entities = [Packlist::class, Item::class], version = 3, exportSchema = false)
 abstract class PacklistRoomDatabase : RoomDatabase() {
 
     abstract fun packListDao(): PacklistDao
@@ -28,7 +28,7 @@ abstract class PacklistRoomDatabase : RoomDatabase() {
                     packlistDao.deleteAll()
 
                     // Populate with some sample packlist, for testing.
-                    val word = Packlist("Hello")
+                    val word = Packlist("Hello","@Home")
                     packlistDao.insert(word)
 
                 }

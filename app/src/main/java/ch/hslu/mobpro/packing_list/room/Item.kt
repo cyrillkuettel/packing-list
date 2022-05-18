@@ -5,13 +5,12 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(
-    tableName = "item_table",
-foreignKeys = [
+@Entity(tableName = "item_table",
+        foreignKeys = [
             androidx.room.ForeignKey(entity = Packlist::class,
                 parentColumns = ["id"],
                 childColumns = ["item_id"])
-    ],
+        ],
     indices = [Index("item_id")]
 )
 data class Item(

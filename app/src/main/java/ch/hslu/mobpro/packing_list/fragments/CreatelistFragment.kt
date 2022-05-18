@@ -53,8 +53,9 @@ class CreatelistFragment : Fragment() {
 
     private fun createNewPacklistObject(): Packlist {
         // TODO : insert attributes like date, location etc
+        val packListLocation = binding.mainEditTextLocation.text.toString()
         val packListTitle = binding.mainEditTextName.text.toString()
-        return Packlist(packListTitle)
+        return Packlist(packListTitle, packListLocation)
     }
 
 

@@ -36,7 +36,7 @@ constructor(
         drawCard(canvas)
         paintTitleText(canvas)
         // setDurationText(canvas, duration, 0)
-        // setLocationText(canvas, location, 0)
+        paintLocationText(canvas)
     }
 
 
@@ -61,6 +61,13 @@ constructor(
             title = text
         }
     }
+
+    fun setLocation(text: String?){
+        if (text != null){
+            location = text
+        }
+    }
+
 
     private fun paintTitleText(canvas: Canvas?) {
         val titleText = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -102,22 +109,22 @@ constructor(
         }
     }
 
-    private fun paintLocationText(canvas: Canvas?, text: String, fromTop: Int) {
-
-        val locationTextPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    private fun paintLocationText(canvas: Canvas?) {
+        val titleText = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = primaryTextColor
             textAlign = Paint.Align.RIGHT
-            textSize = bigTextSize
+            textSize = mediumTextSize
+            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
         }
         canvas?.let {
-            locationTextPaint.getTextBounds(text, 0, text.length, placeholderRect)
+            titleText.getTextBounds(location, 0, location.length, placeholderRect)
             it.drawText(
-                text,
+                location,
                 0,
-                text.length,
-                (40f + placeholderRect.width()),
-                placeholderRect.height() + 120f + bigTextSize + 20f + fromTop.toFloat(),
-                locationTextPaint
+                location.length,
+                950f,
+                240f,
+                titleText
             )
         }
     }
