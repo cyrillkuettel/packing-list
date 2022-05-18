@@ -16,8 +16,9 @@ foreignKeys = [
 )
 data class Item(
     @ColumnInfo(name = "item_id")
-    val itemId: String, // to reference Parent
-    val content: String
+    val itemId: String,     // to reference Parent
+    val content: String,    // TextView from Item
+    val status: Boolean     // CheckBox from Item
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -30,6 +31,7 @@ data class Item(
         itemContentID: $itemContentID
         itemId: $itemId
         content: $content
+        status: $status
     """.trimIndent()
 
 }

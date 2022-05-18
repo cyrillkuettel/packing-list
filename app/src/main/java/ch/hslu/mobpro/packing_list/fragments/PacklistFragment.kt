@@ -64,6 +64,7 @@ class PacklistFragment : Fragment() {
         }
 
 
+
     }
 
     private fun navigateToCreateItemFragment() {
@@ -87,11 +88,15 @@ class PacklistFragment : Fragment() {
 
     private fun observeViewModels(adapter: ItemAdapter) {
         Log.v(TAG, "observeViewModels")
+
+        // Get Title
         itemViewModel.getCurrentEditingPackList().observe(viewLifecycleOwner) { matchingTitlePacklist ->
             Log.v(TAG, "successfully retrieved matchingTitlePacklist")
             currentPackListTitle = matchingTitlePacklist[0].title
         }
 
+
+        // Set Title // Get Items
         currentPackListTitle?.let { title ->
             binding.textViewPacklistTitle.text = currentPackListTitle
             itemViewModel.getItems(title).observe(viewLifecycleOwner) { items ->
@@ -104,6 +109,7 @@ class PacklistFragment : Fragment() {
             }
         }
     }
+
 
 
 

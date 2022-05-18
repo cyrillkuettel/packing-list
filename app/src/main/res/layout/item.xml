@@ -21,9 +21,10 @@
             android:id="@+id/itemContent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="40dp"
+            android:layout_marginEnd="50dp"
             android:textColor="#E9FFDB"
-            android:textSize="20sp"
+            android:textSize="18sp"
+            android:padding="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,9 +32,9 @@
             tools:text="Item" />
 
         <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="40dp"
-            android:layout_height="27dp"
+            android:id="@+id/itemCb"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/itemContent"
             app:layout_constraintTop_toTopOf="parent" />

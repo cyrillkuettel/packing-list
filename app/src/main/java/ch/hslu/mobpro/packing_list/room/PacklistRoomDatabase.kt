@@ -5,12 +5,13 @@ import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
-@Database(entities = [Packlist::class, Item::class], version = 1, exportSchema = false)
+@Database(entities = [Packlist::class, Item::class], version = 2, exportSchema = false)
 abstract class PacklistRoomDatabase : RoomDatabase() {
 
     abstract fun packListDao(): PacklistDao
@@ -19,7 +20,6 @@ abstract class PacklistRoomDatabase : RoomDatabase() {
     private class PacklistCallback(
         private val scope: CoroutineScope,
     ) : RoomDatabase.Callback() {
-
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
             INSTANCE?.let { database ->
@@ -59,7 +59,7 @@ abstract class PacklistRoomDatabase : RoomDatabase() {
                     context.applicationContext,
                     PacklistRoomDatabase::class.java,
                     "word_database"
-                ).addCallback(PacklistCallback(scope)).build()
+                ).addCallback(PacklistCallback(scope)).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 instance
             }

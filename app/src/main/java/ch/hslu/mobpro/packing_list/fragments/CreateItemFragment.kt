@@ -78,7 +78,9 @@ class CreateItemFragment : Fragment() {
 
     private fun createItem(): Item? {
         val content = binding.mainEditTextItemName.text.toString()
-        return currentPackListTitle?.let { Item(it.toString(), content) }
+        val status = false
+        return currentPackListTitle?.let { Item(it.toString(), content, status) }
+
     }
 
 

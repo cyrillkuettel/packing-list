@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -25,21 +26,39 @@ class ItemAdapter(private val itemViewModel: ItemViewModel) :
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val current = getItem(position)
         holder.bind(current.content)
-
+        holder.bindStatus(current.status)
         holder.getView().setOnClickListener {
             Log.v(TAG, "clicked on item wit content: ${current.content}")
         }
+        holder.getStatus().setOnClickListener {
+            Log.v(TAG, "clicked on Cb from Item wit content: ${current.content}")
+        }
     }
 
+
+
+
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        // Text View in Item
         private val itemContent: TextView = itemView.findViewById(R.id.itemContent)
 
+        // Check Box in Item
+        private val itemStatus: CheckBox = itemView.findViewById(R.id.itemCb)
+
+        // String from TextView
         fun bind(content: String?) {
             itemContent.text = content
         }
-
         fun getView(): TextView {
             return itemContent
+        }
+
+        // Status from CheckBox
+        fun bindStatus(status: Boolean){
+            itemStatus.isChecked = status
+        }
+        fun getStatus(): CheckBox{
+            return itemStatus
         }
 
         companion object {
