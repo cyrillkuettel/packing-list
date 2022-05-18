@@ -10,7 +10,7 @@
     app:cardCornerRadius="8dp"
     app:cardElevation="5dp"
     app:cardMaxElevation="7dp"
-    app:contentPadding="24dp"
+    app:contentPadding="8dp"
     android:layout_margin="4dp" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,18 +21,22 @@
             android:id="@+id/itemContent"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
             android:textColor="#E9FFDB"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Item" />
 
         <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintStart_toEndOf="parent"
-            tools:layout_editor_absoluteY="0dp" />
+            android:id="@+id/checkBox"
+            android:layout_width="40dp"
+            android:layout_height="27dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/itemContent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
