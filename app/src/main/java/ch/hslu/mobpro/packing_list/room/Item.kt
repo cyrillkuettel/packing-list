@@ -27,7 +27,7 @@ data class Item(
 
     override fun toString() =
         """
-         Item
+        Item
         itemContentID: $itemContentID
         itemId: $itemId
         content: $content

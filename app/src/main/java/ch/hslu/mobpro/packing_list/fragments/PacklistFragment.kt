@@ -9,12 +9,14 @@ import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import ch.hslu.mobpro.packing_list.*
 import ch.hslu.mobpro.packing_list.databinding.FragmentPacklistBinding
 import ch.hslu.mobpro.packing_list.room.Item
+import ch.hslu.mobpro.packing_list.room.PacklistWithItems
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
 
@@ -63,9 +65,16 @@ class PacklistFragment : Fragment() {
             navigateToCreateItemFragment()
         }
 
-
+        binding.itemRecyclerView.setOnClickListener {
+            updateItems(itemViewModel.getItems(title))
+        }
 
     }
+
+    private fun updateItems(items: LiveData<List<PacklistWithItems>>) {
+        updateItems(items)
+    }
+
 
     private fun navigateToCreateItemFragment() {
         val action = currentPackListTitle?.let {

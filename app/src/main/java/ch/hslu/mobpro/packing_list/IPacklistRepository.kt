@@ -20,7 +20,8 @@ interface IPacklistRepository {
     @WorkerThread
     suspend fun insertItem(item: Item)
     fun getItems(id: String): LiveData<List<PacklistWithItems>>
-     fun  getPackListByTitle(title: String): LiveData<List<Packlist>>
+    fun getPackListByTitle(title: String): LiveData<List<Packlist>>
+    fun updateItems(items: LiveData<List<PacklistWithItems>>)
 
     @WorkerThread
     suspend fun existsByPacklist(id: Int): LiveData<Boolean>

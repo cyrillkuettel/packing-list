@@ -37,6 +37,9 @@ interface PacklistDao {
     @Query("SELECT * FROM item_table")
     fun getAllItems() : Flow<List<Item>>
 
+    //@Update
+    //fun updateItems(items: LiveData<List<PacklistWithItems>>)
+
 
     @Transaction
     @Query("SELECT * FROM packlist_table WHERE id IN (SELECT DISTINCT(item_id) FROM item_table) AND id = :id")

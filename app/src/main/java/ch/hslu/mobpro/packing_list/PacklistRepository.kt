@@ -52,6 +52,9 @@ class PacklistRepository(private val packlistDao: PacklistDao,
         return packlistDao.getPacklistByTitle(title)
     }
 
+    override fun updateItems(items: LiveData<List<PacklistWithItems>>){
+     //   packlistDao.updateItems(items)
+    }
 
     @WorkerThread
     override suspend fun existsByPacklist(id: Int): LiveData<Boolean> {

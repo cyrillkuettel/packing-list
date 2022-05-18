@@ -37,7 +37,9 @@ class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
         return repository.getItems(id)
     }
 
-
+   fun updateItems(items: LiveData<List<PacklistWithItems>>){
+       updateItems(items)
+   }
 
 }
 
