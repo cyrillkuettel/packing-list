@@ -9,6 +9,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toolbar
 import androidx.navigation.NavController
 import ch.hslu.mobpro.packing_list.databinding.ActivityMainBinding
 
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupNavController(): NavController {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
+        findViewById<Toolbar>(R.id.toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         return navController
     }

@@ -61,6 +61,10 @@ class PacklistFragment : Fragment() {
 
         observeViewModels(adapter)
 
+
+        itemViewModel._navigateBacktoPacklist.observe(viewLifecycleOwner) {
+            navigateBack()
+        }
         binding.fabCreateNewNote.setOnClickListener {
             navigateToCreateItemFragment()
         }
@@ -119,6 +123,16 @@ class PacklistFragment : Fragment() {
         }
     }
 
+    private fun navigateBack() {
+        val action = currentPackListTitle?.let {
+            CreateItemFragmentDirections.actionCreateItemFragmentToPacklistFragment(it)
+        }
+        if (action != null) {
+            findNavController().navigate(action)
+        } else {
+            findNavController().navigate(R.id.action_CreateItemFragment_to_PacklistFragment)
+        }
+    }
 
 
 
