@@ -17,7 +17,6 @@ import ch.hslu.mobpro.packing_list.R
 import ch.hslu.mobpro.packing_list.databinding.FragmentCreatelistBinding
 import ch.hslu.mobpro.packing_list.room.Packlist
 import java.util.*
-import javax.xml.datatype.DatatypeConstants.MONTHS
 
 /**
  *  This fragment represents the screen for creating a new packing list.
@@ -62,9 +61,16 @@ class CreatelistFragment : Fragment() {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
 
-        val dpd = DatePickerDialog(requireContext(), null, year, month, day)
+
+        val dpd = DatePickerDialog(requireContext(),DatePickerDialog.OnDateSetListener { datePicker, year, month, day -> setDate(year, month, day) }, year, month, day)
         dpd.show()
-        binding.textView3.text = "$day/$month/$year"
+
+
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setDate( year: Int, month: Int, day: Int) {
+        binding.datePickerTextView.text = "$day/$month/$year"
     }
 
 
@@ -72,7 +78,8 @@ class CreatelistFragment : Fragment() {
         // TODO : insert attributes like date, location etc
         val packListLocation = binding.mainEditTextLocation.text.toString()
         val packListTitle = binding.mainEditTextName.text.toString()
-        return Packlist(packListTitle, packListLocation)
+        val packListDate = binding.datePickerTextView.text.toString()
+        return Packlist(packListTitle, packListLocation, packListDate)
     }
 
 
