@@ -24,7 +24,7 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel) :
 
     override fun onBindViewHolder(holder: PacklistViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current.title, current.location)
+        holder.bind(current.title, current.location, current.date)
 
         holder.getView().setOnClickListener {
             // retrieve id of clicked item here
@@ -36,9 +36,10 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel) :
     class PacklistViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val cardView: PacklistCardView = itemView.findViewById(R.id.packlistcardview)
 
-        fun bind(text: String?,location: String?) {
+        fun bind(text: String?,location: String?,date: String) {
             cardView.setTitle(text)
             cardView.setLocation(location)
+            cardView.setDate(date)
             // cardView.height = cardView.getCurrentViewHeight()
         }
 

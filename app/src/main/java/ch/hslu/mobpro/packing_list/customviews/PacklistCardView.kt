@@ -14,7 +14,7 @@ constructor(
     defStyleAttr: Int = 0,
     private var title: String = "Wanderung Martinsloch",
     private var location: String = "Location: Martinsloch",
-    private var date: String = "Date: 25.05.2022",
+    private var date: String = "25.05.2022",
     private var duration: String = "Duration: 1d",
     private val cardColor: Int = Color.parseColor("#006400"),
 ) : View(ctx, attributeSet, defStyleAttr) {
@@ -35,7 +35,7 @@ constructor(
         super.onDraw(canvas)
         drawCard(canvas)
         paintTitleText(canvas)
-        // setDurationText(canvas, duration, 0)
+        paintDate(canvas)
         paintLocationText(canvas)
     }
 
@@ -68,6 +68,11 @@ constructor(
         }
     }
 
+    fun setDate(text: String?){
+        if (text != null){
+            date = text
+        }
+    }
 
     private fun paintTitleText(canvas: Canvas?) {
         val titleText = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -89,22 +94,22 @@ constructor(
         }
     }
 
-    private fun paintDurationText(canvas: Canvas?, text: String, fromTop: Int) {
+    private fun paintDate(canvas: Canvas?) {
 
-        val durationTextPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        val listDate = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = primaryTextColor
             textAlign = Paint.Align.RIGHT
             textSize = mediumTextSize
         }
         canvas?.let {
-            durationTextPaint.getTextBounds(text, 0, text.length, placeholderRect)
+            listDate.getTextBounds(date, 0, date.length, placeholderRect)
             it.drawText(
-                text,
+                date,
                 0,
-                text.length,
-                (40f + placeholderRect.width()),
-                placeholderRect.height() + mediumTextSize + fromTop.toFloat(),
-                durationTextPaint
+                date.length,
+                950f,
+                85f,
+                listDate
             )
         }
     }
