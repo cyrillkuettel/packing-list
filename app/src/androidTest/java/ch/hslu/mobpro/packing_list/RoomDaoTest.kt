@@ -36,7 +36,6 @@ class RoomDaoTest {
         database = Room.inMemoryDatabaseBuilder(context, PacklistRoomDatabase::class.java).build()
         packlistDao = database.packListDao()
         packlistDao.insert(testPacklist)
-
     }
 
     @Throws(IOException::class)
@@ -54,14 +53,17 @@ class RoomDaoTest {
     @Test
     fun testInsertingItems_ShouldBeReturnedAsLiveData() = runBlocking  {
 
-        val referenceId = testPacklist.title
-        val item1 = Item(referenceId,"test")
-        packlistDao.insertItem(item1)
+        val id = testPacklist.title
+        // given a arbitrary item
+        val testItemInserted = Item(id,"test", true)
+        // insert the item to database
+            packlistDao.insertItem(testItemInserted)
 
+        // retrieve this item from database, it should be equal to the original item
         val queryResult: List<PacklistWithItems> = packlistDao.getItemsFromParentById(
-            referenceId).getOrAwaitValue()
+            id).getOrAwaitValue()
 
-        val retrievedItems = queryResult[0].items.contains(item1)
+        val retrievedItems = queryResult[0].items.contains(testItemInserted)
         assertTrue(retrievedItems)
     }
 
