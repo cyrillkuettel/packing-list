@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         return navController
     }
 
-    /** Not used currently. But we might use it later*/
+    /** Not used currently. But we might use it later */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         // menuInflater.inflate(R.menu.menu_main, menu)

@@ -8,27 +8,23 @@
     <fragment
         android:id="@+id/MenuFragment"
         android:name="ch.hslu.mobpro.packing_list.fragments.MenuFragment"
-        android:label="MenuFragment"
+        android:label="@string/menu_fragment_label"
         tools:layout="@layout/fragment_menu">
 
         <action
             android:id="@+id/action_MenuFragment_to_PacklistFragment"
             app:destination="@id/PacklistFragment" />
 
-
         <action
             android:id="@+id/action_MenuFragment_to_CreateListFragment"
             app:destination="@id/CreateListFragment" />
 
-
     </fragment>
-
     <fragment
         android:id="@+id/CreateListFragment"
         android:name="ch.hslu.mobpro.packing_list.fragments.CreatelistFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/create_list_fragment_label"
         tools:layout="@layout/fragment_createlist">
-
         <action
             android:id="@+id/action_CreateListFragment_To_MenuFragment"
             app:destination="@id/MenuFragment" />
@@ -39,7 +35,6 @@
         android:name="ch.hslu.mobpro.packing_list.fragments.PacklistFragment"
         android:label="Selected Packlist"
         tools:layout="@layout/fragment_packlist">
-
         <action
             android:id="@+id/action_PacklistFragment_to_MenuFragment"
             app:destination="@id/MenuFragment" />
@@ -56,7 +51,7 @@
     <fragment
         android:id="@+id/CreateItemFragment"
         android:name="ch.hslu.mobpro.packing_list.fragments.CreateItemFragment"
-        android:label="Edit Packlist Item"
+        android:label="@string/create_item_fragment_label"
         tools:layout="@layout/fragment_create_item">
 
         <action
