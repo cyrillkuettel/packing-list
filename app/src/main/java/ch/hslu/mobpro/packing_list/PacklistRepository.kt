@@ -16,9 +16,6 @@ import kotlinx.coroutines.flow.Flow
  * Abstracted Repository as promoted by the Architecture Guide.
  * https://developer.android.com/topic/libraries/architecture/guide.html
  *
- * The Interface [IPacklistRepository] enables swapping out the implementation, this can be
- * useful for certain scenarios, for example, unit tests.
- *
  * All information flows through this repository, regardless of the content.
  */
 class PacklistRepository(private val packlistDao: PacklistDao,

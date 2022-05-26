@@ -59,9 +59,20 @@ class FakeTestRepository : IPacklistRepository {
         TODO("Not yet implemented")
     }
 
+    override fun getStatus(itemContentID: Long): LiveData<List<Item>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun setStatus(itemContentID: Long, status: Boolean) {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun delete(itemContentID: Long) {
+        TODO("Not yet implemented")
+    }
 
 
-/** item specific functions */
+    /** item specific functions */
     override suspend fun insertItem(item: Item) {
         TODO("Not yet implemented")
     }
