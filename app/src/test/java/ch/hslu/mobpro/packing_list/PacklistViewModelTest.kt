@@ -58,9 +58,9 @@ class PacklistViewModelTest {
     fun setupViewModel() {
         // We initialise the tasks to 3, with one active and two completed
         packlistRepository = FakeTestRepository()
-        val task1 = Packlist("Title1", "location1" ,"date1")
-        val task2 = Packlist("Title2","location1" ,"date1")
-        val task3 = Packlist("Title3","location1" ,"date1")
+        val task1 = Packlist("Title1", "location1" ,"date1", -13070788)
+        val task2 = Packlist("Title2","location1" ,"date1",-13070788)
+        val task3 = Packlist("Title3","location1" ,"date1",-13070788)
         packlistRepository.insertPacklists(task1, task2, task3)
 
         tasksViewModel = PacklistViewModel(packlistRepository)
@@ -72,7 +72,7 @@ class PacklistViewModelTest {
         tasksViewModel.insertNewPacklist(
             Packlist("new Packlist created in Menu",
             "location1" ,
-            "date1"))
+            "date1", -13070788))
 
         // Then the event to navigate back to Menu is triggered
         val value = tasksViewModel._navigateBacktoMenu.getOrAwaitValue()

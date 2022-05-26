@@ -38,7 +38,7 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
             Log.v(TAG, "clicked on textView of item with content: ${current.content}")
         }
 
-        // Retrieve status from database.
+        // Retrieve Checkbox status from database.
         // We can only access the DB by observing the viewModel. To make this work, the
         // viewLifecycleOwner form the fragment is passed in. (Manual dependency injection)
         itemViewModel.getStatus(current.itemContentID).observe(lifeCycleOwner) { items ->

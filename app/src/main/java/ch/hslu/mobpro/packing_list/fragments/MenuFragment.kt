@@ -27,9 +27,6 @@ class MenuFragment : Fragment() {
         PacklistViewModelFactory((requireActivity().application as PacklistApplication).repository)
     }
 
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -38,13 +35,11 @@ class MenuFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d(TAG, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
         val adapter = setupRecyclerView()
         binding.fab.setOnClickListener {
-            Log.d(TAG, "binding.fab.setOnClickListener")
             findNavController().navigate(R.id.action_MenuFragment_to_CreateListFragment)
         }
         observeViewModels(adapter)

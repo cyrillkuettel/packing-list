@@ -9,5 +9,7 @@ import androidx.room.PrimaryKey
 data class Packlist(
     @PrimaryKey @ColumnInfo(name = "id") val title: String,
     val location: String,
-    val date: String
+    val date: String,
+    val color: Int
 )
+//     val color: String

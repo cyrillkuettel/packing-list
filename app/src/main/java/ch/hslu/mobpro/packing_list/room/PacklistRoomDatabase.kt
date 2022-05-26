@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
-@Database(entities = [Packlist::class, Item::class], version = 4, exportSchema = false)
+@Database(entities = [Packlist::class, Item::class], version = 5, exportSchema = false)
 abstract class PacklistRoomDatabase : RoomDatabase() {
 
     abstract fun packListDao(): PacklistDao
@@ -28,7 +28,7 @@ abstract class PacklistRoomDatabase : RoomDatabase() {
                     packlistDao.deleteAll()
 
                     // Populate with some sample packlist, for testing.
-                    val word = Packlist("Hello","@Home", "09.12.1999")
+                    val word = Packlist("Hello","@Home", "09.12.1999", -13070788)
                     packlistDao.insert(word)
 
                 }
@@ -37,7 +37,7 @@ abstract class PacklistRoomDatabase : RoomDatabase() {
     }
 
     companion object {
-        private const val TAG = "PlantRoomDatabase"
+        private const val TAG = "PacklistRoomDatabase"
 
         // Singleton prevents multiple instances of database opening at the
         // same time.

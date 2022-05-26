@@ -9,14 +9,13 @@ import android.view.View
 
 class PacklistCardView @JvmOverloads
 constructor(
-    private val ctx: Context,
+    ctx: Context,
     attributeSet: AttributeSet? = null,
     defStyleAttr: Int = 0,
     private var title: String = "Wanderung Martinsloch",
     private var location: String = "Location: Martinsloch",
-    private var date: String = "25.05.2022",
-    private var duration: String = "Duration: 1d",
-    private val cardColor: Int = Color.parseColor("#006400"),
+    private var date: String = "",
+    private var cardColor: Int = Color.parseColor("#006400"),
 ) : View(ctx, attributeSet, defStyleAttr) {
 
 
@@ -72,6 +71,10 @@ constructor(
         if (text != null){
             date = text
         }
+    }
+
+    fun setColor(color: Int) {
+        cardColor = color
     }
 
     private fun paintTitleText(canvas: Canvas?) {
