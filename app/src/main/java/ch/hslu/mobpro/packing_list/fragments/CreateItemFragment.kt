@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -46,7 +47,10 @@ class CreateItemFragment : Fragment() {
         Log.v(TAG, "getting arguments,currentPackListTitle is $currentPackListTitle")
 
         binding.textViewTitle.text = currentPackListTitle
+
+
         observeViewModels()
+
     }
 
     private fun observeViewModels() {

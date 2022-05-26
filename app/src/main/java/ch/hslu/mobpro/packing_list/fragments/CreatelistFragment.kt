@@ -3,11 +3,15 @@ package ch.hslu.mobpro.packing_list.fragments
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
+import android.widget.Toast
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ch.hslu.mobpro.packing_list.PacklistApplication
@@ -45,6 +49,23 @@ class CreatelistFragment : Fragment() {
         observeViewModels()
         binding.mainButtonSubmitList.setOnClickListener { submitListOnClick() }
         binding.mainButtonStartDatePicker.setOnClickListener{ setupDatePicker()}
+
+        binding.spinnerView.setOnSpinnerItemSelectedListener<String> { _, _, _, text ->
+            Log.d(TAG, "spinnerclicked")
+            Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+        }
+        binding.spinnerView.apply {
+            setOnSpinnerItemSelectedListener<String> { _, _, index, _ ->
+                when (index) {
+                    0 -> setBackgroundColor(getContextColor(R.color.colorPrimary))
+                    1 -> setBackgroundColor(getContextColor(R.color.md_orange_200))
+                    2 -> setBackgroundColor(getContextColor(R.color.md_yellow_200))
+                    3 -> setBackgroundColor(getContextColor(R.color.md_green_200))
+                    4 -> setBackgroundColor(getContextColor(R.color.md_blue_200))
+                    5 -> setBackgroundColor(getContextColor(R.color.md_purple_200))
+                }
+            }
+        }
     }
 
     private fun submitListOnClick() {
@@ -95,6 +116,10 @@ class CreatelistFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun getContextColor(@ColorRes resource: Int): Int {
+        return ContextCompat.getColor(requireContext(), resource)
     }
 
 

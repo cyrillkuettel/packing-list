@@ -73,7 +73,6 @@ class MenuFragment : Fragment() {
 
         packlistViewModel.getClickedPacklist().observe(viewLifecycleOwner) { packList ->
             if (!packListHasBeenClicked) {
-
                 Log.d(TAG, "getClickedPacklist() fired")
                 val action = packList?.let {
                     Log.d(TAG, "setting Title as argument: title is ${it.title}")

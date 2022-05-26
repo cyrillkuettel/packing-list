@@ -57,7 +57,7 @@ class PacklistFragment : Fragment() {
         val title = args.title // retrieve title from Arguments, this uniquely identifies Packlist
         Log.v(TAG, "receiving arguments, args.title is $title")
         itemViewModel.setCurrentEditingPackListTitle(title)
-        currentPackListTitle = title // not optimal, storing data in fragment, but what else
+        currentPackListTitle = title // not optimal, storing data in fragment, but seems to be inevitable
         val adapter = setupRecyclerView()
 
         observeViewModels(adapter)
@@ -66,9 +66,6 @@ class PacklistFragment : Fragment() {
         binding.fabCreateNewNote.setOnClickListener {
             navigateToCreateItemFragment()
         }
-
-
-
 
     }
 

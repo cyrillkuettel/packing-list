@@ -6,4 +6,13 @@
     <string name="menu_fragment_label">Packlists</string>
     <string name="create_item_fragment_label">Edit Packlist Item</string>
 
+    <!-- Colors for Packlist item -->
+    <string-array name="colors">
+        <item>red</item>
+        <item>orange</item>
+        <item>yellow</item>
+        <item>green</item>
+        <item>blue</item>
+        <item>purple</item>
+    </string-array>
 </resources>
