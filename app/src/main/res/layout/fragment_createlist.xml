@@ -46,17 +46,17 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainButtonStartDatePicker"
-        android:layout_width="wrap_content"
+        android:layout_width="229dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Date Picker"
+        android:text="Pick a date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/datePickerTextView" />
 
     <EditText
         android:id="@+id/mainEditTextLocation"
-        android:layout_width="wrap_content"
+        android:layout_width="229dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:ems="10"
@@ -70,7 +70,7 @@
 
     <com.skydoves.powerspinner.PowerSpinnerView
         android:id="@+id/spinnerView"
-        android:layout_width="409dp"
+        android:layout_width="229dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:minHeight="48dp"
@@ -84,7 +84,7 @@
         android:foreground="?attr/selectableItemBackground"
         android:textColor="@color/white_93"
         android:textColorHint="@color/white_70"
-        android:textSize="14.5sp"
+        android:textSize="16sp"
         app:spinner_item_array="@array/colors"
         app:spinner_arrow_gravity="end"
         app:spinner_arrow_padding="8dp"
@@ -99,7 +99,9 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainButtonSubmitList"
-        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:background="@color/purple_500"
+        android:layout_width="229dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="Create new List"

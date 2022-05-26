@@ -103,6 +103,8 @@ class PacklistFragment : Fragment() {
         // Set Title // Get Items
         currentPackListTitle?.let { title ->
             binding.textViewPacklistTitle.text = currentPackListTitle
+
+
             itemViewModel.getItems(title).observe(viewLifecycleOwner) { items ->
                 Log.v(TAG, "itemViewModel.getItems(it).observe")
                 if (items.isNotEmpty()) { // List can have size 0 if no items have been created yet
