@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toolbar
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -36,9 +37,11 @@ class PacklistFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        /** This ensures we can use the back button to return to Menu */
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().navigate(R.id.action_PacklistFragment_to_MenuFragment)
         }
+
     }
 
     override fun onCreateView(
@@ -123,6 +126,7 @@ class PacklistFragment : Fragment() {
     }
 
     private fun navigateBack() {
+        Log.d(TAG, "navigateBack")
         val action = currentPackListTitle?.let {
             CreateItemFragmentDirections.actionCreateItemFragmentToPacklistFragment(it)
         }
@@ -141,7 +145,7 @@ class PacklistFragment : Fragment() {
     }
 
     companion object {
-        private const val NUMBER_OF_COLUMNS = 3
+        private const val NUMBER_OF_COLUMNS = 2
         private const val TAG = "PacklistFragment"
     }
 

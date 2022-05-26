@@ -28,6 +28,8 @@ class MenuFragment : Fragment() {
     }
 
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -38,9 +40,11 @@ class MenuFragment : Fragment() {
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d(TAG, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
         val adapter = setupRecyclerView()
         binding.fab.setOnClickListener {
+            Log.d(TAG, "binding.fab.setOnClickListener")
             findNavController().navigate(R.id.action_MenuFragment_to_CreateListFragment)
         }
         observeViewModels(adapter)
@@ -64,8 +68,9 @@ class MenuFragment : Fragment() {
 
         packlistViewModel.getClickedPacklist().observe(viewLifecycleOwner) { packList ->
             // we assume title is unique
+            Log.d(TAG, "you clicked on packlist (but not really)")
             val action = packList?.let {
-                Log.v(TAG, "setting Title as argument: title is ${it.title}")
+                Log.d(TAG, "setting Title as argument: title is ${it.title}")
                 MenuFragmentDirections.actionMenuFragmentToPacklistFragment(it.title)
             }
             if (action != null) {

@@ -1,6 +1,7 @@
 package ch.hslu.mobpro.packing_list
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -30,7 +31,6 @@ class MainActivity : AppCompatActivity() {
     private fun setupNavController(): NavController {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
-        findViewById<Toolbar>(R.id.toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         return navController
     }
@@ -53,8 +53,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        Log.d(TAG, "onSupportNavigateUp")
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
+    }
+
+    companion object {
+        const val TAG = "MainActivity"
     }
 }
