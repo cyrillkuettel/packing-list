@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -28,30 +29,29 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val current = getItem(position)
-        Log.v(TAG, current.itemContentID.toString())
-
         holder.bind(current.content)
-        //holder.setStatus(current.status)
         holder.getView().setOnClickListener {
-            Log.v(TAG, "clicked on text of item with content: ${current.content}")
+            Log.v(TAG, "clicked on textView of item with content: ${current.content}")
         }
-
-
 
         // first, find the checkbox status as stored in the DB.
         itemViewModel.getStatus(current.itemContentID).observe(lifeCycleOwner) { items ->
-            val item: Item = items[0]
-            // Then update the value in the UI
-            holder.setStatus(item.status)
-            Log.v(TAG, "current status of this item is ${item.status}")
-
+            if (items.isNotEmpty()) {
+                val item: Item = items[0]
+                // Then update the value in the UI
+                holder.setStatus(item.status)
+                Log.v(TAG, "current status of this item is ${item.status}")
+            }
         }
 
         holder.getStatus().setOnClickListener {
             itemViewModel.setStatus(current.itemContentID, !current.status)
+            Log.v(TAG, "clicked on Cb from Item with checkbox status: ${getItem(position).status}")
+        }
 
-            //Log.v(TAG, "clicked on Cb from Item with checkbox status: ${getItem(position).status}")
-
+        holder.getItemDeleteButton().setOnClickListener {
+            itemViewModel.delete(current.itemContentID)
+            // UI will update automatically, because the PackListFragment observes the items
         }
     }
 
@@ -60,6 +60,7 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private val itemDeleteButon: ImageButton = itemView.findViewById(R.id.itemDeleteButton)
 
         // Text View in Item
         private val itemContent: TextView = itemView.findViewById(R.id.itemContent)
@@ -73,6 +74,10 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
         }
         fun getView(): TextView {
             return itemContent
+        }
+
+        fun getItemDeleteButton(): ImageButton {
+            return itemDeleteButon
         }
 
         // Status from CheckBox

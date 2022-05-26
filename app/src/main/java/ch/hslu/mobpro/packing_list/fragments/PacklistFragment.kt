@@ -37,7 +37,7 @@ class PacklistFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        /** This ensures we can use the back button to return to Menu */
+        /** This ensures we can use the back button to return to MenuFragment */
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().navigate(R.id.action_PacklistFragment_to_MenuFragment)
         }
@@ -63,21 +63,13 @@ class PacklistFragment : Fragment() {
         observeViewModels(adapter)
 
 
-        itemViewModel._navigateBackToItemOverview.observe(viewLifecycleOwner) {
-            navigateBack()
-        }
         binding.fabCreateNewNote.setOnClickListener {
             navigateToCreateItemFragment()
         }
 
-        binding.itemRecyclerView.setOnClickListener {
-            updateItems(itemViewModel.getItems(title))
-        }
 
-    }
 
-    private fun updateItems(items: LiveData<List<PacklistWithItems>>) {
-        updateItems(items)
+
     }
 
 
@@ -120,9 +112,16 @@ class PacklistFragment : Fragment() {
                     val packlistWithItems = items[0]
                     val itemList = packlistWithItems.items // This is a List of the actual items of packlist
                     itemList.let { adapter.submitList(it) } // this generates the Items
+                } else {
+                    adapter.submitList(emptyList())
                 }
             }
         }
+
+        itemViewModel._navigateBackToItemOverview.observe(viewLifecycleOwner) {
+            navigateBack()
+        }
+
     }
 
     private fun navigateBack() {

@@ -34,13 +34,6 @@ interface PacklistDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertItem(testItem: Item)
 
-    @Query("SELECT * FROM item_table")
-    fun getAllItems() : Flow<List<Item>>
-
-    //@Update
-    //fun updateItems(items: LiveData<List<PacklistWithItems>>)
-
-
     @Transaction
     @Query("SELECT * FROM packlist_table WHERE id IN (SELECT DISTINCT(item_id) FROM item_table) AND id = :id")
     fun getItemsFromParentById(id: String) : LiveData<List<PacklistWithItems>>
@@ -53,6 +46,9 @@ interface PacklistDao {
     // However, this way I think, expresses more clearly the intent of the function
     @Query("UPDATE item_table SET status = :status WHERE id = :itemContentID")
     suspend fun setStatus(itemContentID: Long, status: Boolean)
+
+    @Query("DELETE FROM item_table WHERE id = :itemContentID")
+    suspend fun deleteByItemId(itemContentID: Long)
 
 
 }

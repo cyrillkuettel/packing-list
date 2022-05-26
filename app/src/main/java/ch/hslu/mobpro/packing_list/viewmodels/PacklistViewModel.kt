@@ -19,6 +19,9 @@ class PacklistViewModel(private val repository: IPacklistRepository) : ViewModel
 
     val _navigateBacktoMenu: MutableLiveData<Boolean> = MutableLiveData()
 
+    /** */
+    val _packListHasBeenClickd: MutableLiveData<Boolean> = MutableLiveData()
+
 
     fun insertNewPacklist(packlist: Packlist) = viewModelScope.launch {
        repository.insertPacklist(packlist)
@@ -37,6 +40,10 @@ class PacklistViewModel(private val repository: IPacklistRepository) : ViewModel
 
     fun getClickedPacklist(): MutableLiveData<Packlist?> {
         return clickedPacklist
+    }
+
+    fun setPackListHasBeenClicked() {
+       _packListHasBeenClickd.postValue(true)
     }
 
 

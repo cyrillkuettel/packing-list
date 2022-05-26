@@ -34,10 +34,6 @@ class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
         return repository.getItems(id)
     }
 
-   fun updateItems(items: LiveData<List<PacklistWithItems>>){
-       repository.updateItems(items)
-   }
-
     /** if the item is checked in CheckBox */
     fun getStatus(itemContentID: Long): LiveData<List<Item>> {
         return repository.getStatus(itemContentID)
@@ -47,6 +43,11 @@ class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
     fun setStatus(itemContentID: Long, status: Boolean) = viewModelScope.launch {
         repository.setStatus(itemContentID, status)
     }
+
+    fun delete(itemContentID: Long)  = viewModelScope.launch {
+        repository.delete(itemContentID)
+    }
+
 }
 
 

@@ -18,6 +18,8 @@ import kotlinx.coroutines.flow.Flow
  *
  * The Interface [IPacklistRepository] enables swapping out the implementation, this can be
  * useful for certain scenarios, for example, unit tests.
+ *
+ * All information flows through this repository, regardless of the content.
  */
 class PacklistRepository(private val packlistDao: PacklistDao,
                          private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO) : IPacklistRepository {
@@ -73,6 +75,12 @@ class PacklistRepository(private val packlistDao: PacklistDao,
     override suspend fun setStatus(itemContentID: Long, status: Boolean) {
         withContext(ioDispatcher) {
             packlistDao.setStatus(itemContentID, status)
+        }
+    }
+
+    override suspend fun delete(itemContentID: Long) {
+        withContext(ioDispatcher) {
+            packlistDao.deleteByItemId(itemContentID)
         }
     }
 
