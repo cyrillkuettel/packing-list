@@ -16,7 +16,7 @@ import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModelFactory
 
 /**
  * A fragment representing a list of packing lists.
- * This is the first fragment that is shown.
+ * This is the first fragment that is shown in the App.
  */
 class MenuFragment : Fragment() {
 

@@ -50,7 +50,7 @@ class CreateItemFragment : Fragment() {
     }
 
     private fun observeViewModels() {
-        itemViewModel._navigateBacktoPacklist.observe(viewLifecycleOwner) {
+        itemViewModel._navigateBackToItemOverview.observe(viewLifecycleOwner) {
             navigateBack()
         }
     }

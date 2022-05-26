@@ -25,4 +25,6 @@ interface IPacklistRepository {
 
     @WorkerThread
     suspend fun existsByPacklist(id: Int): LiveData<Boolean>
+    fun getStatus(itemContentID: Long): LiveData<List<Item>>
+    suspend fun setStatus(itemContentID: Long, status: Boolean)
 }

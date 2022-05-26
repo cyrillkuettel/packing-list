@@ -36,7 +36,6 @@ class CreatelistFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentCreatelistBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -75,7 +74,6 @@ class CreatelistFragment : Fragment() {
 
 
     private fun createNewPacklistObject(): Packlist {
-        // TODO : insert attributes like date, location etc
         val packListLocation = binding.mainEditTextLocation.text.toString()
         val packListTitle = binding.mainEditTextName.text.toString()
         val packListDate = binding.datePickerTextView.text.toString()

@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -15,7 +14,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import ch.hslu.mobpro.packing_list.*
 import ch.hslu.mobpro.packing_list.databinding.FragmentPacklistBinding
-import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.room.PacklistWithItems
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
@@ -62,7 +60,7 @@ class PacklistFragment : Fragment() {
         observeViewModels(adapter)
 
 
-        itemViewModel._navigateBacktoPacklist.observe(viewLifecycleOwner) {
+        itemViewModel._navigateBackToItemOverview.observe(viewLifecycleOwner) {
             navigateBack()
         }
         binding.fabCreateNewNote.setOnClickListener {
@@ -92,7 +90,8 @@ class PacklistFragment : Fragment() {
 
     private fun setupRecyclerView(): ItemAdapter {
         val recyclerView = binding.itemRecyclerView
-        val adapter = ItemAdapter(itemViewModel)
+        val lifeCycleOwner = viewLifecycleOwner
+        val adapter = ItemAdapter(itemViewModel, lifeCycleOwner)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(requireContext(), NUMBER_OF_COLUMNS)
         return adapter
@@ -116,8 +115,8 @@ class PacklistFragment : Fragment() {
                 Log.v(TAG, "itemViewModel.getItems(it).observe")
                 if (items.isNotEmpty()) { // List can have size 0 if no items have been created yet
                     val packlistWithItems = items[0]
-                    val itemList = packlistWithItems.items
-                    itemList.let { adapter.submitList(it) }
+                    val itemList = packlistWithItems.items // This is a List of the actual items of packlist
+                    itemList.let { adapter.submitList(it) } // this generates the Items
                 }
             }
         }

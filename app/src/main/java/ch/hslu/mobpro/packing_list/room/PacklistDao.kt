@@ -28,7 +28,7 @@ interface PacklistDao {
     @Query("SELECT EXISTS (SELECT 1 FROM packlist_table WHERE id = :id)")
     fun existsByPacklist(id: Int): Boolean
 
-    @Query("SELECT * FROM packlist_table AS item WHERE item.id LIKE :title LIMIT :limit")
+    @Query("SELECT * FROM packlist_table AS packlistitem WHERE packlistitem.id LIKE :title LIMIT :limit")
     fun getPacklistByTitle(title: String, limit: Int = 1): LiveData<List<Packlist>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -45,6 +45,14 @@ interface PacklistDao {
     @Query("SELECT * FROM packlist_table WHERE id IN (SELECT DISTINCT(item_id) FROM item_table) AND id = :id")
     fun getItemsFromParentById(id: String) : LiveData<List<PacklistWithItems>>
 
+
+    @Query("SELECT * FROM item_table AS item WHERE item.id = :itemContentID")
+    fun getItemStatus(itemContentID: Long): LiveData<List<Item>>
+
+    // NOTE: could also create a new item object and use the @Insert annotation.
+    // However, this way I think, expresses more clearly the intent of the function
+    @Query("UPDATE item_table SET status = :status WHERE id = :itemContentID")
+    suspend fun setStatus(itemContentID: Long, status: Boolean)
 
 
 }

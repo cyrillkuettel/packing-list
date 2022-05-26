@@ -9,12 +9,11 @@ import kotlinx.coroutines.launch
 
 class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
 
-
+    /** The Packlist whose items are currently displayed */
     private var currentEditingPacklist: LiveData<List<Packlist>> = MutableLiveData()
 
-    val _navigateBacktoPacklist: MutableLiveData<Boolean> = MutableLiveData()
-
-
+    /** Boolean flag which triggers if a new Item has been submitted in [CreateItemFragment] */
+    val _navigateBackToItemOverview: MutableLiveData<Boolean> = MutableLiveData()
 
 
     fun getCurrentEditingPackList() : LiveData<List<Packlist>> {
@@ -25,11 +24,9 @@ class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
         currentEditingPacklist = repository.getPackListByTitle(title)
     }
 
-
-
     fun insertNewItem(item: Item) = viewModelScope.launch{
         repository.insertItem(item)
-        _navigateBacktoPacklist.postValue(true)
+        _navigateBackToItemOverview.postValue(true)
     }
 
 
@@ -38,10 +35,21 @@ class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
     }
 
    fun updateItems(items: LiveData<List<PacklistWithItems>>){
-       updateItems(items)
+       repository.updateItems(items)
    }
 
+    /** if the item is checked in CheckBox */
+    fun getStatus(itemContentID: Long): LiveData<List<Item>> {
+        return repository.getStatus(itemContentID)
+    }
+
+    /** sets new CheckBox status asynchronously */
+    fun setStatus(itemContentID: Long, status: Boolean) = viewModelScope.launch {
+        repository.setStatus(itemContentID, status)
+    }
 }
+
+
 
 class ItemViewModelFactory(private val repository: PacklistRepository) :
     ViewModelProvider.Factory {

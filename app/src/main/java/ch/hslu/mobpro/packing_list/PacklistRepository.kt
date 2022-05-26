@@ -66,6 +66,16 @@ class PacklistRepository(private val packlistDao: PacklistDao,
         return data
     }
 
+    override fun getStatus(itemContentID: Long): LiveData<List<Item>> {
+        return packlistDao.getItemStatus(itemContentID)
+    }
+
+    override suspend fun setStatus(itemContentID: Long, status: Boolean) {
+        withContext(ioDispatcher) {
+            packlistDao.setStatus(itemContentID, status)
+        }
+    }
+
     companion object {
         const val TAG = "PacklistRepository"
     }
