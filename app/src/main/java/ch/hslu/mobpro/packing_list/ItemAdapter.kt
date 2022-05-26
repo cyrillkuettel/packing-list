@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
@@ -22,14 +23,12 @@ import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
  * If one item is clicked, the onClickListener fires. This logic is implemented here.
  */
 class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: LifecycleOwner) :
-
     ListAdapter<Item, ItemAdapter.ItemViewHolder>(ItemComparator()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return ItemViewHolder.create(parent)
     }
-
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val current = getItem(position)
@@ -60,12 +59,16 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
             itemViewModel.delete(current.itemContentID)
             // UI will update automatically, because PackListFragment observes the items
         }
+
+        holder.getItem().setOnClickListener {
+            Log.d(TAG, "clicked on the item itself")
+
+        }
     }
 
-
-
-
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val item: CardView = itemView.findViewById(R.id.item)
+
 
         private val itemDeleteButon: ImageButton = itemView.findViewById(R.id.itemDeleteButton)
 
@@ -94,6 +97,11 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
         fun getStatus(): CheckBox{
             return itemStatus
         }
+
+        fun getItem(): CardView {
+            return item
+        }
+
 
         // static method to create a new item
         companion object {

@@ -23,7 +23,6 @@ import java.util.*
 
 /**
  *  This fragment represents the screen for creating a new packing list.
- *
  */
 class CreatelistFragment : Fragment() {
 
