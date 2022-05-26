@@ -7,6 +7,12 @@ import ch.hslu.mobpro.packing_list.room.Packlist
 import ch.hslu.mobpro.packing_list.room.PacklistWithItems
 import kotlinx.coroutines.flow.Flow
 
+/**
+* This Interface provides means for the repository to have polymorphic manner.
+* We can swap out the implementation without affecting callers. This can be
+* useful for certain scenarios like unit tests. It's just a nice way of decoupling the
+* PacklistRepository class from the rest of the system.
+*/
 interface IPacklistRepository {
 
     val allPacklists: Flow<List<Packlist>>
