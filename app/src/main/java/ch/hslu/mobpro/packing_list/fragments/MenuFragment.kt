@@ -66,18 +66,27 @@ class MenuFragment : Fragment() {
             newPacklist.let { adapter.submitList(it) }
         }
 
+        var packListHasBeenClicked = false
+        packlistViewModel._packListHasBeenClicked.observe(viewLifecycleOwner) { clicked ->
+            packListHasBeenClicked = clicked
+        }
+
         packlistViewModel.getClickedPacklist().observe(viewLifecycleOwner) { packList ->
-            // we assume title is unique
-            Log.d(TAG, "getClickedPacklist() fired")
-            val action = packList?.let {
-                Log.d(TAG, "setting Title as argument: title is ${it.title}")
-               // packlistViewModel.setPackListHasBeenClicked()
-                MenuFragmentDirections.actionMenuFragmentToPacklistFragment(it.title)
-            }
-            if (action != null) {
-                findNavController().navigate(action)
+            if (!packListHasBeenClicked) {
+
+                Log.d(TAG, "getClickedPacklist() fired")
+                val action = packList?.let {
+                    Log.d(TAG, "setting Title as argument: title is ${it.title}")
+                    packlistViewModel.setPackListHasBeenClicked(true)
+                    MenuFragmentDirections.actionMenuFragmentToPacklistFragment(it.title)
+                }
+                if (action != null) {
+                    findNavController().navigate(action)
+                } else {
+                    Log.e(TAG, "NavDirections action is null")
+                }
             } else {
-                Log.e(TAG, "NavDirections action is null")
+                packlistViewModel.setPackListHasBeenClicked(false)
             }
         }
     }
