@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import android.widget.Toolbar
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
@@ -13,6 +14,8 @@ import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import ch.hslu.mobpro.packing_list.*
 import ch.hslu.mobpro.packing_list.databinding.FragmentPacklistBinding
 import ch.hslu.mobpro.packing_list.room.PacklistWithItems
@@ -67,6 +70,33 @@ class PacklistFragment : Fragment() {
             navigateToCreateItemFragment()
         }
 
+        setupSwipeToDeleteItems(adapter)
+    }
+
+    private fun setupSwipeToDeleteItems(adapter: ItemAdapter) {
+        val itemTouchHelperCallback =
+            object :
+                ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    val itemToDelete =
+                        adapter.getItemAt(viewHolder.absoluteAdapterPosition)?.itemContentID
+                    if (itemToDelete != null) {
+                        Log.d(TAG, "deleting item $itemToDelete")
+                        itemViewModel.delete(itemToDelete)
+                    }
+                }
+            }
+
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(binding.itemRecyclerView)
     }
 
 

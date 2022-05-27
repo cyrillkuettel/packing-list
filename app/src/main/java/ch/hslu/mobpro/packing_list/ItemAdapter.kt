@@ -9,13 +9,14 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ch.hslu.mobpro.packing_list.fragments.PacklistFragment
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
+
 
 /**
  * A custom Adapter for the itemRecyclerView. It is used to display the items of a single Packlist.
@@ -60,10 +61,14 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
             // UI will update automatically, because PackListFragment observes the items
         }
 
-        holder.getItem().setOnClickListener {
+            holder.getItem().setOnClickListener {
             Log.d(TAG, "clicked on the item itself")
-
         }
+
+
+    }
+    fun getItemAt(pos: Int): Item? {
+        return getItem(pos)
     }
 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

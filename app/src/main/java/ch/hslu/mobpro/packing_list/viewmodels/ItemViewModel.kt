@@ -45,7 +45,7 @@ class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
     }
 
     fun delete(itemContentID: Long)  = viewModelScope.launch {
-        repository.delete(itemContentID)
+        repository.deleteItem(itemContentID)
     }
 
 }

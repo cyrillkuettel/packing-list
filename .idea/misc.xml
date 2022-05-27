@@ -3,18 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/david/AndroidStudioProjects/FS22/Projekt/packing-list/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.151" />
-        <entry key="..\:/Users/david/AndroidStudioProjects/FS22/Projekt/packing-list/app/src/main/res/drawable/ic_launcher_background.xml" value="0.151" />
-        <entry key="..\:/Users/david/AndroidStudioProjects/FS22/Projekt/packing-list/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/david/AndroidStudioProjects/FS22/Projekt/packing-list/app/src/main/res/layout/fragment_create_item.xml" value="0.25227963525835867" />
-        <entry key="..\:/Users/david/AndroidStudioProjects/FS22/Projekt/packing-list/app/src/main/res/layout/fragment_createlist.xml" value="0.25227963525835867" />
-        <entry key="..\:/Users/david/AndroidStudioProjects/FS22/Projekt/packing-list/app/src/main/res/layout/fragment_menu.xml" value="0.25227963525835867" />
-        <entry key="..\:/Users/david/AndroidStudioProjects/FS22/Projekt/packing-list/app/src/main/res/layout/fragment_packlist.xml" value="0.25" />
-        <entry key="..\:/Users/david/AndroidStudioProjects/FS22/Projekt/packing-list/app/src/main/res/layout/item.xml" value="0.34858757062146895" />
-        <entry key="..\:/Users/david/AndroidStudioProjects/FS22/Projekt/packing-list/app/src/main/res/layout/packlist_item.xml" value="0.25227963525835867" />
-        <entry key="..\:/Users/david/AndroidStudioProjects/FS22/Projekt/packing-list/app/src/main/res/menu/menu_main.xml" value="0.33" />
-        <entry key="..\:/Users/david/AndroidStudioProjects/FS22/Projekt/packing-list/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2435" />
-        <entry key="..\:/Users/david/AndroidStudioProjects/FS22/Projekt/packing-list/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2435" />
+        <entry key="app/src/main/java/ch/hslu/mobpro/packing_list/customviews/PacklistCardView.kt" value="0.3697916666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2604166666666667" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.2604166666666667" />
         <entry key="app/src/main/res/layout/fragment_create_item.xml" value="0.33695652173913043" />
@@ -25,7 +14,7 @@
         <entry key="app/src/main/res/layout/fragment_menu.xml" value="0.33695652173913043" />
         <entry key="app/src/main/res/layout/fragment_packlist.xml" value="0.30570652173913043" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.2604166666666667" />
-        <entry key="app/src/main/res/layout/item.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/item.xml" value="0.21467391304347827" />
         <entry key="app/src/main/res/layout/packlist_item.xml" value="0.25" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.34444444444444444" />
       </map>

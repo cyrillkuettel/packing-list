@@ -72,9 +72,18 @@ class PacklistRepository(private val packlistDao: PacklistDao,
         }
     }
 
-    override suspend fun delete(itemContentID: Long) {
+    override suspend fun deleteItem(itemContentID: Long) {
         withContext(ioDispatcher) {
             packlistDao.deleteByItemId(itemContentID)
+        }
+    }
+
+
+    override suspend fun deletePacklist(title: String) {
+        withContext(ioDispatcher) {
+            packlistDao.deletePacklistById(title)
+            // TODO: Delete associated items as well
+            // packlistDao.deleteAssociatedItems...
         }
     }
 

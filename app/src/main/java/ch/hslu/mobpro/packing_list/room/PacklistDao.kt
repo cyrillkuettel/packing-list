@@ -50,5 +50,8 @@ interface PacklistDao {
     @Query("DELETE FROM item_table WHERE id = :itemContentID")
     suspend fun deleteByItemId(itemContentID: Long)
 
+    @Query("DELETE FROM packlist_table WHERE id = :title")
+    fun deletePacklistById(title: String)
+
 
 }

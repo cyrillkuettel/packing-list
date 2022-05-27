@@ -32,5 +32,6 @@ interface IPacklistRepository {
     suspend fun existsByPacklist(id: Int): LiveData<Boolean>
     fun getStatus(itemContentID: Long): LiveData<List<Item>>
     suspend fun setStatus(itemContentID: Long, status: Boolean)
-    suspend fun delete(itemContentID: Long)
+    suspend fun deleteItem(itemContentID: Long)
+    suspend fun deletePacklist(title: String)
 }

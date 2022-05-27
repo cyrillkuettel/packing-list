@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/packlist_recycler_view"
         android:name="ch.hslu.mobpro.packing_list.MenuFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

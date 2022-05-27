@@ -4,7 +4,13 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.MotionEvent
 import android.view.View
+import android.view.animation.AnimationUtils
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.dynamicanimation.animation.SpringAnimation
+import androidx.dynamicanimation.animation.SpringForce
+import ch.hslu.mobpro.packing_list.R
 
 
 class PacklistCardView @JvmOverloads
@@ -15,13 +21,12 @@ constructor(
     private var title: String = "Wanderung Martinsloch",
     private var location: String = "Location: Martinsloch",
     private var date: String = "",
-    private var cardColor: Int = Color.parseColor("#006400"),
+    private var cardColor: Int = Color.parseColor("#006400"), // green
 ) : View(ctx, attributeSet, defStyleAttr) {
 
 
     private var primaryTextColor = Color.WHITE
     private var mediumTextSize = convertToDP(15f)
-    private var bigTextSize = convertToDP(40f)
     private var rectWidth = 0f
     private var rectHeight = convertToDP(100f)
 

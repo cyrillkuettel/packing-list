@@ -67,7 +67,7 @@ class FakeTestRepository : IPacklistRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun delete(itemContentID: Long) {
+    override suspend fun deleteItem(itemContentID: Long) {
         TODO("Not yet implemented")
     }
 

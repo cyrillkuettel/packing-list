@@ -48,7 +48,6 @@ class CreateItemFragment : Fragment() {
         currentPackListTitle = args.titleFromClicked.toString()
         Log.v(TAG, "getting arguments,currentPackListTitle is $currentPackListTitle")
 
-        binding.textViewTitle.text = currentPackListTitle
         binding.mainEditTextItemName.requestFocus()
         binding.mainEditTextItemName.showKeyboard()
 
