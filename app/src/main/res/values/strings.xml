@@ -5,6 +5,7 @@
     <string name="create_list_fragment_label">Create a new List</string>
     <string name="menu_fragment_label">Packlists</string>
     <string name="create_item_fragment_label">Edit Packlist Item</string>
+    <string name="create_new_item">Create new Item</string>
 
     <!-- Colors for Packlist -->
     <string-array name="colors_names">
