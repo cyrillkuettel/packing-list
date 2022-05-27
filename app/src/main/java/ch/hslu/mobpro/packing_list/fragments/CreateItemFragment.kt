@@ -1,12 +1,14 @@
 package ch.hslu.mobpro.packing_list.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -47,10 +49,19 @@ class CreateItemFragment : Fragment() {
         Log.v(TAG, "getting arguments,currentPackListTitle is $currentPackListTitle")
 
         binding.textViewTitle.text = currentPackListTitle
+        binding.mainEditTextItemName.requestFocus()
+        binding.mainEditTextItemName.showKeyboard()
 
 
         observeViewModels()
 
+    }
+
+/** fancy kotlin extension function ( ͡° ͜ʖ ͡°) */
+    fun View.showKeyboard() {
+        this.requestFocus()
+        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
     }
 
     private fun observeViewModels() {
