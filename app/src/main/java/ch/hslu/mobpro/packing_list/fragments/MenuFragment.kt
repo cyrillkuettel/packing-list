@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ch.hslu.mobpro.packing_list.*
+import ch.hslu.mobpro.packing_list.adapter.PackListAdapter
 import ch.hslu.mobpro.packing_list.databinding.FragmentMenuBinding
 import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModelFactory

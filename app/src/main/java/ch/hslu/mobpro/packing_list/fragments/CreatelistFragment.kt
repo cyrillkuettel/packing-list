@@ -8,8 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -64,7 +62,6 @@ class CreatelistFragment : Fragment() {
     }
 
     private fun submitListOnClick() {
-        // TODO : input validation
         val packlist = createNewPacklistObject()
         packlistViewModel.insertNewPacklist(packlist)
     }
@@ -84,7 +81,7 @@ class CreatelistFragment : Fragment() {
         val month = c.get(Calendar.MONTH)
         val day = c.get(Calendar.DAY_OF_MONTH)
         val dpd = DatePickerDialog(requireContext(),
-            { datePicker, year, month, day -> setDate(year, month, day) }, year, month, day)
+            { _, year, month, day -> setDate(year, month, day) }, year, month, day)
         dpd.show()
     }
 

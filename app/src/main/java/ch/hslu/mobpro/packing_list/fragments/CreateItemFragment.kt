@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -46,7 +45,7 @@ class CreateItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mainButtonAddItem.setOnClickListener { submitItemOnclick() }
-        currentPackListTitle = args.titleFromClicked.toString()
+        currentPackListTitle = args.titleFromClicked
         Log.v(TAG, "getting arguments,currentPackListTitle is $currentPackListTitle")
 
         binding.mainEditTextItemName.requestFocus()
@@ -56,7 +55,8 @@ class CreateItemFragment : Fragment() {
         binding.itemspinnerView.apply {
             setOnSpinnerItemSelectedListener<String> { _, _, index, _ ->
                 val rainbow = context.resources.getIntArray(
-                    ch.hslu.mobpro.packing_list.R.array.packlist_background_colors)
+                    R.array.packlist_background_colors
+                )
                 if (index >= rainbow.size || index < 0) {
                     Log.e(TAG, "index does not exit")
                 } else {
@@ -70,10 +70,11 @@ class CreateItemFragment : Fragment() {
 
     }
 
-/** fancy kotlin extension function ( ͡° ͜ʖ ͡°) */
-    fun View.showKeyboard() {
+    /** fancy kotlin extension function ( ͡° ͜ʖ ͡°) */
+    private fun View.showKeyboard() {
         this.requestFocus()
-        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
     }
 

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ch.hslu.mobpro.packing_list.*
+import ch.hslu.mobpro.packing_list.adapter.ItemAdapter
 import ch.hslu.mobpro.packing_list.databinding.FragmentPacklistBinding
 import ch.hslu.mobpro.packing_list.settings.SharedPreferencesViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel

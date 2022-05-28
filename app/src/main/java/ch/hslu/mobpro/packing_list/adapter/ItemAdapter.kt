@@ -1,4 +1,4 @@
-package ch.hslu.mobpro.packing_list
+package ch.hslu.mobpro.packing_list.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +12,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import ch.hslu.mobpro.packing_list.R
 import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 

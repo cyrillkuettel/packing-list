@@ -12,4 +12,3 @@ data class Packlist(
     val date: String,
     val color: Int
 )
-//     val color: String
