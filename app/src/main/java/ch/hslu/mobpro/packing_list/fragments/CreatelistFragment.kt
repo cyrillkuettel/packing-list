@@ -121,11 +121,6 @@ class CreatelistFragment : Fragment() {
         _binding = null
     }
 
-    private fun getContextColor(@ColorRes resource: Int): Int {
-        return ContextCompat.getColor(requireContext(), resource)
-    }
-
-
     companion object {
         private const val TAG = "CreateListFragment"
     }

@@ -1,6 +1,7 @@
 package ch.hslu.mobpro.packing_list.fragments
 
 import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -51,6 +52,19 @@ class CreateItemFragment : Fragment() {
         binding.mainEditTextItemName.requestFocus()
         binding.mainEditTextItemName.showKeyboard()
 
+        /** Setup spinner to preview colors */
+        binding.itemspinnerView.apply {
+            setOnSpinnerItemSelectedListener<String> { _, _, index, _ ->
+                val rainbow = context.resources.getIntArray(
+                    ch.hslu.mobpro.packing_list.R.array.packlist_background_colors)
+                if (index >= rainbow.size || index < 0) {
+                    Log.e(TAG, "index does not exit")
+                } else {
+                    val selectedBackgroundColor = rainbow[index]
+                    setBackgroundColor(selectedBackgroundColor)
+                }
+            }
+        }
 
         observeViewModels()
 
@@ -93,7 +107,9 @@ class CreateItemFragment : Fragment() {
     private fun createItem(): Item? {
         val content = binding.mainEditTextItemName.text.toString()
         val status = false
-        return currentPackListTitle?.let { Item(it.toString(), content, status) }
+        val color = (binding.itemspinnerView.background as ColorDrawable).color
+
+        return currentPackListTitle?.let { Item(it, content, status, color) }
 
     }
 

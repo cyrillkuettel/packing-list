@@ -17,7 +17,8 @@ data class Item(
     @ColumnInfo(name = "item_id")
     val itemId: String,     // to reference Parent
     val content: String,    // TextView from Item
-    val status: Boolean     // CheckBox from Item
+    val status: Boolean,    // CheckBox from Item
+    val color: Int          // CardView background color
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

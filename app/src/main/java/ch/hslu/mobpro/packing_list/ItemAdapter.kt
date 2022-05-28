@@ -10,10 +10,8 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 
@@ -33,7 +31,7 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current.content)
+        holder.bind(current.content, current.color)
         holder.getView().setOnClickListener {
             Log.v(TAG, "clicked on textView of item with content: ${current.content}")
         }
@@ -83,8 +81,7 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val item: CardView = itemView.findViewById(R.id.item)
 
-
-        private val itemDeleteButon: ImageButton = itemView.findViewById(R.id.itemDeleteButton)
+        private val itemDeleteButton: ImageButton = itemView.findViewById(R.id.itemDeleteButton)
 
         // Text View in Item
         private val itemContent: TextView = itemView.findViewById(R.id.itemContent)
@@ -93,15 +90,16 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
         private val itemStatus: CheckBox = itemView.findViewById(R.id.itemCb)
 
         // String from TextView
-        fun bind(content: String?) {
+        fun bind(content: String?, color: Int) {
             itemContent.text = content
+            item.setBackgroundColor(color)
         }
         fun getView(): TextView {
             return itemContent
         }
 
         fun getItemDeleteButton(): ImageButton {
-            return itemDeleteButon
+            return itemDeleteButton
         }
 
         // Status from CheckBox

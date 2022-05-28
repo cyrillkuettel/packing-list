@@ -55,7 +55,7 @@ class RoomDaoTest {
 
         val id = testPacklist.title
         // given a arbitrary item
-        val testItemInserted = Item(id,"test", true)
+        val testItemInserted = Item(id,"test", true, -13070788)
         // insert the item to database
             packlistDao.insertItem(testItemInserted)
 
