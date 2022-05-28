@@ -63,4 +63,14 @@
             app:argType="string" />
 
     </fragment>
+
+    <!--Settings fragment-->
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="ch.hslu.mobpro.packing_list.settings.ListPreferencesFragment"/>
+    <!--Global action -->
+    <!-- https://stackoverflow.com/questions/53029821/navigating-to-preference-fragment-using-navigation-component/60903243#60903243 -->
+    <action android:id="@+id/open_settings_fragment"
+        app:destination="@id/settingsFragment"/>
+
 </navigation>

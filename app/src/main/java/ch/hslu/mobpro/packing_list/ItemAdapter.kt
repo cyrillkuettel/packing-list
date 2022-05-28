@@ -38,18 +38,8 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
             Log.v(TAG, "clicked on textView of item with content: ${current.content}")
         }
 
-        // Retrieve Checkbox status from database.
-        // We can only access the DB by observing the viewModel. To make this work, the
-        // viewLifecycleOwner form the fragment is passed in. (Manual dependency injection)
-        itemViewModel.getStatus(current.itemContentID).observe(lifeCycleOwner) { items ->
-            if (items.isNotEmpty()) {
-                // first, find the checkbox status as stored in the DB.
-                val item: Item = items[0]
-                // Then update the value in the UI
-                holder.setStatus(item.status)
-                Log.v(TAG, "current status of this item is ${item.status}")
-            }
-        }
+
+        observeViewModels(current, holder)
 
         holder.getStatus().setOnClickListener {
             itemViewModel.setStatus(current.itemContentID, !current.status)
@@ -67,6 +57,25 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
 
 
     }
+
+    private fun observeViewModels(
+        current: Item,
+        holder: ItemViewHolder
+    ) {
+        // Retrieve Checkbox status from database.
+        // We can only access the DB by observing the viewModel. To make this work, the
+        // viewLifecycleOwner form the fragment is passed in. (Manual dependency injection)
+        itemViewModel.getStatus(current.itemContentID).observe(lifeCycleOwner) { items ->
+            if (items.isNotEmpty()) {
+                // first, find the checkbox status as stored in the DB.
+                val item: Item = items[0]
+                // Then update the value in the UI
+                holder.setStatus(item.status)
+                Log.v(TAG, "current status of this item is ${item.status}")
+            }
+        }
+    }
+
     fun getItemAt(pos: Int): Item? {
         return getItem(pos)
     }

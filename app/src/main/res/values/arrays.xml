@@ -9,4 +9,17 @@
         <item>@color/md_blue_200</item>
         <item>@color/md_purple_200</item>
     </array>
+
+    <string-array name="columns_entries" >
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="columns_values" >
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
 </resources>

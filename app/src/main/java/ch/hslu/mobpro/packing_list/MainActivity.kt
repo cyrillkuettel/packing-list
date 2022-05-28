@@ -2,17 +2,17 @@ package ch.hslu.mobpro.packing_list
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.Toolbar
-import androidx.navigation.NavController
 import ch.hslu.mobpro.packing_list.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,21 +35,18 @@ class MainActivity : AppCompatActivity() {
         return navController
     }
 
-    /** Not used currently. But we might use it later */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+        val id = item.itemId
+        if (id == R.id.action_settings) {
+            findNavController(R.id.nav_host_fragment_content_main)
+                .navigate(R.id.open_settings_fragment)
         }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {

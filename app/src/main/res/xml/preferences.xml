@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:defaultValue="2"
+        android:key="numberOfColumns"
+        android:entries="@array/columns_entries"
+        android:entryValues="@array/columns_values"
+        android:title="@string/title_change_number_of_columns"
+        android:dialogTitle="@string/dialog_title_change_number_of_columns"
+        android:persistent="true"
+        android:shouldDisableView="true" />
+</PreferenceScreen>

@@ -5,12 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import android.widget.Toolbar
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -18,7 +16,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ch.hslu.mobpro.packing_list.*
 import ch.hslu.mobpro.packing_list.databinding.FragmentPacklistBinding
-import ch.hslu.mobpro.packing_list.room.PacklistWithItems
+import ch.hslu.mobpro.packing_list.settings.SharedPreferencesViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
 
@@ -32,6 +30,9 @@ class PacklistFragment : Fragment() {
     private val itemViewModel: ItemViewModel by viewModels {
         ItemViewModelFactory((requireActivity().application as PacklistApplication).repository)
     }
+
+    private val sharedPreferencesViewModel: SharedPreferencesViewModel by activityViewModels()
+
 
     private var _binding: FragmentPacklistBinding? = null
     private val binding get() = _binding!!
@@ -60,7 +61,10 @@ class PacklistFragment : Fragment() {
         val title = args.title // retrieve title from Arguments, this uniquely identifies Packlist
         Log.v(TAG, "receiving arguments, args.title is $title")
         itemViewModel.setCurrentEditingPackListTitle(title)
-        currentPackListTitle = title // not optimal, storing data in fragment, but seems to be inevitable
+        currentPackListTitle = title
+
+        // sharedPreferencesViewModel.setDefaultPreferences()
+
         val adapter = setupRecyclerView()
 
         observeViewModels(adapter)
@@ -150,6 +154,11 @@ class PacklistFragment : Fragment() {
         itemViewModel._navigateBackToItemOverview.observe(viewLifecycleOwner) {
             navigateBack()
         }
+        /** Columns can be changed dynamically in prefs */
+        sharedPreferencesViewModel.getPreferencesSummary().observe(viewLifecycleOwner) { cols ->
+            Log.d(TAG, "getPreferencesSummary $cols")
+            binding.itemRecyclerView.layoutManager = GridLayoutManager(requireContext(), cols)
+        }
 
     }
 
@@ -163,6 +172,11 @@ class PacklistFragment : Fragment() {
         } else {
             findNavController().navigate(R.id.action_CreateItemFragment_to_PacklistFragment)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sharedPreferencesViewModel.buildColumnPreferences()
     }
 
 
