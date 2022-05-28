@@ -5,13 +5,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AlphaAnimation
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ch.hslu.mobpro.packing_list.customviews.PacklistCardView
-import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.room.Packlist
 import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModel
 
@@ -19,8 +17,9 @@ import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModel
 class PackListAdapter(private val packlistViewModel: PacklistViewModel, val ctx: Context) :
     ListAdapter<Packlist, PackListAdapter.PacklistViewHolder>(Packlistcomparator()) {
 
-    // Allows to remember the last item shown on screen
-    private var lastPosition = -1
+    // will only animate items that are out of sight at the beginning.
+    // 5 is the number of packlists that can be displayed on screen
+    private var positionsFitToScreen = 5
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PacklistViewHolder {
         return PacklistViewHolder.create(parent)
@@ -42,10 +41,10 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel, val ctx:
 
     private fun setAnimation(viewToAnimate: View, position: Int) {
         // If the bound view wasn't previously displayed on screen, it's animated
-        if (position > lastPosition) {
+        if (position > positionsFitToScreen) {
             val animation = AnimationUtils.loadAnimation(ctx, android.R.anim.slide_in_left)
             viewToAnimate.startAnimation(animation)
-            lastPosition = position
+            positionsFitToScreen = position
         }
     }
 
