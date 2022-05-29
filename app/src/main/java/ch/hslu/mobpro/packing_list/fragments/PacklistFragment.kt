@@ -140,13 +140,14 @@ class PacklistFragment : Fragment() {
             binding.textViewPacklistTitle.text = currentPackListTitle
 
 
-            itemViewModel.getItems(title).observe(viewLifecycleOwner) { items ->
+            itemViewModel.getPackListWithItems(title).observe(viewLifecycleOwner) { items ->
                 Log.v(TAG, "itemViewModel.getItems(it).observe")
                 if (items.isNotEmpty()) { // List can have size 0 if no items have been created yet
-                    val packlistWithItems = items[0]
+                    val packlistWithItems = items[0] // There will only ever be exactly one Element
                     val itemList = packlistWithItems.items // This is a List of the actual items of packlist
-                    itemList.let { adapter.submitList(it) } // this generates the Items
+                    itemList.let { adapter.submitList(it) } // Adapter will take care of the rest.
                 } else {
+                    // This is important, for example in the case where there is one item and the user deletes it.
                     adapter.submitList(emptyList())
                 }
             }

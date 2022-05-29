@@ -109,7 +109,7 @@ class CreateItemFragment : Fragment() {
         val content = binding.mainEditTextItemName.text.toString()
         val status = false
         val color = (binding.itemspinnerView.background as ColorDrawable).color
-
+        /** Items reference the parent by the title [currentPackListTitle] */
         return currentPackListTitle?.let { Item(it, content, status, color) }
 
     }

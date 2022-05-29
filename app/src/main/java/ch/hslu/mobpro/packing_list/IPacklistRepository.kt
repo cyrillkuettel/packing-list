@@ -25,7 +25,7 @@ interface IPacklistRepository {
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insertItem(item: Item)
-    fun getItems(id: String): LiveData<List<PacklistWithItems>>
+    fun getPackListWithItems(id: String): LiveData<List<PacklistWithItems>>
     fun getPackListByTitle(title: String): LiveData<List<Packlist>>
 
     @WorkerThread
@@ -33,5 +33,5 @@ interface IPacklistRepository {
     fun getStatus(itemContentID: Long): LiveData<List<Item>>
     suspend fun setStatus(itemContentID: Long, status: Boolean)
     suspend fun deleteItem(itemContentID: Long)
-    suspend fun deletePacklist(title: String)
+    suspend fun deleteItemsWithPacklist(title: String)
 }

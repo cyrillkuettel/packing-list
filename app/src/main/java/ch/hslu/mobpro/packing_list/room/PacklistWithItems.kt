@@ -11,4 +11,12 @@ data class PacklistWithItems(
         entityColumn = "item_id"
     )
     val items: List<Item> = emptyList()
-)
+
+
+) {
+    override fun toString() =
+        """
+        PacklistWithItems packlist: $packlist items: ${items.toString()}
+    """.trimIndent()
+
+}

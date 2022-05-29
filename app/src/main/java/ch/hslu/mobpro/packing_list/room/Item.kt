@@ -9,7 +9,10 @@ import androidx.room.PrimaryKey
         foreignKeys = [
             androidx.room.ForeignKey(entity = Packlist::class,
                 parentColumns = ["id"],
-                childColumns = ["item_id"])
+                childColumns = ["item_id"],
+                // The option onDelete is crucial, else we get SQLiteConstraintException:
+                // FOREIGN KEY constraint failed (code 787 SQLITE_CONSTRAINT_FOREIGNKEY)
+                onDelete = androidx.room.ForeignKey.CASCADE)
         ],
     indices = [Index("item_id")]
 )

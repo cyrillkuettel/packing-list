@@ -74,7 +74,7 @@ class MenuFragment : Fragment() {
                         adapter.getItemAt(viewHolder.absoluteAdapterPosition)?.title
                     if (packListToDelete != null) {
                         Log.d(TAG, "deleting item $packListToDelete")
-                        packlistViewModel.delete(packListToDelete)
+                        packlistViewModel.deletePacklist(packListToDelete)
                     }
                 }
             }

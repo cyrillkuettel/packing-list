@@ -30,8 +30,8 @@ class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
     }
 
 
-    fun getItems(id: String) : LiveData<List<PacklistWithItems>> {
-        return repository.getItems(id)
+    fun getPackListWithItems(id: String) : LiveData<List<PacklistWithItems>> {
+        return repository.getPackListWithItems(id)
     }
 
     /** if the item is checked in CheckBox */

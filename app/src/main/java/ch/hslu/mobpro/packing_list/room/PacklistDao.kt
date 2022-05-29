@@ -42,8 +42,8 @@ interface PacklistDao {
     @Query("SELECT * FROM item_table AS item WHERE item.id = :itemContentID")
     fun getItemStatus(itemContentID: Long): LiveData<List<Item>>
 
-    // NOTE: could also create a new item object and use the @Insert annotation.
-    // However, this way I think, expresses more clearly the intent of the function
+    /** NOTE: could also create a new item object and use the @Insert annotation. However,
+     * this way I think, expresses more clearly the intent of the function */
     @Query("UPDATE item_table SET status = :status WHERE id = :itemContentID")
     suspend fun setStatus(itemContentID: Long, status: Boolean)
 
@@ -51,7 +51,12 @@ interface PacklistDao {
     suspend fun deleteByItemId(itemContentID: Long)
 
     @Query("DELETE FROM packlist_table WHERE id = :title")
-    fun deletePacklistById(title: String)
+    suspend fun deletePacklistById(title: String)
+
+    /** This deletes a one to many relationship */
+    @Transaction
+    @Query("DELETE FROM packlist_table WHERE id IN (SELECT DISTINCT(item_id) FROM item_table) AND id = :id")
+    suspend fun deleteItemWithPackList(id: String)
 
 
 }

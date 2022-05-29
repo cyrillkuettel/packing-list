@@ -42,7 +42,7 @@ class PacklistRepository(private val packlistDao: PacklistDao,
         packlistDao.insertItem(item)
     }
 
-    override fun getItems(id: String) : LiveData<List<PacklistWithItems>> {
+    override fun getPackListWithItems(id: String) : LiveData<List<PacklistWithItems>> {
         return packlistDao.getItemsFromParentById(id)
     }
 
@@ -79,11 +79,9 @@ class PacklistRepository(private val packlistDao: PacklistDao,
     }
 
 
-    override suspend fun deletePacklist(title: String) {
+    override suspend fun deleteItemsWithPacklist(title: String) {
         withContext(ioDispatcher) {
-            packlistDao.deletePacklistById(title)
-            // TODO: Delete associated items as well
-            // packlistDao.deleteAssociatedItems...
+            packlistDao.deleteItemWithPackList(title)
         }
     }
 

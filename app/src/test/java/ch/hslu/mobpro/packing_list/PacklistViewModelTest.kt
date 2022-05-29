@@ -80,6 +80,4 @@ class PacklistViewModelTest {
         assertEquals(value, true)
 
     }
-
-
 }
