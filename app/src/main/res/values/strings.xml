@@ -8,7 +8,7 @@
     <string name="create_new_item">Create new Item</string>
     <string name="apply">Apply</string>
     <string name="key_change_number_of_columns" />
-    <string name="title_change_number_of_columns">Change number of columns</string>
+    <string name="title_change_number_of_columns">Change number of columns for items </string>
     <string name="dialog_title_change_number_of_columns">Number of columns</string>
 
     <!-- Colors for Packlist -->
