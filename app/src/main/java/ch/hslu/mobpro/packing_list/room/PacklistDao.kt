@@ -53,10 +53,17 @@ interface PacklistDao {
     @Query("DELETE FROM packlist_table WHERE id = :title")
     suspend fun deletePacklistById(title: String)
 
-    /** This deletes a one to many relationship */
+    /** This deletes a one to many relationship. It can be used to delete a
+     * packlist with a non-empty list of items*/
     @Transaction
     @Query("DELETE FROM packlist_table WHERE id IN (SELECT DISTINCT(item_id) FROM item_table) AND id = :id")
     suspend fun deleteItemWithPackList(id: String)
+
+    /** Returns true if the Packlist has any items associated with it, False otherwise. This method
+     * is used to determine what method to use to delete packlist. */
+    @Transaction
+    @Query("SELECT EXISTS (SELECT 1 FROM packlist_table WHERE id IN (SELECT DISTINCT(item_id) FROM item_table) AND id = :id)")
+    fun packListContainsItems(id: String) : Boolean
 
 
 }

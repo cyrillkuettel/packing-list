@@ -47,7 +47,6 @@ class PacklistRepository(private val packlistDao: PacklistDao,
     }
 
     override fun getPackListByTitle(title: String) : LiveData<List<Packlist>> {
-
         return packlistDao.getPacklistByTitle(title)
     }
 
@@ -78,10 +77,17 @@ class PacklistRepository(private val packlistDao: PacklistDao,
         }
     }
 
-
+    /** if packlist does not have items, the method to delete it is slightly different */
     override suspend fun deleteItemsWithPacklist(title: String) {
         withContext(ioDispatcher) {
-            packlistDao.deleteItemWithPackList(title)
+            val packListContainsItems: Boolean = packlistDao.packListContainsItems(title)
+            if (packListContainsItems) {
+                Log.d(TAG, "packListContainsItems,  so delete Every")
+                packlistDao.deleteItemWithPackList(title)
+            } else {
+                Log.d(TAG, "packlist does not contain any items, so we only delete the packlist")
+                packlistDao.deletePacklistById(title)
+            }
         }
     }
 

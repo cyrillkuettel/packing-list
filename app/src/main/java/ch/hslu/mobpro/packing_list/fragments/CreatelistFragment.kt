@@ -91,7 +91,6 @@ class CreatelistFragment : Fragment() {
     }
 
 
-
     private fun observeViewModels() {
         packlistViewModel._navigateBacktoMenu.observe(viewLifecycleOwner) {
             navigateBack()
@@ -99,11 +98,11 @@ class CreatelistFragment : Fragment() {
 
         packlistViewModel.allPacklists.observe(viewLifecycleOwner) { allPacklists ->
             val index = allPacklists.size + 1
-            val defaultName =
+            val defaultTitle =
                 """
                 packlist_$index
                 """.trimIndent()
-            binding.mainEditTextName.setText(defaultName)
+            binding.mainEditTextName.setText(defaultTitle)
 
         }
     }

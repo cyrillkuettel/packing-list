@@ -47,8 +47,7 @@ class PacklistViewModel(private val repository: IPacklistRepository) : ViewModel
        _packListHasBeenClicked.postValue(value)
     }
 
-    fun deletePacklist(title: String)  = viewModelScope.launch {
-        /** important to also delete the associated items */
+    fun deletePacklist(title: String) = viewModelScope.launch {
         repository.deleteItemsWithPacklist(title)
     }
 

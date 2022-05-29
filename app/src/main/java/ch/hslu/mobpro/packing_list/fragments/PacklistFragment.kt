@@ -34,10 +34,10 @@ class PacklistFragment : Fragment() {
 
     private val sharedPreferencesViewModel: SharedPreferencesViewModel by activityViewModels()
 
-
     private var _binding: FragmentPacklistBinding? = null
     private val binding get() = _binding!!
 
+    /** References the currently selected item */
     private var currentPackListTitle: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -154,11 +154,13 @@ class PacklistFragment : Fragment() {
         }
 
         itemViewModel._navigateBackToItemOverview.observe(viewLifecycleOwner) {
+            Log.d(TAG, "navigateBack")
+
             navigateBack()
         }
         /** Columns can be changed dynamically in prefs */
         sharedPreferencesViewModel.getPreferencesSummary().observe(viewLifecycleOwner) { cols ->
-            Log.d(TAG, "getPreferencesSummary $cols")
+            Log.d(TAG, "getPreferencesSummary: columns $cols")
             binding.itemRecyclerView.layoutManager = GridLayoutManager(requireContext(), cols)
         }
 

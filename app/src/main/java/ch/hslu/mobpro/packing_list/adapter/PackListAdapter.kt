@@ -18,8 +18,11 @@ import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModel
 class PackListAdapter(private val packlistViewModel: PacklistViewModel, val ctx: Context) :
     ListAdapter<Packlist, PackListAdapter.PacklistViewHolder>(Packlistcomparator()) {
 
-    // will only animate items that are out of sight at the beginning.
-    // 5 is the number of packlists that can be displayed on screen
+
+
+    // A number of greater than 5 packlists will create a nice scrolling animation,
+    // the cardviews flow in from the left side of the screen.
+    // 5 is the maximum number of packlists that can be displayed on screen
     private var positionsFitToScreen = 5
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PacklistViewHolder {
