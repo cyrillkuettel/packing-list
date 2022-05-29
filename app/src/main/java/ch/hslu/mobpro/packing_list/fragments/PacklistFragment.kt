@@ -63,13 +63,8 @@ class PacklistFragment : Fragment() {
         Log.v(TAG, "receiving arguments, args.title is $title")
         itemViewModel.setCurrentEditingPackListTitle(title)
         currentPackListTitle = title
-
-        // sharedPreferencesViewModel.setDefaultPreferences()
-
         val adapter = setupRecyclerView()
-
         observeViewModels(adapter)
-
 
         binding.fabCreateNewNote.setOnClickListener {
             navigateToCreateItemFragment()
@@ -139,7 +134,7 @@ class PacklistFragment : Fragment() {
         currentPackListTitle?.let { title ->
             binding.textViewPacklistTitle.text = currentPackListTitle
 
-
+            /** Items get automatically refreshed if once item has been deleted.  */
             itemViewModel.getPackListWithItems(title).observe(viewLifecycleOwner) { items ->
                 Log.v(TAG, "itemViewModel.getItems(it).observe")
                 if (items.isNotEmpty()) { // List can have size 0 if no items have been created yet
@@ -155,7 +150,7 @@ class PacklistFragment : Fragment() {
         }
 
         /** Columns can be changed dynamically in preferences */
-        sharedPreferencesViewModel.getPreferencesSummary().observe(viewLifecycleOwner) { cols ->
+        sharedPreferencesViewModel.getCurrentColumns().observe(viewLifecycleOwner) { cols ->
             Log.d(TAG, "getPreferencesSummary: columns $cols")
             binding.itemRecyclerView.layoutManager = GridLayoutManager(requireContext(), cols)
         }
@@ -165,10 +160,9 @@ class PacklistFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        /** Because Preferences can be changed at any time, we check here to see if it the value changed */
         sharedPreferencesViewModel.buildColumnPreferences()
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

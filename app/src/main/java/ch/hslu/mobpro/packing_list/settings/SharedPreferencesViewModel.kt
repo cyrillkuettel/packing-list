@@ -15,7 +15,7 @@ class SharedPreferencesViewModel(application: Application) : AndroidViewModel(ap
     // observable data holder class. LiveData is lifecycle-aware
     private var preferencesColumns: MutableLiveData<Int> = MutableLiveData()
 
-    fun getPreferencesSummary(): LiveData<Int> {
+    fun getCurrentColumns(): LiveData<Int> {
         return preferencesColumns
     }
 
