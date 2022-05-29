@@ -144,21 +144,17 @@ class PacklistFragment : Fragment() {
                 Log.v(TAG, "itemViewModel.getItems(it).observe")
                 if (items.isNotEmpty()) { // List can have size 0 if no items have been created yet
                     val packlistWithItems = items[0] // There will only ever be exactly one Element
-                    val itemList = packlistWithItems.items // This is a List of the actual items of packlist
+                    val itemList = packlistWithItems.items
                     itemList.let { adapter.submitList(it) } // Adapter will take care of the rest.
                 } else {
-                    // This is important, for example in the case where there is one item and the user deletes it.
+                    // This is important, for example in the case where there is one item and then
+                    // the user deletes it.
                     adapter.submitList(emptyList())
                 }
             }
         }
 
-        itemViewModel._navigateBackToItemOverview.observe(viewLifecycleOwner) {
-            Log.d(TAG, "navigateBack")
-
-            navigateBack()
-        }
-        /** Columns can be changed dynamically in prefs */
+        /** Columns can be changed dynamically in preferences */
         sharedPreferencesViewModel.getPreferencesSummary().observe(viewLifecycleOwner) { cols ->
             Log.d(TAG, "getPreferencesSummary: columns $cols")
             binding.itemRecyclerView.layoutManager = GridLayoutManager(requireContext(), cols)
@@ -166,17 +162,6 @@ class PacklistFragment : Fragment() {
 
     }
 
-    private fun navigateBack() {
-        Log.d(TAG, "navigateBack")
-        val action = currentPackListTitle?.let {
-            CreateItemFragmentDirections.actionCreateItemFragmentToPacklistFragment(it)
-        }
-        if (action != null) {
-            findNavController().navigate(action)
-        } else {
-            findNavController().navigate(R.id.action_CreateItemFragment_to_PacklistFragment)
-        }
-    }
 
     override fun onResume() {
         super.onResume()

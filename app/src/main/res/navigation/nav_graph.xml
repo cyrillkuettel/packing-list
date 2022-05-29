@@ -55,8 +55,11 @@
         android:label="@string/create_item_fragment_label"
         tools:layout="@layout/fragment_create_item">
 
+        <!--Note: here popUpTo and is popUpToInclusive very important to prevent circular navigation. -->
         <action
             android:id="@+id/action_CreateItemFragment_to_PacklistFragment"
+            app:popUpTo="@id/PacklistFragment"
+            app:popUpToInclusive="true"
             app:destination="@id/PacklistFragment" />
         <argument
             android:name="title_from_clicked"
