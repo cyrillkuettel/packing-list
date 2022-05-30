@@ -12,3 +12,4 @@ Technische Anforderungen:
  - Erstellung von sinnvollen Unit-Tests
 
 
+![nav_graph](nav_graph.png)
