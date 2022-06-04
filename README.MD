@@ -2,6 +2,12 @@
 Basic packing-list app that implements the recommended architecture.
 We use LiveData, ViewModel, Repository and Room to enable a Flow of Data for Automatic UI Updates (Reactive UI).
 
+# App Architecture
+![architecture.svg](architecture.svg)
+
+
+# Navigation Controller
+![nav_graph](nav_graph.png)
 
 
 Technische Anforderungen:
@@ -10,5 +16,3 @@ Technische Anforderungen:
  - Verwendung von nicht im Modul behandelten Bibliotheken /
    Frameworks (https://github.com/skydoves/PowerSpinner)
  - Erstellung von sinnvollen Unit-Tests
-
-
