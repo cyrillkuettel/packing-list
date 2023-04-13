@@ -45,8 +45,6 @@ class CreatelistFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeViewModels()
         binding.mainButtonSubmitList.setOnClickListener { submitListOnClick() }
-        binding.mainButtonStartDatePicker.setOnClickListener{ setupDatePicker() }
-
     }
 
     private fun submitListOnClick() {
@@ -55,27 +53,11 @@ class CreatelistFragment : Fragment() {
     }
 
     private fun createNewPacklistObject(): Packlist {
-        val location = binding.mainEditTextLocation.text.toString()
         val title = binding.mainEditTextName.text.toString()
-        val date = binding.datePickerTextView.text.toString()
-        return Packlist(title, location, date, getRandomColor())
+        // todo: add content (needs new field)
+        return Packlist(title, "", "foo", getRandomColor())
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun setupDatePicker(){
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-        val day = c.get(Calendar.DAY_OF_MONTH)
-        val dpd = DatePickerDialog(requireContext(),
-            { _, year, month, day -> setDate(year, month, day) }, year, month, day)
-        dpd.show()
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun setDate( year: Int, month: Int, day: Int) {
-        binding.datePickerTextView.text = "$day/$month/$year"
-    }
 
 
     private fun observeViewModels() {

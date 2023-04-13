@@ -10,17 +10,6 @@
     android:layout_height="wrap_content"
     tools:context=".fragments.MenuFragment">
 
-    <TextView
-        android:id="@+id/textViewStaticTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="262dp"
-        android:text="Create a new List"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/mainEditTextName"
@@ -31,41 +20,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewStaticTitle" />
-
-    <TextView
-        android:id="@+id/datePickerTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="Pick a date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainEditTextName" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/mainButtonStartDatePicker"
-        android:layout_width="229dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Pick a date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/datePickerTextView" />
-
-    <EditText
-        android:id="@+id/mainEditTextLocation"
-        android:layout_width="229dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:text="Add Location"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainButtonStartDatePicker" />
-
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -78,7 +33,7 @@
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainEditTextLocation"
+        app:layout_constraintTop_toBottomOf="@+id/mainEditTextName"
         tools:ignore="SpeakableTextPresentCheck" />
 
 

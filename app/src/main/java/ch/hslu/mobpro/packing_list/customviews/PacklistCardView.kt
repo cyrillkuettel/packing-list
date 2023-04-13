@@ -18,8 +18,8 @@ constructor(
     ctx: Context,
     attributeSet: AttributeSet? = null,
     defStyleAttr: Int = 0,
-    private var title: String = "Wanderung Martinsloch",
-    private var location: String = "Location: Martinsloch",
+    private var title: String = "",
+    private var location: String = "",
     private var date: String = "",
     private var cardColor: Int = Color.parseColor("#006400"), // green
 ) : View(ctx, attributeSet, defStyleAttr) {
@@ -39,8 +39,9 @@ constructor(
         super.onDraw(canvas)
         drawCard(canvas)
         paintTitleText(canvas)
-        paintDate(canvas)
-        paintLocationText(canvas)
+       // for now, don't draw these. I don't want this anyway.
+//        paintDate(canvas)
+//        paintLocationText(canvas)
     }
 
 
@@ -48,13 +49,11 @@ constructor(
 
         val cardPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = cardColor }
         rectWidth = currentViewWidth - 20f
-        canvas?.drawRoundRect(20f, 20f, rectWidth, rectHeight, 20f, 20f,
-            cardPaint)
+        canvas?.drawRoundRect(20f, 20f, rectWidth, rectHeight, 20f, 20f, cardPaint)
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-
         currentViewHeight = h
         currentViewWidth = w
     }

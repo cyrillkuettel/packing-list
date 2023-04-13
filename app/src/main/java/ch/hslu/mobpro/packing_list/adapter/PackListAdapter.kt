@@ -32,7 +32,7 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel, val ctx:
     override fun onBindViewHolder(holder: PacklistViewHolder, position: Int) {
         val current = getItem(position)
 
-        holder.bind(current.title, current.location, current.date, current.color)
+        holder.bind(current.title, current.location, current.content, current.color)
 
         holder.getView().setOnClickListener {
             // retrieve id of clicked item here
