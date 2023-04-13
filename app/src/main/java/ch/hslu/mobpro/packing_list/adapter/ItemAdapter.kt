@@ -34,7 +34,7 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
         val current = getItem(position)
         holder.bind(current.content, current.color)
         holder.getView().setOnClickListener {
-            Log.v(TAG, "clicked on textView of item with content: ${current.content}")
+            Log.v(TAG, "clicked on View of item with content: ${current.content}")
         }
 
 
@@ -45,12 +45,7 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
             Log.v(TAG, "clicked on Cb from Item with checkbox status: ${getItem(position).status}")
         }
 
-        holder.getItemDeleteButton().setOnClickListener {
-            itemViewModel.delete(current.itemContentID)
-            // UI will update automatically, because PackListFragment observes the items
-        }
-
-            holder.getItem().setOnClickListener {
+        holder.getItem().setOnClickListener {
             Log.d(TAG, "clicked on the item itself")
         }
 
@@ -82,8 +77,6 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
     class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val item: CardView = itemView.findViewById(R.id.item)
 
-        private val itemDeleteButton: ImageButton = itemView.findViewById(R.id.itemDeleteButton)
-
         // Text View in Item
         private val itemContent: TextView = itemView.findViewById(R.id.itemContent)
 
@@ -97,10 +90,6 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
         }
         fun getView(): TextView {
             return itemContent
-        }
-
-        fun getItemDeleteButton(): ImageButton {
-            return itemDeleteButton
         }
 
         // Status from CheckBox
