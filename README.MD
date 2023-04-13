@@ -14,6 +14,6 @@ Based on LiveData, ViewModel, Repository and Room to ease a Flow of Data for Aut
 ![architecture.svg](architecture.jpg)
 
 
-# # Navigation Controller
+## Navigation Controller
 The Navigation Controller is a puissant tool in the Android developer's arsenal, allowing for facile management of an application's state transitions. It is not _yet_ deprected, but don't worry, that will happen soon enough.
 ![nav_graph](nav_graph.png)
