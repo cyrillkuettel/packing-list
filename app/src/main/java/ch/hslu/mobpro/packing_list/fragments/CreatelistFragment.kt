@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import ch.hslu.mobpro.packing_list.PacklistApplication
 import ch.hslu.mobpro.packing_list.databinding.FragmentCreatelistBinding
 import ch.hslu.mobpro.packing_list.room.Packlist
+import ch.hslu.mobpro.packing_list.utils.CommonUtils.Companion.getRandomColor
 import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModelFactory
 import java.util.*
@@ -46,19 +47,6 @@ class CreatelistFragment : Fragment() {
         binding.mainButtonSubmitList.setOnClickListener { submitListOnClick() }
         binding.mainButtonStartDatePicker.setOnClickListener{ setupDatePicker() }
 
-
-        binding.spinnerView.apply {
-            setOnSpinnerItemSelectedListener<String> { _, _, index, _ ->
-                val rainbow = context.resources.getIntArray(
-                    ch.hslu.mobpro.packing_list.R.array.packlist_background_colors)
-                if (index >= rainbow.size || index < 0) {
-                    Log.e(TAG, "index does not exit")
-                } else {
-                    val selectedBackgroundColor = rainbow[index]
-                    setBackgroundColor(selectedBackgroundColor)
-                }
-            }
-        }
     }
 
     private fun submitListOnClick() {
@@ -70,8 +58,7 @@ class CreatelistFragment : Fragment() {
         val location = binding.mainEditTextLocation.text.toString()
         val title = binding.mainEditTextName.text.toString()
         val date = binding.datePickerTextView.text.toString()
-        val color = (binding.spinnerView.background as ColorDrawable).color
-        return Packlist(title, location, date, color)
+        return Packlist(title, location, date, getRandomColor())
     }
 
     @SuppressLint("SetTextI18n")

@@ -67,34 +67,6 @@
         app:layout_constraintTop_toBottomOf="@+id/mainButtonStartDatePicker" />
 
 
-    <com.skydoves.powerspinner.PowerSpinnerView
-        android:id="@+id/spinnerView"
-        android:layout_width="229dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainEditTextLocation"
-        android:background="@color/md_green_200"
-        android:gravity="center"
-        android:hint="What is your favourite color?"
-        android:padding="10dp"
-        android:foreground="?attr/selectableItemBackground"
-        android:textColor="@color/white_93"
-        android:textColorHint="@color/white_70"
-        android:textSize="16sp"
-        app:spinner_item_array="@array/colors_names"
-        app:spinner_arrow_gravity="end"
-        app:spinner_arrow_padding="8dp"
-        app:spinner_divider_color="@color/white_70"
-        app:spinner_divider_show="false"
-        app:spinner_divider_size="0.4dp"
-        app:spinner_item_height="46dp"
-        app:spinner_popup_animation="fade"
-        app:spinner_popup_background="@color/background800"
-        app:spinner_popup_elevation="14dp"
-        tools:ignore="HardcodedText,UnusedAttribute, SpeakableTextPresentCheck" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainButtonSubmitList"
@@ -106,7 +78,7 @@
         android:text="Submit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerView"
+        app:layout_constraintTop_toBottomOf="@+id/mainEditTextLocation"
         tools:ignore="SpeakableTextPresentCheck" />
 
 

@@ -34,7 +34,7 @@ data class Item(
         itemContentID: $itemContentID
         itemId: $itemId
         content: $content
-        status: $status
+        checked: $status
     """.trimIndent()
 
 }

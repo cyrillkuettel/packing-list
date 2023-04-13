@@ -18,8 +18,8 @@ import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModelFactory
 
 /**
- * A fragment representing a list of packing lists.
  * This is the first fragment that is shown in the App.
+ * A fragment representing a list of packing lists.
  */
 class MenuFragment : Fragment() {
 
@@ -71,7 +71,7 @@ class MenuFragment : Fragment() {
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val packListToDelete =
-                        adapter.getItemAt(viewHolder.absoluteAdapterPosition)?.title
+                        adapter.getItemAt(viewHolder.adapterPosition)?.title
                     if (packListToDelete != null) {
                         Log.d(TAG, "deleting item $packListToDelete")
                         packlistViewModel.deletePacklist(packListToDelete)

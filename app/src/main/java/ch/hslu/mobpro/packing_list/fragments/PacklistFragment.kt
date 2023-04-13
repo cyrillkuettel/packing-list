@@ -22,7 +22,7 @@ import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
 
 /**
- * Display all items of a Single Packing List
+ * Display all items of a Single Top-Level List
  */
 class PacklistFragment : Fragment() {
 
@@ -86,8 +86,7 @@ class PacklistFragment : Fragment() {
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val itemToDelete =
-                        adapter.getItemAt(viewHolder.absoluteAdapterPosition)?.itemContentID
+                    val itemToDelete = adapter.getItemAt(viewHolder.adapterPosition)?.itemContentID
                     if (itemToDelete != null) {
                         Log.d(TAG, "deleting item $itemToDelete")
                         itemViewModel.delete(itemToDelete)

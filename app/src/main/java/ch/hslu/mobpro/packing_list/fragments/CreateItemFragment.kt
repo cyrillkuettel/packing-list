@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import ch.hslu.mobpro.packing_list.*
 import ch.hslu.mobpro.packing_list.databinding.FragmentCreateItemBinding
 import ch.hslu.mobpro.packing_list.room.Item
+import ch.hslu.mobpro.packing_list.utils.CommonUtils.Companion.getRandomColor
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
 
@@ -50,21 +52,6 @@ class CreateItemFragment : Fragment() {
 
         binding.mainEditTextItemName.requestFocus()
         binding.mainEditTextItemName.showKeyboard()
-
-        /** Setup spinner to preview colors */
-        binding.itemspinnerView.apply {
-            setOnSpinnerItemSelectedListener<String> { _, _, index, _ ->
-                val rainbow = context.resources.getIntArray(
-                    R.array.packlist_background_colors
-                )
-                if (index >= rainbow.size || index < 0) {
-                    Log.e(TAG, "index does not exit")
-                } else {
-                    val selectedBackgroundColor = rainbow[index]
-                    setBackgroundColor(selectedBackgroundColor)
-                }
-            }
-        }
 
         observeViewModels()
 
@@ -108,9 +95,8 @@ class CreateItemFragment : Fragment() {
     private fun createItem(): Item? {
         val content = binding.mainEditTextItemName.text.toString()
         val status = false
-        val color = (binding.itemspinnerView.background as ColorDrawable).color
         /** Items reference the parent by the title [currentPackListTitle] */
-        return currentPackListTitle?.let { Item(it, content, status, color) }
+        return currentPackListTitle?.let { Item(it, content, status, getRandomColor()) }
 
     }
 
