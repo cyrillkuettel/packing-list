@@ -26,7 +26,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/mainButtonSubmitList"
         android:textColor="@color/white"
-        android:background="@color/purple_500"
+        android:background="@color/turkish"
         android:layout_width="229dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"

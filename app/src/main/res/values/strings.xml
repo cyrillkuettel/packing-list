@@ -2,14 +2,14 @@
     <string name="app_name">packing-list</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="create_list_fragment_label">Create a new List</string>
-    <string name="menu_fragment_label">Packlists</string>
-    <string name="create_item_fragment_label">Edit Packlist Item</string>
-    <string name="create_new_item">Create new Item</string>
+    <string name="create_list_fragment_label">New List</string>
+    <string name="menu_fragment_label">Notes</string>
+    <string name="create_item_fragment_label">Edit Item</string>
+    <string name="create_new_item">New Item</string>
     <string name="apply">Apply</string>
     <string name="key_change_number_of_columns" />
-    <string name="title_change_number_of_columns">Change number of columns for items </string>
-    <string name="dialog_title_change_number_of_columns">Number of columns</string>
+    <string name="title_change_number_of_columns">Number of columns for items </string>
+    <string name="dialog_title_change_number_of_columns">columns</string>
 
     <!-- Colors for Packlist -->
     <string-array name="colors_names">

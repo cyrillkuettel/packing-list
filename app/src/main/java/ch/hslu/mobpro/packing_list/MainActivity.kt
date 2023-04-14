@@ -28,10 +28,11 @@ class MainActivity : AppCompatActivity() {
         setupNavController()
     }
 
-    private fun setupNavController() {
+    private fun setupNavController(): NavController {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+        return navController
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -34,7 +34,7 @@
     <fragment
         android:id="@+id/PacklistFragment"
         android:name="ch.hslu.mobpro.packing_list.fragments.PacklistFragment"
-        android:label="Selected Packlist"
+        android:label=""
         tools:layout="@layout/fragment_packlist">
         <action
             android:id="@+id/action_PacklistFragment_to_MenuFragment"

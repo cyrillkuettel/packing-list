@@ -1,5 +1,6 @@
 package ch.hslu.mobpro.packing_list.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -44,6 +45,7 @@ class CreateItemFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("LogConditional")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mainButtonAddItem.setOnClickListener { submitItemOnclick() }

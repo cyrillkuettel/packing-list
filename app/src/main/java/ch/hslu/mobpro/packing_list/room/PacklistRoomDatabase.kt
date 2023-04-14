@@ -28,7 +28,7 @@ abstract class PacklistRoomDatabase : RoomDatabase() {
                     packlistDao.deleteAll()
 
                     // Populate with some sample packlist, for testing.
-                    val word = Packlist("Hello","@Home", "09.12.1999", -13070788)
+                    val word = Packlist("Hello","Location", "09.12.1999", -13070788)
                     packlistDao.insert(word)
 
                 }
