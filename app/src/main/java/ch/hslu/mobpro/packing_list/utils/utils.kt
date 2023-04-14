@@ -2,6 +2,10 @@ package ch.hslu.mobpro.packing_list.utils
 
 import androidx.core.graphics.toColorInt
 
+object colors {
+   val noteDefaultColor  = "#fff68fh"
+}
+
 class CommonUtils {
     companion object {
         fun getRandomColor(): Int {
