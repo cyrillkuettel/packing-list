@@ -1,5 +1,6 @@
 package ch.hslu.mobpro.packing_list.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,7 +23,7 @@ import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
 
 /**
- * Display all items of a Single Top-Level List
+ * Single Top-Level List.
  */
 class PacklistFragment : Fragment() {
 
@@ -87,9 +88,9 @@ class PacklistFragment : Fragment() {
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val itemToDelete = adapter.getItemAt(viewHolder.adapterPosition)?.itemContentID
-                    if (itemToDelete != null) {
-                        Log.d(TAG, "deleting item $itemToDelete")
-                        itemViewModel.delete(itemToDelete)
+                    itemToDelete?.let {
+                        Log.d(TAG, "deleting item $it")
+                        itemViewModel.delete(it)
                     }
                 }
             }
@@ -123,10 +124,11 @@ class PacklistFragment : Fragment() {
         Log.v(TAG, "observeViewModels")
 
         // Get Title
-        itemViewModel.getCurrentEditingPackList().observe(viewLifecycleOwner) { matchingTitlePacklist ->
-            Log.v(TAG, "successfully retrieved matchingTitlePacklist")
-            currentPackListTitle = matchingTitlePacklist[0].title
-        }
+        itemViewModel.getCurrentEditingPackList()
+            .observe(viewLifecycleOwner) { matchingTitlePacklist ->
+                Log.v(TAG, "successfully retrieved matchingTitlePacklist")
+                currentPackListTitle = matchingTitlePacklist[0].title
+            }
 
 
         // Set Title // Get Items
