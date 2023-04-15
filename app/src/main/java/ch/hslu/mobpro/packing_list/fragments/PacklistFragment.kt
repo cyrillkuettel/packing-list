@@ -22,9 +22,7 @@ import ch.hslu.mobpro.packing_list.settings.SharedPreferencesViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
 
-/**
- * Single Top-Level List.
- */
+
 class PacklistFragment : Fragment() {
 
     private val args: PacklistFragmentArgs by navArgs()

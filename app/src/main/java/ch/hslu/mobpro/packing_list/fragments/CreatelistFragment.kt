@@ -46,6 +46,7 @@ class CreatelistFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeViewModels()
         binding.mainButtonSubmitList.setOnClickListener { submitListOnClick() }
+        binding.mainEditTextName.requestFocus()
         binding.mainEditTextName.showKeyboard()
     }
 
