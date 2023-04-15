@@ -1,12 +1,9 @@
 package ch.hslu.mobpro.packing_list.room
 
-import android.graphics.Color
-import androidx.core.graphics.toColorInt
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ch.hslu.mobpro.packing_list.utils.colors
-import ch.hslu.mobpro.packing_list.utils.colors.noteDefaultColor
+import ch.hslu.mobpro.packing_list.utils.Colors.defaultNoteColor
 
 
 @Entity(tableName = "packlist_table")
@@ -19,5 +16,9 @@ data class Packlist(
 
     // Secondary constructor for convenience
     constructor(title: String) :
-            this(title, "", "", noteDefaultColor.toColorInt())
+            this(title, "", "", defaultNoteColor)
+
+
+    constructor(title: String, color: Int) :
+            this(title, "", "", color)
 }

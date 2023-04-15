@@ -1,12 +1,13 @@
 package ch.hslu.mobpro.packing_list.utils
 
 import android.content.Context
+import android.graphics.Color
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.core.graphics.toColorInt
 
-object colors {
-   val noteDefaultColor  = "#fff68fh"
+object Colors {
+    val defaultNoteColor: Int = Color.parseColor("#fff68f")
 }
 
 class CommonUtils {

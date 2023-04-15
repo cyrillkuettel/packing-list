@@ -8,8 +8,10 @@ import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.room.Packlist
 import ch.hslu.mobpro.packing_list.room.PacklistDao
 import ch.hslu.mobpro.packing_list.room.PacklistWithItems
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 
 
 /**
@@ -33,7 +35,7 @@ class PacklistRepository(private val packlistDao: PacklistDao,
     @WorkerThread
     override suspend fun insertPacklist(packList: Packlist)  {
         Log.v(TAG, "repository insert")
-        packlistDao.insert(packList)
+        packlistDao.insertPacklist(packList)
     }
 
 
@@ -82,6 +84,12 @@ class PacklistRepository(private val packlistDao: PacklistDao,
                 Log.d(TAG, "packlist does not contain any items, so we only delete the packlist")
                 packlistDao.deletePacklistById(title)
             }
+        }
+    }
+
+    override suspend fun updateTitle(oldTitle: String, newTitle: String) {
+        withContext(ioDispatcher) {
+            packlistDao.updateTitle(oldTitle, newTitle)
         }
     }
 

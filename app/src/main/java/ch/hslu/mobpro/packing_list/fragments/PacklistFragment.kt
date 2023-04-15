@@ -2,9 +2,11 @@ package ch.hslu.mobpro.packing_list.fragments
 
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -14,11 +16,11 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import ch.hslu.mobpro.packing_list.*
+import ch.hslu.mobpro.packing_list.PacklistApplication
+import ch.hslu.mobpro.packing_list.R
 import ch.hslu.mobpro.packing_list.adapter.ItemAdapter
 import ch.hslu.mobpro.packing_list.databinding.FragmentPacklistBinding
 import ch.hslu.mobpro.packing_list.settings.SharedPreferencesViewModel
-import ch.hslu.mobpro.packing_list.utils.CommonUtils.Companion.showKeyboard
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
 
@@ -72,7 +74,9 @@ class PacklistFragment : Fragment() {
             navigateToCreateItemFragment()
         }
 
-        binding.textViewItemListTitle.setOnClickListener {itemListTitleOnClick()}
+        binding.textViewItemListTitle.setOnClickListener { itemListTitleOnClick() }
+        binding.textViewItemListTitle.setImeActionLabel("My Done", KeyEvent.KEYCODE_ENTER);
+
     }
 
 
@@ -107,6 +111,23 @@ class PacklistFragment : Fragment() {
             }
         }
 
+        /**Set a special listener to be called when an action is performed on the text view.
+         * This will be called when the enter key is pressed */
+        binding.textViewItemListTitle.setOnEditorActionListener { editText, actionId, _ ->
+
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                currentPackListTitle?.let { oldTitle ->
+                    val newTitle = editText.text.toString()
+                    itemViewModel.updateTitle(oldTitle, newTitle)
+                }
+
+            } else  {
+                Log.e(TAG, "Not the action we expected!" )
+            }
+             editText.clearFocus();
+            true
+        }
+
         /** Columns can be changed dynamically in preferences */
         sharedPreferencesViewModel.getCurrentColumns().observe(viewLifecycleOwner) { cols ->
             Log.d(TAG, "getPreferencesSummary: columns $cols")
@@ -114,11 +135,10 @@ class PacklistFragment : Fragment() {
         }
 
     }
+
     private fun itemListTitleOnClick() {
-        Log.d(TAG, "clicked on the title")
         binding.textViewItemListTitle.requestFocus()
         // binding.textViewItemListTitle.showKeyboard()
-
     }
 
     private fun setupSwipeToDeleteItems(adapter: ItemAdapter) {
@@ -164,8 +184,6 @@ class PacklistFragment : Fragment() {
         recyclerView.layoutManager = GridLayoutManager(requireContext(), NUMBER_OF_COLUMNS)
         return adapter
     }
-
-
 
 
     override fun onResume() {

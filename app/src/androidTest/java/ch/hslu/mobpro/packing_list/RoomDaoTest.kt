@@ -2,13 +2,12 @@ package ch.hslu.mobpro.packing_list
 
 import android.util.Log
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.LiveData
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import ch.hslu.mobpro.packing_list.room.*
+import ch.hslu.mobpro.packing_list.utilities.Util.assertEmpty
 import ch.hslu.mobpro.packing_list.utilities.getOrAwaitValue
-import ch.hslu.mobpro.packing_list.utilities.testPacklist
 import kotlinx.coroutines.flow.take
 import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
@@ -22,6 +21,18 @@ import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 class RoomDaoTest {
+
+    /**
+     * [Packlist] objects used for tests.
+     */
+    val testPacklists = arrayListOf(
+
+        Packlist("testTitle1"),
+        Packlist("testTitle2"),
+        Packlist("testTitle3")
+    )
+    val defaultPacklist = testPacklists[0]
+
     private lateinit var database: PacklistRoomDatabase
     private lateinit var packlistDao: PacklistDao
 
@@ -33,7 +44,7 @@ class RoomDaoTest {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         database = Room.inMemoryDatabaseBuilder(context, PacklistRoomDatabase::class.java).build()
         packlistDao = database.packListDao()
-        packlistDao.insert(testPacklist)
+        packlistDao.insertPacklist(defaultPacklist)
     }
 
     @Throws(IOException::class)
@@ -45,15 +56,15 @@ class RoomDaoTest {
     fun testTakeOutASinglePacklist() = runBlocking  {
         val packLists = packlistDao.getAlphabetizedPacklist()
         val result = packLists.take(1).toList()[0][0]
-        assertEquals(testPacklist,  result)
+        assertEquals(defaultPacklist,  result)
     }
 
     @Test
     fun testInsertingItems_ShouldBeReturnedAsLiveData() = runBlocking  {
 
-        val id = testPacklist.title
+        val id = defaultPacklist.title
         // given a arbitrary item
-        val testItemInserted = Item(id,"test", true, -13070788)
+        val testItemInserted = Item(id,"test",  -13070788)
         // insert the item to database
             packlistDao.insertItem(testItemInserted)
 
@@ -67,9 +78,9 @@ class RoomDaoTest {
     @Test
     fun testDeletingPackList() = runBlocking  {
 
-        val id = testPacklist.title // packlist is inserted
-        val testItemInserted1 = Item(id,"test1", true, -13070788)
-        val testItemInserted2 = Item(id,"test2", true, -13070788)
+        val id = defaultPacklist.title // packlist is inserted
+        val testItemInserted1 = Item(id,"test1",  -13070788)
+        val testItemInserted2 = Item(id,"test2",  -13070788)
 
         // Given some items inserted to database
         packlistDao.insertItem(testItemInserted1)
@@ -94,10 +105,26 @@ class RoomDaoTest {
     }
 
 
+    @Test
+    fun testUpdatePackListTitle() = runBlocking  {
+        val oldTitle = "OldTitle"
+        val newTitle = "newTitle"
+        val p = Packlist(oldTitle, 0)
+        packlistDao.insertPacklist(p)
+        packlistDao.updateTitle(oldTitle, newTitle)
 
+        val queryResult: List<Packlist> = packlistDao.getPacklistByTitle(newTitle).getOrAwaitValue()
+        val result: Packlist = queryResult[0]
+        assertEquals(result.title, newTitle)
+
+        // query by the old key should no longer work.
+        val query: List<Packlist> =
+            packlistDao.getPacklistByTitle(oldTitle).getOrAwaitValue()
+        query.assertEmpty()
+
+    }
 
     companion object {
         const val TAG = "RoomDaoTest"
     }
-
 }

@@ -20,7 +20,7 @@ interface PacklistDao {
     fun getAlphabetizedPacklist(): Flow<List<Packlist>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(packlist: Packlist)
+    suspend fun insertPacklist(packlist: Packlist)
 
     @Query("DELETE FROM packlist_table")
     suspend fun deleteAll()
@@ -60,6 +60,11 @@ interface PacklistDao {
     @Transaction
     @Query("SELECT EXISTS (SELECT 1 FROM packlist_table WHERE id IN (SELECT DISTINCT(item_id) FROM item_table) AND id = :id)")
     fun packListContainsItems(id: String) : Boolean
+
+
+    @Transaction
+    @Query("UPDATE packlist_table SET id = :newTitle WHERE id = :oldTitle")
+    suspend fun updateTitle(oldTitle: String, newTitle: String)
 
 
 }

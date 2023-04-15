@@ -10,11 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import ch.hslu.mobpro.packing_list.*
+import ch.hslu.mobpro.packing_list.PacklistApplication
+import ch.hslu.mobpro.packing_list.R
 import ch.hslu.mobpro.packing_list.databinding.FragmentCreateItemBinding
 import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.utils.CommonUtils.Companion.getRandomColor
-import ch.hslu.mobpro.packing_list.utils.CommonUtils.Companion.showKeyboard
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
 

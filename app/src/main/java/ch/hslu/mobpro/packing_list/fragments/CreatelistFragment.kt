@@ -1,15 +1,9 @@
 package ch.hslu.mobpro.packing_list.fragments
 
-import android.annotation.SuppressLint
-import android.app.DatePickerDialog
-import android.content.Context
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -19,7 +13,6 @@ import ch.hslu.mobpro.packing_list.room.Packlist
 import ch.hslu.mobpro.packing_list.utils.CommonUtils.Companion.getRandomColor
 import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModelFactory
-import ch.hslu.mobpro.packing_list.utils.CommonUtils.Companion.showKeyboard
 
 /**
  *  FloatingActionButton -> creating a new list.

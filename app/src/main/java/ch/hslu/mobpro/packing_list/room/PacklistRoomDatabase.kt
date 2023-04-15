@@ -1,11 +1,12 @@
 package ch.hslu.mobpro.packing_list.room
 
 import android.content.Context
+import android.graphics.Color
 import android.util.Log
+import androidx.annotation.InspectableProperty
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -28,11 +29,12 @@ abstract class PacklistRoomDatabase : RoomDatabase() {
                     packlistDao.deleteAll()
 
                     // Populate with some sample packlist, for testing.
-                    val word = Packlist("Hello")
-                    packlistDao.insert(word)
+                    val green = Color.parseColor("00FF00")
+                    val word = Packlist("Hello", color = green)
+                    packlistDao.insertPacklist(word)
 
                 }
-            }
+             }
         }
     }
 

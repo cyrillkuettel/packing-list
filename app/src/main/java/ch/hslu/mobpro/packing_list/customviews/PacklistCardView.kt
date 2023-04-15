@@ -4,14 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.TypedValue
-import android.view.MotionEvent
 import android.view.View
-import android.view.animation.AnimationUtils
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.dynamicanimation.animation.SpringAnimation
-import androidx.dynamicanimation.animation.SpringForce
-import ch.hslu.mobpro.packing_list.R
-
 
 
 /*** A custom view that represents a single Top-Level item.

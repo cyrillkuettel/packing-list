@@ -1,19 +1,18 @@
 package ch.hslu.mobpro.packing_list.fragments
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ch.hslu.mobpro.packing_list.*
+import ch.hslu.mobpro.packing_list.PacklistApplication
+import ch.hslu.mobpro.packing_list.R
 import ch.hslu.mobpro.packing_list.adapter.PackListAdapter
 import ch.hslu.mobpro.packing_list.databinding.FragmentMenuBinding
 import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModel

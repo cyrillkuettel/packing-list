@@ -68,6 +68,10 @@ class FakeTestRepository : IPacklistRepository {
         TODO("Not yet implemented")
     }
 
+    override suspend fun updateTitle(title: String, newTitle1: String) {
+        TODO("Not yet implemented")
+    }
+
 
     /** item specific functions */
     override suspend fun insertItem(item: Item) {
