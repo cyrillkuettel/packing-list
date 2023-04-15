@@ -11,6 +11,7 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,6 +21,7 @@ import ch.hslu.mobpro.packing_list.PacklistApplication
 import ch.hslu.mobpro.packing_list.R
 import ch.hslu.mobpro.packing_list.adapter.ItemAdapter
 import ch.hslu.mobpro.packing_list.databinding.FragmentPacklistBinding
+import ch.hslu.mobpro.packing_list.room.PacklistWithItems
 import ch.hslu.mobpro.packing_list.settings.SharedPreferencesViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
@@ -42,7 +44,7 @@ class PacklistFragment : Fragment() {
     private val binding get() = _binding!!
 
     /** References the currently selected item */
-    private var currentPackListTitle: String? = null
+    private var currentPackListuuid: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,10 +64,11 @@ class PacklistFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val title = args.title // retrieve title from Arguments, this uniquely identifies Packlist
-        Log.v(TAG, "receiving arguments, args.title is $title")
-        itemViewModel.setCurrentEditingPackListTitle(title)
-        currentPackListTitle = title
+        val uuid: String = args.id
+
+        Log.v(TAG, "receiving arguments, args.uuid is $uuid")
+        itemViewModel.setCurrentEditingPacklistfromUUID(uuid)
+        currentPackListuuid = uuid
         val adapter = setupRecyclerView()
         observeViewModels(adapter)
 
@@ -83,26 +86,22 @@ class PacklistFragment : Fragment() {
     private fun observeViewModels(adapter: ItemAdapter) {
         Log.v(TAG, "observeViewModels")
 
-        // Get Title
-        itemViewModel.getCurrentEditingPackList()
-            .observe(viewLifecycleOwner) { matchingTitlePacklist ->
+        // XXX Source of truth for current editing packlist Title
+        itemViewModel.getCurrentEditingPackList().observe(viewLifecycleOwner) { currentPacklist ->
                 Log.v(TAG, "successfully retrieved matchingTitlePacklist")
-                currentPackListTitle = matchingTitlePacklist[0].title
+                currentPackListuuid = currentPacklist[0].id.toString()
+                binding.textViewItemListTitle.setText(currentPacklist[0].title)
             }
 
 
-        // Set Title // Get Items
-        currentPackListTitle?.let { title ->
-            Log.v(TAG, "currentPackList_Title viewmodel triggered")
-            binding.textViewItemListTitle.setText(currentPackListTitle)
-
             /** Items get automatically refreshed if once item has been deleted.  */
-            itemViewModel.getPackListWithItems(title).observe(viewLifecycleOwner) { items ->
+        currentPackListuuid?.let {
+            itemViewModel.getPackListWithItemsByUUID(it).observe(viewLifecycleOwner) { items: List<PacklistWithItems> ->
                 Log.v(TAG, "itemViewModel.getItems(it).observe")
                 if (items.isNotEmpty()) { // List can have size 0 if no items have been created yet
                     val packlistWithItems = items[0] // There will only ever be exactly one Element
                     val itemList = packlistWithItems.items
-                    itemList.let { adapter.submitList(it) } // Adapter will take care of the rest.
+                    itemList.let { adapter.submitList(itemList) } // Adapter will take care of the rest.
                 } else {
                     // This is important, for example in the case where there is one item and then
                     // the user deletes it.
@@ -116,7 +115,7 @@ class PacklistFragment : Fragment() {
         binding.textViewItemListTitle.setOnEditorActionListener { editText, actionId, _ ->
 
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                currentPackListTitle?.let { oldTitle ->
+                currentPackListuuid?.let { oldTitle ->
                     val newTitle = editText.text.toString()
                     itemViewModel.updateTitle(oldTitle, newTitle)
                 }
@@ -168,7 +167,8 @@ class PacklistFragment : Fragment() {
 
 
     private fun navigateToCreateItemFragment() {
-        val action = currentPackListTitle?.let {
+        // XXX Pass the arguments to fragment
+        val action: NavDirections? = currentPackListuuid?.let {
             PacklistFragmentDirections.actionPacklistFragmentToCreateItemFragment(it)
         }
         action?.let {

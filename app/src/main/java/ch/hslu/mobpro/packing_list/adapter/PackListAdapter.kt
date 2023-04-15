@@ -30,14 +30,17 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel, val ctx:
     }
 
     override fun onBindViewHolder(holder: PacklistViewHolder, position: Int) {
-        val current = getItem(position)
+        val currentPacklist = getItem(position)
 
-        holder.bind(current.title, current.location, current.content, current.color)
+        holder.bind(currentPacklist.title,
+            currentPacklist.location,
+            currentPacklist.content,
+            currentPacklist.color)
 
         holder.getView().setOnClickListener {
             // retrieve id of clicked item here
-            Log.v(TAG, "setting clicked packlist title: ${current.title}")
-            packlistViewModel.setClickedPacklist(current)
+            Log.v(TAG, "setting clicked packlist title: ${currentPacklist.title}")
+            packlistViewModel.setClickedPacklist(currentPacklist)
         }
         // animate the RecyclerView Items when there are appearing
         setAnimation(holder.itemView, position)
@@ -91,7 +94,7 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel, val ctx:
         }
 
         override fun areContentsTheSame(oldItem: Packlist, newItem: Packlist): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem.id == newItem.id
         }
     }
 

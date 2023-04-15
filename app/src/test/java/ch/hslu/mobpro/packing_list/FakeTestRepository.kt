@@ -6,7 +6,7 @@ import ch.hslu.mobpro.packing_list.room.Packlist
 import ch.hslu.mobpro.packing_list.room.PacklistWithItems
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
-import java.util.LinkedHashMap
+import java.util.*
 
 
 /**
@@ -47,14 +47,10 @@ class FakeTestRepository : IPacklistRepository {
         emit(list)
     }
 
-    override fun getPackListByTitle(title: String): LiveData<List<Packlist>> {
+    override fun getPackListByUUID(uuid: String): LiveData<List<Packlist>> {
         TODO("Not yet implemented")
     }
 
-
-    override suspend fun existsByPacklist(id: Int): LiveData<Boolean> {
-        TODO("Not yet implemented")
-    }
 
     override fun getStatus(itemContentID: Long): LiveData<List<Item>> {
         TODO("Not yet implemented")
@@ -64,11 +60,11 @@ class FakeTestRepository : IPacklistRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun deleteItemsWithPacklist(title: String) {
+    override suspend fun deleteItemsWithPacklist(uuid: UUID) {
         TODO("Not yet implemented")
     }
 
-    override suspend fun updateTitle(title: String, newTitle1: String) {
+    override suspend fun updateTitle(oldTitle: String, newTitle: String) {
         TODO("Not yet implemented")
     }
 
@@ -78,7 +74,7 @@ class FakeTestRepository : IPacklistRepository {
         TODO("Not yet implemented")
     }
 
-    override fun getPackListWithItems(id: String): LiveData<List<PacklistWithItems>> {
+    override fun getPackListWithItemsByUUID(id: String): LiveData<List<PacklistWithItems>> {
         TODO("Not yet implemented")
     }
 

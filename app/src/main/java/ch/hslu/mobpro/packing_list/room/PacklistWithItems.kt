@@ -16,7 +16,7 @@ data class PacklistWithItems(
 ) {
     override fun toString() =
         """
-        PacklistWithItems packlist: $packlist items: ${items.toString()}
+        PacklistWithItems packlist: $packlist items: $items
     """.trimIndent()
 
 }

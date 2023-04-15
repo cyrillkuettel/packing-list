@@ -3,7 +3,6 @@ package ch.hslu.mobpro.packing_list
 import android.util.Log
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.room.Packlist
 import ch.hslu.mobpro.packing_list.room.PacklistDao
@@ -12,6 +11,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import java.util.*
 
 
 /**
@@ -44,24 +44,14 @@ class PacklistRepository(private val packlistDao: PacklistDao,
         packlistDao.insertItem(item)
     }
 
-    override fun getPackListWithItems(id: String) : LiveData<List<PacklistWithItems>> {
-        return packlistDao.getItemsFromParentById(id)
+    override fun getPackListWithItemsByUUID(id: String) : LiveData<List<PacklistWithItems>> {
+        return packlistDao.getItemsFromParentByUUID(UUID.fromString(id))
     }
 
-    override fun getPackListByTitle(title: String) : LiveData<List<Packlist>> {
-        return packlistDao.getPacklistByTitle(title)
+    override fun getPackListByUUID(uuid: String) : LiveData<List<Packlist>> {
+        return packlistDao.getPackListByUUID(UUID.fromString(uuid))
     }
 
-
-    @WorkerThread
-    override suspend fun existsByPacklist(id: Int): LiveData<Boolean> {
-        val data: MutableLiveData<Boolean> = MutableLiveData()
-        withContext(ioDispatcher) {
-            val exists: Boolean = packlistDao.existsByPacklist(id)
-            data.postValue(exists)
-        }
-        return data
-    }
 
     override fun getStatus(itemContentID: Long): LiveData<List<Item>> {
         return packlistDao.getItemStatus(itemContentID)
@@ -74,15 +64,15 @@ class PacklistRepository(private val packlistDao: PacklistDao,
     }
 
     /** if packlist does not have items, the method to delete it is slightly different */
-    override suspend fun deleteItemsWithPacklist(title: String) {
+    override suspend fun deleteItemsWithPacklist(uuid: UUID) {
         withContext(ioDispatcher) {
-            val packListContainsItems: Boolean = packlistDao.packListContainsItems(title)
+            val packListContainsItems: Boolean = packlistDao.packListContainsItems(uuid)
             if (packListContainsItems) {
                 Log.d(TAG, "packListContainsItems,  so delete Every")
-                packlistDao.deleteItemWithPackList(title)
+                packlistDao.deleteItemWithPackList(uuid)
             } else {
                 Log.d(TAG, "packlist does not contain any items, so we only delete the packlist")
-                packlistDao.deletePacklistById(title)
+                packlistDao.deletePackListByTitle(uuid.toString())
             }
         }
     }

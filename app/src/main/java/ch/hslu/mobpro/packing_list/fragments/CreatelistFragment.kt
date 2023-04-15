@@ -53,7 +53,7 @@ class CreatelistFragment : Fragment() {
 
     private fun createNewPacklistObject(): Packlist {
         val title = binding.mainEditTextName.text.toString()
-        return Packlist(title, "", "foo", getRandomColor())
+        return Packlist(title)
     }
 
 

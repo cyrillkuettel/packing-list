@@ -6,6 +6,7 @@ import ch.hslu.mobpro.packing_list.IPacklistRepository
 import ch.hslu.mobpro.packing_list.PacklistRepository
 import ch.hslu.mobpro.packing_list.room.Packlist
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 class PacklistViewModel(private val repository: IPacklistRepository) : ViewModel() {
@@ -43,8 +44,8 @@ class PacklistViewModel(private val repository: IPacklistRepository) : ViewModel
     }
 
 
-    fun deletePacklist(title: String) = viewModelScope.launch {
-        repository.deleteItemsWithPacklist(title)
+    fun deletePacklist(uuid: UUID) = viewModelScope.launch {
+        repository.deleteItemsWithPacklist(uuid)
     }
 
 

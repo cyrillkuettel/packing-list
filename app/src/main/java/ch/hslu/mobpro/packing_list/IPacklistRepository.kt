@@ -6,6 +6,7 @@ import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.room.Packlist
 import ch.hslu.mobpro.packing_list.room.PacklistWithItems
 import kotlinx.coroutines.flow.Flow
+import java.util.*
 
 /**
 * This Interface provides means for the repository to have polymorphic manner.
@@ -25,13 +26,15 @@ interface IPacklistRepository {
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insertItem(item: Item)
-    fun getPackListWithItems(id: String): LiveData<List<PacklistWithItems>>
-    fun getPackListByTitle(title: String): LiveData<List<Packlist>>
+    fun getPackListWithItemsByUUID(id: String): LiveData<List<PacklistWithItems>>
+    fun getPackListByUUID(uuid: String): LiveData<List<Packlist>>
+
+    fun getStatus(itemContentID: Long): LiveData<List<Item>>
+
+    suspend fun deleteItem(itemContentID: Long)
+
+    suspend fun deleteItemsWithPacklist(uuid: UUID)
 
     @WorkerThread
-    suspend fun existsByPacklist(id: Int): LiveData<Boolean>
-    fun getStatus(itemContentID: Long): LiveData<List<Item>>
-    suspend fun deleteItem(itemContentID: Long)
-    suspend fun deleteItemsWithPacklist(title: String)
-    suspend fun updateTitle(title: String, newTitle1: String)
+    suspend fun updateTitle(oldTitle: String, newTitle: String)
 }

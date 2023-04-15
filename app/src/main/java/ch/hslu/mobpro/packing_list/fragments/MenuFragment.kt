@@ -17,6 +17,7 @@ import ch.hslu.mobpro.packing_list.adapter.PackListAdapter
 import ch.hslu.mobpro.packing_list.databinding.FragmentMenuBinding
 import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModelFactory
+import java.util.*
 
 /**
  * This is the first fragment that is shown in the App.
@@ -70,9 +71,8 @@ class MenuFragment : Fragment() {
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val packListToDelete = adapter.getItemAt(viewHolder.adapterPosition)!!.title
+                    val packListToDelete = adapter.getItemAt(viewHolder.adapterPosition)!!.id
                     packListToDelete.let {
-                        Log.d(TAG, "deleting item $it")
                         packlistViewModel.deletePacklist(it)
                     }
                 }
@@ -91,7 +91,7 @@ class MenuFragment : Fragment() {
 
         packlistViewModel.getClickedPacklist().observe(viewLifecycleOwner) { packList ->
                 val action = packList?.let {
-                    MenuFragmentDirections.actionMenuFragmentToPacklistFragment(it.title)
+                    MenuFragmentDirections.actionMenuFragmentToPacklistFragment(it.id.toString())
                 }
                 /* If action is not null, the navigate function is called on it.
                  If action is null, nothing happens. */

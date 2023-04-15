@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import ch.hslu.mobpro.packing_list.PacklistApplication
@@ -17,6 +18,7 @@ import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.utils.CommonUtils.Companion.getRandomColor
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
+import java.util.*
 
 
 class CreateItemFragment : Fragment() {
@@ -30,7 +32,7 @@ class CreateItemFragment : Fragment() {
     private var _binding: FragmentCreateItemBinding? = null
     private val binding get() = _binding!!
 
-    private var currentPackListTitle: String? = null
+    private var currentPackListUUID: UUID? = null
 
 
     override fun onCreateView(
@@ -45,8 +47,9 @@ class CreateItemFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mainButtonAddItem.setOnClickListener { submitItemOnclick() }
-        currentPackListTitle = args.titleFromClicked
-        Log.v(TAG, "getting arguments,currentPackListTitle is $currentPackListTitle")
+        val s = args.uuid
+        currentPackListUUID = UUID.fromString(s)
+        Log.v(TAG, "getting arguments,currentPackListTitle is $currentPackListUUID")
 
 
         observeViewModels()
@@ -61,8 +64,9 @@ class CreateItemFragment : Fragment() {
     }
 
     private fun navigateBack() {
-        val action = currentPackListTitle?.let {
-            CreateItemFragmentDirections.actionCreateItemFragmentToPacklistFragment(it)
+        // XXX Pass the arguments to fragment
+        val action: NavDirections? = currentPackListUUID?.let {
+            CreateItemFragmentDirections.actionCreateItemFragmentToPacklistFragment(it.toString())
         }
         if (action != null) {
             findNavController().navigate(action)
@@ -80,8 +84,9 @@ class CreateItemFragment : Fragment() {
 
     private fun createItem(): Item? {
         val content = binding.mainEditTextItemName.text.toString()
-        /** Items reference the parent by the title [currentPackListTitle] */
-        return currentPackListTitle?.let { Item(it, content,  getRandomColor()) }
+
+        /** Items reference the parent by the title [currentPackListUUID] */
+        return currentPackListUUID?.let { Item(it, content,  getRandomColor()) }
 
     }
 

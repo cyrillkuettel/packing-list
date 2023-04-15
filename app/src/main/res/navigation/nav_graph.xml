@@ -46,7 +46,7 @@
             android:id="@+id/action_PacklistFragment_to_CreateItemFragment"
             app:destination="@id/CreateItemFragment" />
         <argument
-            android:name="title"
+            android:name="id"
             app:argType="string" />
 
     </fragment>
@@ -63,8 +63,11 @@
             app:popUpTo="@id/PacklistFragment"
             app:popUpToInclusive="true"
             app:destination="@id/PacklistFragment" />
+
+        <!-- ⚠ Per convention, this transpiles to camelCase (!)
+        In other words, `uuidFromClicked` becomes a valid property.-->
         <argument
-            android:name="title_from_clicked"
+            android:name="uuid"
             app:argType="string" />
 
     </fragment>

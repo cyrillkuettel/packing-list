@@ -4,11 +4,13 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import ch.hslu.mobpro.packing_list.utils.Colors.defaultNoteColor
+import java.util.*
 
 
 @Entity(tableName = "packlist_table")
 data class Packlist(
-    @PrimaryKey @ColumnInfo(name = "id") val title: String,
+    @PrimaryKey @ColumnInfo(name = "id")  val id: UUID,
+    val title: String,
     val location: String,
     val content: String,
     val color: Int
@@ -16,9 +18,9 @@ data class Packlist(
 
     // Secondary constructor for convenience
     constructor(title: String) :
-            this(title, "", "", defaultNoteColor)
+            this(UUID.randomUUID(), title, "", "", defaultNoteColor)
 
 
     constructor(title: String, color: Int) :
-            this(title, "", "", color)
+            this(UUID.randomUUID(), title, "", "", color)
 }

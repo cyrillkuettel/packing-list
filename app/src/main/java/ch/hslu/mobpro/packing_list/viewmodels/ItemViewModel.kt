@@ -20,8 +20,8 @@ class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
         return currentEditingPacklist
     }
 
-    fun setCurrentEditingPackListTitle(title: String) {
-        currentEditingPacklist = repository.getPackListByTitle(title)
+    fun setCurrentEditingPacklistfromUUID(uuid: String) {
+        currentEditingPacklist = repository.getPackListByUUID(uuid)
     }
 
     fun insertNewItem(item: Item) = viewModelScope.launch{
@@ -33,10 +33,9 @@ class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
         repository.updateTitle(oldTitle, newTitle)
     }
 
-    fun getPackListWithItems(id: String) : LiveData<List<PacklistWithItems>> {
-        return repository.getPackListWithItems(id)
+    fun getPackListWithItemsByUUID(id: String) : LiveData<List<PacklistWithItems>> {
+        return repository.getPackListWithItemsByUUID(id)
     }
-
 
     fun delete(itemContentID: Long)  = viewModelScope.launch {
         repository.deleteItem(itemContentID)

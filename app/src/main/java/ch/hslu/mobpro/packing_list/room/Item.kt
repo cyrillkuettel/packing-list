@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity(tableName = "item_table",
         foreignKeys = [
@@ -17,14 +18,13 @@ import androidx.room.PrimaryKey
     indices = [Index("item_id")]
 )
 data class Item(
-    @ColumnInfo(name = "item_id")
-    val itemId: String,     // to reference Parent
+    @ColumnInfo(name = "item_id") val itemId: UUID,     // to reference Parent
     val content: String,    // TextView from Item
     val color: Int          // CardView background color
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var itemContentID: Long = 0
+    var itemContentID: Long = 0 // internal id of item ?
 
 
     override fun toString() =
