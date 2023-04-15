@@ -39,7 +39,7 @@ class MenuFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d(TAG, "onViewCreated")
+        Log.d(TAG, "MMenuFrafgment onViewCreated")
         super.onViewCreated(view, savedInstanceState)
         val adapter = setupRecyclerView()
         binding.fab.setOnClickListener {
@@ -59,8 +59,7 @@ class MenuFragment : Fragment() {
 
     private fun setupSwipeToDeletePacklists(adapter: PackListAdapter) {
         val itemTouchHelperCallback =
-            object :
-                ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
                 override fun onMove(
                     recyclerView: RecyclerView,
                     viewHolder: RecyclerView.ViewHolder,
@@ -70,8 +69,7 @@ class MenuFragment : Fragment() {
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val packListToDelete =
-                        adapter.getItemAt(viewHolder.adapterPosition)?.title
+                    val packListToDelete = adapter.getItemAt(viewHolder.adapterPosition)?.title
                     if (packListToDelete != null) {
                         Log.d(TAG, "deleting item $packListToDelete")
                         packlistViewModel.deletePacklist(packListToDelete)
@@ -85,37 +83,21 @@ class MenuFragment : Fragment() {
 
 
     private fun observeViewModels(adapter: PackListAdapter) {
-        // Add an observer on the LiveData returned by getAlphabetizedPacklist.
-        // The onChanged() method fires when the observed data changes and the activity is
-        // in the foreground.
-        packlistViewModel.allPacklists.observe(viewLifecycleOwner) { newPacklist ->
 
+        packlistViewModel.allPacklists.observe(viewLifecycleOwner) { newPacklist ->
             newPacklist.let { adapter.submitList(it) }
         }
 
-        var packListHasBeenClicked = false
-        packlistViewModel._packListHasBeenClicked.observe(viewLifecycleOwner) { clicked ->
-            packListHasBeenClicked = clicked
-        }
-
         packlistViewModel.getClickedPacklist().observe(viewLifecycleOwner) { packList ->
-            if (!packListHasBeenClicked) {
-                Log.d(TAG, "getClickedPacklist() fired")
                 val action = packList?.let {
-                    Log.d(TAG, "setting Title as argument: title is ${it.title}")
-                    packlistViewModel.setPackListHasBeenClicked(true)
                     MenuFragmentDirections.actionMenuFragmentToPacklistFragment(it.title)
                 }
-                if (action != null) {
-                    findNavController().navigate(action)
-                } else {
-                    Log.e(TAG, "NavDirections action is null")
-                }
-            } else {
-                packlistViewModel.setPackListHasBeenClicked(false)
-            }
+                /* If action is not null, the navigate function is called on it.
+                 If action is null, nothing happens. */
+                action?.let(findNavController()::navigate)
         }
     }
+
 
     companion object {
         private const val TAG = "MenuFragment"

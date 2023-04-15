@@ -17,6 +17,7 @@
             app:enterAnim="@anim/slide_in_right" />
 
         <action
+
             android:id="@+id/action_MenuFragment_to_CreateListFragment"
             app:destination="@id/CreateListFragment" />
 
@@ -26,6 +27,7 @@
         android:name="ch.hslu.mobpro.packing_list.fragments.CreatelistFragment"
         android:label="@string/create_list_fragment_label"
         tools:layout="@layout/fragment_createlist">
+
         <action
             android:id="@+id/action_CreateListFragment_To_MenuFragment"
             app:destination="@id/MenuFragment" />

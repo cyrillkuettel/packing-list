@@ -86,12 +86,9 @@ class CreateItemFragment : Fragment() {
 
 
     private fun submitItemOnclick() {
-        val item = createItem()
-        if (item != null) {
-            itemViewModel.insertNewItem(item)
-        } else {
-            Log.e(TAG, "created item is null")
-        }
+        createItem()?.apply {
+            itemViewModel.insertNewItem(this)
+        } ?: Log.e(TAG, "created item is null")
     }
 
     private fun createItem(): Item? {

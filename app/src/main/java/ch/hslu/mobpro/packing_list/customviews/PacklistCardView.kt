@@ -13,6 +13,10 @@ import androidx.dynamicanimation.animation.SpringForce
 import ch.hslu.mobpro.packing_list.R
 
 
+
+/*** A custom view that represents a single Top-Level item.
+ It's very much up to the intention of the designer here.*/
+
 class PacklistCardView @JvmOverloads
 constructor(
     ctx: Context,
@@ -58,22 +62,20 @@ constructor(
         currentViewWidth = w
     }
 
-
     fun setTitle(text: String?) {
         if (text != null) {
             title = text
         }
     }
 
+
     fun setLocation(text: String?){
-        if (text != null){
-            location = text
-        }
+        text?.also { location = it }
     }
 
     fun setDate(text: String?){
-        if (text != null){
-            date = text
+        text?.also {
+            date = it
         }
     }
 

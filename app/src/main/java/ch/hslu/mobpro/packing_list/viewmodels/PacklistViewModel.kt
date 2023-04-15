@@ -37,6 +37,8 @@ class PacklistViewModel(private val repository: IPacklistRepository) : ViewModel
 
     fun setClickedPacklist(packlist: Packlist) = viewModelScope.launch{
         clickedPacklist.value = packlist
+        // XXX Set to null again, to prevent cycling back to where we came from:
+        clickedPacklist.value = null
     }
 
     fun getClickedPacklist(): MutableLiveData<Packlist?> {
