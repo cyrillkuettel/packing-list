@@ -1,11 +1,13 @@
 package ch.hslu.mobpro.packing_list.fragments
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -26,7 +28,7 @@ class MenuFragment : Fragment() {
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
 
-    private val packlistViewModel: PacklistViewModel by viewModels {
+    internal val packlistViewModel: PacklistViewModel by viewModels {
         PacklistViewModelFactory((requireActivity().application as PacklistApplication).repository)
     }
 
@@ -69,10 +71,10 @@ class MenuFragment : Fragment() {
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val packListToDelete = adapter.getItemAt(viewHolder.adapterPosition)?.title
-                    if (packListToDelete != null) {
-                        Log.d(TAG, "deleting item $packListToDelete")
-                        packlistViewModel.deletePacklist(packListToDelete)
+                    val packListToDelete = adapter.getItemAt(viewHolder.adapterPosition)!!.title
+                    packListToDelete.let {
+                        Log.d(TAG, "deleting item $it")
+                        packlistViewModel.deletePacklist(it)
                     }
                 }
             }
@@ -97,7 +99,6 @@ class MenuFragment : Fragment() {
                 action?.let(findNavController()::navigate)
         }
     }
-
 
     companion object {
         private const val TAG = "MenuFragment"

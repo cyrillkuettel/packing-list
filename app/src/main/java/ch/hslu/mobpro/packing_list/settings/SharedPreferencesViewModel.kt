@@ -30,9 +30,7 @@ class SharedPreferencesViewModel(application: Application) : AndroidViewModel(ap
     fun buildColumnPreferences() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(getApplication<Application>().applicationContext)
         val numberOfColumns = prefs.getString(NUMBER_OF_COLUMNS, COLUMN_DEFAULT_NUMBER)
-        if (numberOfColumns != null) {
-            preferencesColumns.value = numberOfColumns.toInt()
-        }
+        numberOfColumns?.toInt()?.also { preferencesColumns.value = it }
     }
 
 

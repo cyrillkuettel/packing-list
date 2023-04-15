@@ -1,5 +1,8 @@
 package ch.hslu.mobpro.packing_list.utils
 
+import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.core.graphics.toColorInt
 
 object colors {
@@ -7,7 +10,19 @@ object colors {
 }
 
 class CommonUtils {
+
+
     companion object {
+
+
+        /** fancy kotlin extension function ( ͡° ͜ʖ ͡°) */
+        fun View.showKeyboard() {
+            this.requestFocus()
+            val inputMethodManager =
+                context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
+        }
+
         fun getRandomColor(): Int {
 
             val colors = listOf(
@@ -24,4 +39,5 @@ class CommonUtils {
             return colors.random().toColorInt()
         }
     }
+
 }

@@ -63,9 +63,7 @@ constructor(
     }
 
     fun setTitle(text: String?) {
-        if (text != null) {
-            title = text
-        }
+        text?.also { title = it }
     }
 
 

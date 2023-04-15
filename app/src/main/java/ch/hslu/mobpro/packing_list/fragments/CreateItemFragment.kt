@@ -1,15 +1,11 @@
 package ch.hslu.mobpro.packing_list.fragments
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.drawable.ColorDrawable
+
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import androidx.core.graphics.toColorInt
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -18,6 +14,7 @@ import ch.hslu.mobpro.packing_list.*
 import ch.hslu.mobpro.packing_list.databinding.FragmentCreateItemBinding
 import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.utils.CommonUtils.Companion.getRandomColor
+import ch.hslu.mobpro.packing_list.utils.CommonUtils.Companion.showKeyboard
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
 
@@ -45,7 +42,6 @@ class CreateItemFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("LogConditional")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.mainButtonAddItem.setOnClickListener { submitItemOnclick() }
@@ -59,13 +55,6 @@ class CreateItemFragment : Fragment() {
 
     }
 
-    /** fancy kotlin extension function ( ͡° ͜ʖ ͡°) */
-    private fun View.showKeyboard() {
-        this.requestFocus()
-        val inputMethodManager =
-            context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
-    }
 
     private fun observeViewModels() {
         itemViewModel._navigateBackToItemOverview.observe(viewLifecycleOwner) {

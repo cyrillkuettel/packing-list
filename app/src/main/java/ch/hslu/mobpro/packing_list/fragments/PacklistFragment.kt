@@ -104,9 +104,8 @@ class PacklistFragment : Fragment() {
         val action = currentPackListTitle?.let {
             PacklistFragmentDirections.actionPacklistFragmentToCreateItemFragment(it)
         }
-
-        if (action != null) {
-            findNavController().navigate(action)
+        action?.let {
+            findNavController().navigate(it)
         }
     }
 
