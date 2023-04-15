@@ -22,7 +22,10 @@ import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModelFactory
 import ch.hslu.mobpro.packing_list.utils.CommonUtils.Companion.showKeyboard
 
 /**
- *  This fragment represents the screen for creating a new packing list.
+ *  FloatingActionButton -> creating a new list.
+ *  OR
+ *  Edit the current top-level item.
+ *
  */
 class CreatelistFragment : Fragment() {
 
@@ -46,9 +49,6 @@ class CreatelistFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeViewModels()
         binding.mainButtonSubmitList.setOnClickListener { submitListOnClick() }
-        binding.mainEditTextName.requestFocus()
-        binding.mainEditTextName.showKeyboard()
-
     }
 
 
@@ -60,7 +60,6 @@ class CreatelistFragment : Fragment() {
 
     private fun createNewPacklistObject(): Packlist {
         val title = binding.mainEditTextName.text.toString()
-        // todo: add content (needs new field)
         return Packlist(title, "", "foo", getRandomColor())
     }
 

@@ -19,9 +19,6 @@ class PacklistViewModel(private val repository: IPacklistRepository) : ViewModel
 
     val _navigateBacktoMenu: MutableLiveData<Boolean> = MutableLiveData()
 
-    /** This flag is used to prevent MenuFragment from automatically navigating
-     * to the clicked Packlist, if we are returning from that clicked Packlist. (By navigate up) */
-    val _packListHasBeenClicked: MutableLiveData<Boolean> = MutableLiveData()
 
 
     fun insertNewPacklist(packlist: Packlist) = viewModelScope.launch {

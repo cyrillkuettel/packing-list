@@ -24,7 +24,7 @@ import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
 
 
 /**
- * This is the fragment that appears if a single top-level item it clicked.
+ * Show Subelements. Shows the Items.
  */
 class PacklistFragment : Fragment() {
 
@@ -67,11 +67,58 @@ class PacklistFragment : Fragment() {
         val adapter = setupRecyclerView()
         observeViewModels(adapter)
 
+        setupSwipeToDeleteItems(adapter)
         binding.fabCreateNewNote.setOnClickListener {
             navigateToCreateItemFragment()
         }
 
-        setupSwipeToDeleteItems(adapter)
+        binding.textViewItemListTitle.setOnClickListener {itemListTitleOnClick()}
+    }
+
+
+    private fun observeViewModels(adapter: ItemAdapter) {
+        Log.v(TAG, "observeViewModels")
+
+        // Get Title
+        itemViewModel.getCurrentEditingPackList()
+            .observe(viewLifecycleOwner) { matchingTitlePacklist ->
+                Log.v(TAG, "successfully retrieved matchingTitlePacklist")
+                currentPackListTitle = matchingTitlePacklist[0].title
+            }
+
+
+        // Set Title // Get Items
+        currentPackListTitle?.let { title ->
+            Log.v(TAG, "currentPackList_Title viewmodel triggered")
+            binding.textViewItemListTitle.setText(currentPackListTitle)
+
+            /** Items get automatically refreshed if once item has been deleted.  */
+            itemViewModel.getPackListWithItems(title).observe(viewLifecycleOwner) { items ->
+                Log.v(TAG, "itemViewModel.getItems(it).observe")
+                if (items.isNotEmpty()) { // List can have size 0 if no items have been created yet
+                    val packlistWithItems = items[0] // There will only ever be exactly one Element
+                    val itemList = packlistWithItems.items
+                    itemList.let { adapter.submitList(it) } // Adapter will take care of the rest.
+                } else {
+                    // This is important, for example in the case where there is one item and then
+                    // the user deletes it.
+                    adapter.submitList(emptyList())
+                }
+            }
+        }
+
+        /** Columns can be changed dynamically in preferences */
+        sharedPreferencesViewModel.getCurrentColumns().observe(viewLifecycleOwner) { cols ->
+            Log.d(TAG, "getPreferencesSummary: columns $cols")
+            binding.itemRecyclerView.layoutManager = GridLayoutManager(requireContext(), cols)
+        }
+
+    }
+    private fun itemListTitleOnClick() {
+        Log.d(TAG, "clicked on the title")
+        binding.textViewItemListTitle.requestFocus()
+        // binding.textViewItemListTitle.showKeyboard()
+
     }
 
     private fun setupSwipeToDeleteItems(adapter: ItemAdapter) {
@@ -119,43 +166,6 @@ class PacklistFragment : Fragment() {
     }
 
 
-    private fun observeViewModels(adapter: ItemAdapter) {
-        Log.v(TAG, "observeViewModels")
-
-        // Get Title
-        itemViewModel.getCurrentEditingPackList()
-            .observe(viewLifecycleOwner) { matchingTitlePacklist ->
-                Log.v(TAG, "successfully retrieved matchingTitlePacklist")
-                currentPackListTitle = matchingTitlePacklist[0].title
-            }
-
-
-        // Set Title // Get Items
-        currentPackListTitle?.let { title ->
-            binding.textViewPacklistTitle.text = currentPackListTitle
-
-            /** Items get automatically refreshed if once item has been deleted.  */
-            itemViewModel.getPackListWithItems(title).observe(viewLifecycleOwner) { items ->
-                Log.v(TAG, "itemViewModel.getItems(it).observe")
-                if (items.isNotEmpty()) { // List can have size 0 if no items have been created yet
-                    val packlistWithItems = items[0] // There will only ever be exactly one Element
-                    val itemList = packlistWithItems.items
-                    itemList.let { adapter.submitList(it) } // Adapter will take care of the rest.
-                } else {
-                    // This is important, for example in the case where there is one item and then
-                    // the user deletes it.
-                    adapter.submitList(emptyList())
-                }
-            }
-        }
-
-        /** Columns can be changed dynamically in preferences */
-        sharedPreferencesViewModel.getCurrentColumns().observe(viewLifecycleOwner) { cols ->
-            Log.d(TAG, "getPreferencesSummary: columns $cols")
-            binding.itemRecyclerView.layoutManager = GridLayoutManager(requireContext(), cols)
-        }
-
-    }
 
 
     override fun onResume() {
