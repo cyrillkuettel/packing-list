@@ -65,12 +65,6 @@ class PacklistRepository(private val packlistDao: PacklistDao,
         return packlistDao.getItemStatus(itemContentID)
     }
 
-    override suspend fun setStatus(itemContentID: Long, status: Boolean) {
-        withContext(ioDispatcher) {
-            packlistDao.setStatus(itemContentID, status)
-        }
-    }
-
     override suspend fun deleteItem(itemContentID: Long) {
         withContext(ioDispatcher) {
             packlistDao.deleteByItemId(itemContentID)

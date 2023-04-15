@@ -31,7 +31,6 @@ interface IPacklistRepository {
     @WorkerThread
     suspend fun existsByPacklist(id: Int): LiveData<Boolean>
     fun getStatus(itemContentID: Long): LiveData<List<Item>>
-    suspend fun setStatus(itemContentID: Long, status: Boolean)
     suspend fun deleteItem(itemContentID: Long)
     suspend fun deleteItemsWithPacklist(title: String)
 }

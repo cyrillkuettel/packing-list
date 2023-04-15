@@ -37,14 +37,6 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
             Log.v(TAG, "clicked on View of item with content: ${current.content}")
         }
 
-
-        observeViewModels(current, holder)
-
-        holder.getStatus().setOnClickListener {
-            itemViewModel.setStatus(current.itemContentID, !current.status)
-            Log.v(TAG, "clicked on Cb from Item with checkbox status: ${getItem(position).status}")
-        }
-
         holder.getItem().setOnClickListener {
             Log.d(TAG, "clicked on the item itself")
         }
@@ -52,23 +44,6 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
 
     }
 
-    private fun observeViewModels(
-        current: Item,
-        holder: ItemViewHolder
-    ) {
-        // Retrieve Checkbox status from database.
-        // We can only access the DB by observing the viewModel. To make this work, the
-        // viewLifecycleOwner form the fragment is passed in. (Manual dependency injection)
-        itemViewModel.getStatus(current.itemContentID).observe(lifeCycleOwner) { items ->
-            if (items.isNotEmpty()) {
-                // first, find the checkbox status as stored in the DB.
-                val item: Item = items[0]
-                // Then update the value in the UI
-                holder.setStatus(item.status)
-                Log.v(TAG, "current status of this item is ${item.status}")
-            }
-        }
-    }
 
     fun getItemAt(pos: Int): Item? {
         return getItem(pos)
@@ -80,8 +55,6 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
         // Text View in Item
         private val itemContent: TextView = itemView.findViewById(R.id.itemContent)
 
-        // Check Box in Item
-        private val itemStatus: CheckBox = itemView.findViewById(R.id.itemCb)
 
         // String from TextView
         fun bind(content: String?, color: Int) {
@@ -90,14 +63,6 @@ class ItemAdapter(private val itemViewModel: ItemViewModel, val lifeCycleOwner: 
         }
         fun getView(): TextView {
             return itemContent
-        }
-
-        // Status from CheckBox
-        fun setStatus(status: Boolean){
-            itemStatus.isChecked = status
-        }
-        fun getStatus(): CheckBox{
-            return itemStatus
         }
 
         fun getItem(): CardView {

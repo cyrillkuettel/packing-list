@@ -42,10 +42,6 @@ interface PacklistDao {
     @Query("SELECT * FROM item_table AS item WHERE item.id = :itemContentID")
     fun getItemStatus(itemContentID: Long): LiveData<List<Item>>
 
-    /** NOTE: could also create a new item object and use the @Insert annotation. However,
-     * this way I think, expresses more clearly the intent of the function */
-    @Query("UPDATE item_table SET status = :status WHERE id = :itemContentID")
-    suspend fun setStatus(itemContentID: Long, status: Boolean)
 
     @Query("DELETE FROM item_table WHERE id = :itemContentID")
     suspend fun deleteByItemId(itemContentID: Long)

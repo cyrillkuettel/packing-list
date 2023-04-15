@@ -82,9 +82,8 @@ class CreateItemFragment : Fragment() {
 
     private fun createItem(): Item? {
         val content = binding.mainEditTextItemName.text.toString()
-        val status = false
         /** Items reference the parent by the title [currentPackListTitle] */
-        return currentPackListTitle?.let { Item(it, content, status, getRandomColor()) }
+        return currentPackListTitle?.let { Item(it, content,  getRandomColor()) }
 
     }
 

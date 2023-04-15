@@ -39,11 +39,6 @@ class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
         return repository.getStatus(itemContentID)
     }
 
-    /** sets new CheckBox status asynchronously */
-    fun setStatus(itemContentID: Long, status: Boolean) = viewModelScope.launch {
-        repository.setStatus(itemContentID, status)
-    }
-
     fun delete(itemContentID: Long)  = viewModelScope.launch {
         repository.deleteItem(itemContentID)
     }

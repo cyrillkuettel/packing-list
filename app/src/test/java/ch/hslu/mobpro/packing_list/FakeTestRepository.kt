@@ -60,10 +60,6 @@ class FakeTestRepository : IPacklistRepository {
         TODO("Not yet implemented")
     }
 
-    override suspend fun setStatus(itemContentID: Long, status: Boolean) {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun deleteItem(itemContentID: Long) {
         TODO("Not yet implemented")
     }

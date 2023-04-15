@@ -72,7 +72,7 @@ class CreatelistFragment : Fragment() {
             val index = allPacklists.size + 1
             val defaultTitle =
                 """
-                packlist_$index
+                $index
                 """.trimIndent()
             binding.mainEditTextName.setText(defaultTitle)
 

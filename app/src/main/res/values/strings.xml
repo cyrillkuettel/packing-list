@@ -2,7 +2,7 @@
     <string name="app_name">packing-list</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="create_list_fragment_label">New List</string>
+    <string name="create_list_fragment_label">New Top-Level Item</string>
     <string name="menu_fragment_label">Notes</string>
     <string name="create_item_fragment_label">Edit Item</string>
     <string name="create_new_item">New Item</string>
