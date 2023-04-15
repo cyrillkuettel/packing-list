@@ -66,7 +66,7 @@ class PacklistFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val uuid: String = args.id
 
-        Log.v(TAG, "receiving arguments, args.uuid is $uuid")
+        Log.v(TAG, "receiving arguments, args.uuid is $uuid, ")
         itemViewModel.setCurrentEditingPacklistfromUUID(uuid)
         currentPackListuuid = uuid
         val adapter = setupRecyclerView()
@@ -88,26 +88,30 @@ class PacklistFragment : Fragment() {
 
         // XXX Source of truth for current editing packlist Title
         itemViewModel.getCurrentEditingPackList().observe(viewLifecycleOwner) { currentPacklist ->
-                Log.v(TAG, "successfully retrieved matchingTitlePacklist")
+            Log.v(TAG, "successfully retrieved matchingTitlePacklist")
+            if (currentPacklist.isNotEmpty()) {
                 currentPackListuuid = currentPacklist[0].id.toString()
                 binding.textViewItemListTitle.setText(currentPacklist[0].title)
             }
+        }
 
 
-            /** Items get automatically refreshed if once item has been deleted.  */
+        /** Items get automatically refreshed if once item has been deleted.  */
         currentPackListuuid?.let {
-            itemViewModel.getPackListWithItemsByUUID(it).observe(viewLifecycleOwner) { items: List<PacklistWithItems> ->
-                Log.v(TAG, "itemViewModel.getItems(it).observe")
-                if (items.isNotEmpty()) { // List can have size 0 if no items have been created yet
-                    val packlistWithItems = items[0] // There will only ever be exactly one Element
-                    val itemList = packlistWithItems.items
-                    itemList.let { adapter.submitList(itemList) } // Adapter will take care of the rest.
-                } else {
-                    // This is important, for example in the case where there is one item and then
-                    // the user deletes it.
-                    adapter.submitList(emptyList())
+            itemViewModel.getPackListWithItemsByUUID(it)
+                .observe(viewLifecycleOwner) { items: List<PacklistWithItems> ->
+                    Log.v(TAG, "itemViewModel.getItems(it).observe")
+                    if (items.isNotEmpty()) { // List can have size 0 if no items have been created yet
+                        val packlistWithItems =
+                            items[0] // There will only ever be exactly one Element
+                        val itemList = packlistWithItems.items
+                        itemList.let { adapter.submitList(itemList) } // Adapter will take care of the rest.
+                    } else {
+                        // This is important, for example in the case where there is one item and then
+                        // the user deletes it.
+                        adapter.submitList(emptyList())
+                    }
                 }
-            }
         }
 
         /**Set a special listener to be called when an action is performed on the text view.
@@ -120,10 +124,10 @@ class PacklistFragment : Fragment() {
                     itemViewModel.updateTitle(oldTitle, newTitle)
                 }
 
-            } else  {
-                Log.e(TAG, "Not the action we expected!" )
+            } else {
+                Log.e(TAG, "Not the action we expected!")
             }
-             editText.clearFocus();
+            editText.clearFocus();
             true
         }
 

@@ -39,7 +39,6 @@ class PackListAdapter(private val packlistViewModel: PacklistViewModel, val ctx:
 
         holder.getView().setOnClickListener {
             // retrieve id of clicked item here
-            Log.v(TAG, "setting clicked packlist title: ${currentPacklist.title}")
             packlistViewModel.setClickedPacklist(currentPacklist)
         }
         // animate the RecyclerView Items when there are appearing

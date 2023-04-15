@@ -1,6 +1,7 @@
 package ch.hslu.mobpro.packing_list.viewmodels
 
 
+import android.util.Log
 import androidx.lifecycle.*
 import ch.hslu.mobpro.packing_list.IPacklistRepository
 import ch.hslu.mobpro.packing_list.PacklistRepository
@@ -34,9 +35,11 @@ class PacklistViewModel(private val repository: IPacklistRepository) : ViewModel
 
 
     fun setClickedPacklist(packlist: Packlist) = viewModelScope.launch{
+        Log.v(TAG,"Setting clicked packlist ${packlist.title} and back to null")
         clickedPacklist.value = packlist
         // XXX Set to null again, to prevent cycling back to where we came from:
         clickedPacklist.value = null
+
     }
 
     fun getClickedPacklist(): MutableLiveData<Packlist?> {
@@ -49,6 +52,9 @@ class PacklistViewModel(private val repository: IPacklistRepository) : ViewModel
     }
 
 
+    companion object {
+        const val TAG = "PacklistViewModel"
+    }
 }
 
 class PacklistViewModelFactory(private val repository: PacklistRepository) :
