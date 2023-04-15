@@ -48,7 +48,10 @@ class CreatelistFragment : Fragment() {
         binding.mainButtonSubmitList.setOnClickListener { submitListOnClick() }
         binding.mainEditTextName.requestFocus()
         binding.mainEditTextName.showKeyboard()
+
     }
+
+
 
     private fun submitListOnClick() {
         val packlist = createNewPacklistObject()

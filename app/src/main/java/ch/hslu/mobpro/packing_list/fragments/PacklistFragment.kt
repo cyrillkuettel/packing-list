@@ -1,6 +1,5 @@
 package ch.hslu.mobpro.packing_list.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,10 +18,14 @@ import ch.hslu.mobpro.packing_list.*
 import ch.hslu.mobpro.packing_list.adapter.ItemAdapter
 import ch.hslu.mobpro.packing_list.databinding.FragmentPacklistBinding
 import ch.hslu.mobpro.packing_list.settings.SharedPreferencesViewModel
+import ch.hslu.mobpro.packing_list.utils.CommonUtils.Companion.showKeyboard
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
 
 
+/**
+ * This is the fragment that appears if a single top-level item it clicked.
+ */
 class PacklistFragment : Fragment() {
 
     private val args: PacklistFragmentArgs by navArgs()
@@ -45,7 +48,6 @@ class PacklistFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             findNavController().navigate(R.id.action_PacklistFragment_to_MenuFragment)
         }
-
     }
 
     override fun onCreateView(
