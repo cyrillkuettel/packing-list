@@ -2,12 +2,12 @@ package ch.hslu.mobpro.packing_list.fragments
 
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import androidx.activity.addCallback
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -33,6 +33,7 @@ import java.util.*
  */
 class PacklistFragment : Fragment() {
 
+    private var lastEditedItemListTitle = ""
     private val args: PacklistFragmentArgs by navArgs()
 
     private val itemViewModel: ItemViewModel by viewModels {
@@ -81,6 +82,12 @@ class PacklistFragment : Fragment() {
         binding.textViewItemListTitle.setOnClickListener { itemListTitleOnClick() }
         binding.textViewItemListTitle.setImeActionLabel("My Done", KeyEvent.KEYCODE_ENTER);
 
+        val myToolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
+        myToolbar.setNavigationOnClickListener {
+            // In-betweener to save everything before navigating up
+            persistTitleUpdate(binding.textViewItemListTitle)
+          findNavController().navigate(R.id.action_PacklistFragment_to_MenuFragment)
+        }
     }
 
 
@@ -118,15 +125,8 @@ class PacklistFragment : Fragment() {
         /**Set a special listener to be called when an action is performed on the text view.
          * This will be called when the enter key is pressed */
         binding.textViewItemListTitle.setOnEditorActionListener { editText, actionId, _ ->
-
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                Log.d(TAG, "Not the action we expected!")
-                currentPackListuuid?.let { uuid ->
-                    Log.d(TAG, "update title")
-                    val newTitle = editText.text.toString()
-                    itemViewModel.updateTitle(UUID.fromString(uuid), newTitle)
-                }
-
+                persistTitleUpdate(editText)
             } else {
                 Log.e(TAG, "Not the action we expected!")
             }
@@ -141,6 +141,18 @@ class PacklistFragment : Fragment() {
         }
 
     }
+
+    private fun persistTitleUpdate(editText: TextView) {
+        currentPackListuuid?.let { uuid ->
+            Log.d(TAG, "update title")
+            val currentTitle = editText.text.toString()
+            if (currentTitle != lastEditedItemListTitle) {
+                lastEditedItemListTitle = currentTitle
+                itemViewModel.updateTitle(UUID.fromString(uuid), currentTitle)
+            }
+        }
+    }
+
 
     private fun itemListTitleOnClick() {
         binding.textViewItemListTitle.requestFocus()

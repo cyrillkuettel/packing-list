@@ -15,6 +15,7 @@ import ch.hslu.mobpro.packing_list.PacklistApplication
 import ch.hslu.mobpro.packing_list.R
 import ch.hslu.mobpro.packing_list.adapter.PackListAdapter
 import ch.hslu.mobpro.packing_list.databinding.FragmentMenuBinding
+import ch.hslu.mobpro.packing_list.room.Packlist
 import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModelFactory
 import java.util.*
@@ -71,9 +72,8 @@ class MenuFragment : Fragment() {
                 }
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    val packListToDelete = adapter.getItemAt(viewHolder.adapterPosition)!!.id
-                    packListToDelete.let { uuid ->
-                        Log.d(TAG, "deleting packlist")
+                    val packListToDelete = adapter.getItemAt(viewHolder.adapterPosition)
+                    packListToDelete?.id?.let { uuid ->
                         packlistViewModel.deletePacklist(uuid)
                     }
                 }
@@ -91,12 +91,12 @@ class MenuFragment : Fragment() {
         }
 
         packlistViewModel.getClickedPacklist().observe(viewLifecycleOwner) { packList ->
-                val action = packList?.let {
-                    MenuFragmentDirections.actionMenuFragmentToPacklistFragment(it.id.toString())
-                }
-                /* If action is not null, the navigate function is called on it.
-                 If action is null, nothing happens. */
-                action?.let(findNavController()::navigate)
+            val action = packList?.let {
+                MenuFragmentDirections.actionMenuFragmentToPacklistFragment(it.id.toString())
+            }
+            /* If action is not null, the navigate function is called on it.
+             If action is null, nothing happens. */
+            action?.let(findNavController()::navigate)
         }
     }
 

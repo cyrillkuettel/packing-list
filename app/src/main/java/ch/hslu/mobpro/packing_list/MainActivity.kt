@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.d(TAG, "onOptionsItemSelected")
         val id = item.itemId
         if (id == R.id.action_settings) {
             findNavController(R.id.nav_host_fragment_content_main)
