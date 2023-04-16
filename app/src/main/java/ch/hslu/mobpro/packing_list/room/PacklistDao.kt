@@ -44,8 +44,8 @@ interface PacklistDao {
     @Query("DELETE FROM item_table WHERE id = :itemContentID")
     suspend fun deleteByItemId(itemContentID: Long)
 
-    @Query("DELETE FROM packlist_table WHERE title = :title")
-    suspend fun deletePackListByTitle(title: String)
+    @Query("DELETE FROM packlist_table WHERE id = :id")
+    suspend fun deletePackListByUUID(id: UUID)
 
     /** This deletes a one to many relationship.
      * It can be used to delete a packlist and all it's items. */
@@ -61,8 +61,8 @@ interface PacklistDao {
 
 
     @Transaction
-    @Query("UPDATE packlist_table SET title = :newTitle WHERE title = :oldTitle")
-    suspend fun updateTitle(oldTitle: String, newTitle: String)
+    @Query("UPDATE packlist_table SET title = :newTitle WHERE id = :id")
+    suspend fun updateTitle(id: UUID, newTitle: String)
 
 
 }

@@ -37,7 +37,7 @@ class PacklistViewModel(private val repository: IPacklistRepository) : ViewModel
     fun setClickedPacklist(packlist: Packlist) = viewModelScope.launch{
         Log.v(TAG,"Setting clicked packlist ${packlist.title} and back to null")
         clickedPacklist.value = packlist
-        // XXX Set to null again, to prevent cycling back to where we came from:
+        // XXX Set to null again. This is to prevent infinite cycle.
         clickedPacklist.value = null
 
     }

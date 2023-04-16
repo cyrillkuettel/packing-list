@@ -57,6 +57,7 @@ class PacklistRepository(private val packlistDao: PacklistDao,
         return packlistDao.getItemStatus(itemContentID)
     }
 
+    @WorkerThread
     override suspend fun deleteItem(itemContentID: Long) {
         withContext(ioDispatcher) {
             packlistDao.deleteByItemId(itemContentID)
@@ -67,19 +68,18 @@ class PacklistRepository(private val packlistDao: PacklistDao,
     override suspend fun deleteItemsWithPacklist(uuid: UUID) {
         withContext(ioDispatcher) {
             val packListContainsItems: Boolean = packlistDao.packListContainsItems(uuid)
-            if (packListContainsItems) {
-                Log.d(TAG, "packListContainsItems,  so delete Every")
+            if (packListContainsItems) { Log.d(TAG, "packListContainsItems,  so delete Every")
                 packlistDao.deleteItemWithPackList(uuid)
             } else {
                 Log.d(TAG, "packlist does not contain any items, so we only delete the packlist")
-                packlistDao.deletePackListByTitle(uuid.toString())
+                packlistDao.deletePackListByUUID(uuid)
             }
         }
     }
 
-    override suspend fun updateTitle(oldTitle: String, newTitle: String) {
+    override suspend fun updateTitle(uuid: UUID, newTitle: String) {
         withContext(ioDispatcher) {
-            packlistDao.updateTitle(oldTitle, newTitle)
+            packlistDao.updateTitle(uuid, newTitle)
         }
     }
 

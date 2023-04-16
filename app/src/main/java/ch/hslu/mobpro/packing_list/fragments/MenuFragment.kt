@@ -72,8 +72,9 @@ class MenuFragment : Fragment() {
 
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     val packListToDelete = adapter.getItemAt(viewHolder.adapterPosition)!!.id
-                    packListToDelete.let {
-                        packlistViewModel.deletePacklist(it)
+                    packListToDelete.let { uuid ->
+                        Log.d(TAG, "deleting packlist")
+                        packlistViewModel.deletePacklist(uuid)
                     }
                 }
             }

@@ -6,6 +6,7 @@ import ch.hslu.mobpro.packing_list.room.Item
 import ch.hslu.mobpro.packing_list.room.Packlist
 import ch.hslu.mobpro.packing_list.room.PacklistWithItems
 import kotlinx.coroutines.launch
+import java.util.*
 
 class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
 
@@ -29,8 +30,8 @@ class ItemViewModel(private val repository: PacklistRepository) : ViewModel() {
         _navigateBackToItemOverview.postValue(true)
     }
 
-    fun updateTitle(oldTitle: String, newTitle: String) = viewModelScope.launch{
-        repository.updateTitle(oldTitle, newTitle)
+    fun updateTitle(uuid: UUID, newTitle: String) = viewModelScope.launch{
+        repository.updateTitle(uuid, newTitle)
     }
 
     fun getPackListWithItemsByUUID(id: String) : LiveData<List<PacklistWithItems>> {

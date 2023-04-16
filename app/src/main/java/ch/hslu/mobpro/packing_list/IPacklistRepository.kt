@@ -36,5 +36,5 @@ interface IPacklistRepository {
     suspend fun deleteItemsWithPacklist(uuid: UUID)
 
     @WorkerThread
-    suspend fun updateTitle(oldTitle: String, newTitle: String)
+    suspend fun updateTitle(uuid: UUID, newTitle: String)
 }

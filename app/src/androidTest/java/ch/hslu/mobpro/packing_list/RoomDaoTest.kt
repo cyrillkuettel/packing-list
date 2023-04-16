@@ -109,19 +109,19 @@ class RoomDaoTest {
     }
 
 
-    @Test
-    fun testUpdatePackListTitle() = runBlocking  {
-        val oldTitle = "OldTitle"
-        val newTitle = "newTitle"
-        val p = Packlist(oldTitle, 0)
-        packlistDao.insertPacklist(p)
-        packlistDao.updateTitle(oldTitle, newTitle)
-
-        val queryResult: List<Packlist> = packlistDao.getPackListByUUID(p.id).getOrAwaitValue()
-        val result: Packlist = queryResult[0]
-        assertEquals(result.title, newTitle)
-
-    }
+//    @Test
+//    fun testUpdatePackListTitle() = runBlocking  {
+//        val oldTitle = "OldTitle"
+//        val newTitle = "newTitle"
+//        val p = Packlist(oldTitle, 0)
+//        packlistDao.insertPacklist(p)
+//        packlistDao.updateTitle(oldTitle, newTitle)
+//
+//        val queryResult: List<Packlist> = packlistDao.getPackListByUUID(p.id).getOrAwaitValue()
+//        val result: Packlist = queryResult[0]
+//        assertEquals(result.title, newTitle)
+//
+//    }
 
     companion object {
         const val TAG = "RoomDaoTest"

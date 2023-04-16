@@ -25,6 +25,7 @@ import ch.hslu.mobpro.packing_list.room.PacklistWithItems
 import ch.hslu.mobpro.packing_list.settings.SharedPreferencesViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModel
 import ch.hslu.mobpro.packing_list.viewmodels.ItemViewModelFactory
+import java.util.*
 
 
 /**
@@ -119,9 +120,11 @@ class PacklistFragment : Fragment() {
         binding.textViewItemListTitle.setOnEditorActionListener { editText, actionId, _ ->
 
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                currentPackListuuid?.let { oldTitle ->
+                Log.d(TAG, "Not the action we expected!")
+                currentPackListuuid?.let { uuid ->
+                    Log.d(TAG, "update title")
                     val newTitle = editText.text.toString()
-                    itemViewModel.updateTitle(oldTitle, newTitle)
+                    itemViewModel.updateTitle(UUID.fromString(uuid), newTitle)
                 }
 
             } else {
