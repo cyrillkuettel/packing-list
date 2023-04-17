@@ -1,6 +1,7 @@
 package ch.hslu.mobpro.packing_list.customviews
 
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.TypedValue
@@ -22,6 +23,7 @@ constructor(
 ) : View(ctx, attributeSet, defStyleAttr) {
 
 
+
     private var primaryTextColor = Color.WHITE
     private var mediumTextSize = convertToDP(15f)
     private var rectWidth = 0f
@@ -36,6 +38,18 @@ constructor(
         super.onDraw(canvas)
         drawCard(canvas)
         paintTitleText(canvas)
+
+        when (context.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)) {
+            Configuration.UI_MODE_NIGHT_YES -> {
+                primaryTextColor = Color.WHITE
+            }
+            Configuration.UI_MODE_NIGHT_NO -> {
+                primaryTextColor = Color.BLACK
+            }
+            Configuration.UI_MODE_NIGHT_UNDEFINED -> {
+                primaryTextColor = Color.BLACK
+            }
+        }
        // for now, don't draw these. I don't want this anyway.
 //        paintDate(canvas)
 //        paintLocationText(canvas)

@@ -7,7 +7,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.graphics.toColorInt
 
 object Colors {
-    val defaultNoteColor: Int = Color.parseColor("#fff68f")
+    val defaultNoteColor: Int = Color.parseColor("#07b335")
 }
 
 class CommonUtils {
