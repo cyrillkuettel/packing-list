@@ -16,8 +16,6 @@ import ch.hslu.mobpro.packing_list.viewmodels.PacklistViewModelFactory
 
 /**
  *  FloatingActionButton -> creating a new list.
- *  OR
- *  Edit the current top-level item.
  *
  */
 class CreatelistFragment : Fragment() {
