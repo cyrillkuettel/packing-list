@@ -7,7 +7,6 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -82,11 +81,10 @@ class PacklistFragment : Fragment() {
         binding.textViewItemListTitle.setOnClickListener { itemListTitleOnClick() }
         binding.textViewItemListTitle.setImeActionLabel("My Done", KeyEvent.KEYCODE_ENTER);
 
-        val myToolbar = requireActivity().findViewById<Toolbar>(R.id.toolbar)
-        myToolbar.setNavigationOnClickListener {
+        activity?.findViewById<Toolbar>(R.id.toolbar)?.setNavigationOnClickListener {
             // In-betweener to save everything before navigating up
             persistTitleUpdate(binding.textViewItemListTitle)
-          findNavController().navigate(R.id.action_PacklistFragment_to_MenuFragment)
+            findNavController().navigate(R.id.action_PacklistFragment_to_MenuFragment)
         }
     }
 
