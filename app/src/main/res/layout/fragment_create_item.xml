@@ -20,6 +20,7 @@
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+             tools:ignore="SpeakableTextPresentCheck"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
@@ -32,6 +33,7 @@
             android:text=""
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+             tools:ignore="SpeakableTextPresentCheck"
             app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
 
